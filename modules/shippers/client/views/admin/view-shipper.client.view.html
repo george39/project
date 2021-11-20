@@ -1,0 +1,101 @@
+<section class="container">
+  <div class="page-header">
+    <div class="row">
+      <div class="col-sm-11">
+        <h1 ng-bind="vm.shipper.username"></h1>
+      </div>
+      <div class="col-sm-1">
+        <a class="btn btn-primary" ui-sref="shippers.list">
+          <i class="fas fa-undo-alt"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'MANAGER_FILE.IMAGE' | translate }}</strong></div>
+        <div class="col-sm-3">
+          <img ngf-src="vm.shipper.managerFile_id[0].path" height="50" />
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'THIRD.NAME' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.shipper.third_id.name"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'SHIPPER.URL' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.shipper.url"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'SHIPPER.SHIPPING_SPEED' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.shipper.shippingSpeed"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'SHIPPER.SHIPPING_COST' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.shipper.shippingCost"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'SHIPPER.MAX_WIDTH' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.shipper.maxWidth"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'SHIPPER.MAX_HEIGHT' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.shipper.maxHeight"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'SHIPPER.MAX_DEPTH' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.shipper.maxDepth"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'SHIPPER.MAX_WEIGHT' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.shipper.maxWeight"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'SHIPPER.RATE' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.shipper.rate"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'SHIPPER.IS_FREE' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.shipper.isFree"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'SHIPPER.STATUS' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.shipper.status"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.CREATED_BY' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.shipper.user.displayName"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.CREATED' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.shipper.created"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.MODIFIED_BY' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.shipper.modifiedBy.displayName"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.MODIFIED' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.shipper.modified"></div>
+      </div>
+      <hr />
+    </div>
+  </div>
+</section>

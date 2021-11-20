@@ -1,0 +1,123 @@
+<style>
+  .togglers {
+    cursor: pointer;
+  }
+</style>
+
+<section class="container pt-4">
+  <script type="text/ng-template" id="headerCheckbox.html">
+    <input type="checkbox" ng-model="vm.checkboxes.checked" class="select-all" value="" />
+  </script>
+  <div class="page-header">
+    <div class="row">
+      <div class="col-sm-11">
+        <h1>
+          {{ 'ORDER.NAME' | translate }}
+        </h1>
+      </div>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped">
+      <colgroup>
+        <col width="8.3%" />
+        <col width="8.3%" />
+        <col width="8.3%" />
+        <col width="8.3%" />
+        <col width="8.3%" />
+        <col width="8.3%" />
+        <col width="8.3%" />
+        <col width="8.3%" />
+        <col width="8.3%" />
+        <col width="8.3%" />
+        <col width="8.3%" />
+        <col width="8.3%" />
+        <col width="8.3%" />
+      </colgroup>
+      <tr ng-repeat="row in $data">
+        <td data-title="'GLOBAL.ACTIONS' | translate">
+          <div class="btn-group" role="group">
+            <button
+              type="button"
+              style="font-size: 1.2rem;"
+              class="btn btn-default btn-sm"
+              ui-sref="orders.edit({orderId: row._id})"
+            >
+              <span class="fas fa-eye"></span>
+            </button>
+            <button
+              type="button"
+              style="font-size: 1.2rem;"
+              class="btn btn-default btn-sm"
+              ng-click="vm.remove(row._id)"
+            >
+              <span class="fas fa-trash-alt"></span>
+            </button>
+          </div>
+        </td>
+        <td data-title="'ORDER.ORDER_CODE' | translate" filter="{ orderCode: 'text' }">
+          {{ row.orderCode }}
+        </td>
+        <td
+          data-title="'ORDER.PAY_TYPE' | translate"
+          filter-data="vm.paymentMethods"
+          filter="{ payType: 'select' }"
+        >
+          {{ row.payType.nameLang }}
+        </td>
+        <td
+          data-title="'SHIPPER.NAME' | translate"
+          filter="{ shipper_id: 'select' }"
+          filter-data="vm.listShippers"
+        >
+          {{ row.shipper_id.third_id.name }}
+        </td>
+        <td data-title="'ORDER.TRACKING_CODE' | translate" filter="{ trackingCode: 'text' }">
+          {{ row.trackingCode }}
+        </td>
+        <td data-title="'ORDER.INVOICE_NUMBER' | translate" filter="{ invoiceNumber: 'text' }">
+          {{ row.invoiceNumber }}
+        </td>
+        <td data-title="'ORDER.MESSAGE' | translate" filter="{ message: 'text' }">
+          {{ row.message }}
+        </td>
+        <td data-title="'ORDER.TOTAL' | translate" filter="{ total: 'text' }">
+          {{ row.total }}
+        </td>
+        <td data-title="'USER.NAME' | translate">
+          {{ row.user_id.displayName }}
+        </td>
+        <td data-title="'GLOBAL.PHONE' | translate">
+          {{ row.user_id.phone }}
+        </td>
+        <td data-title="'GLOBAL.DNI' | translate">
+          {{ row.user_id.phone }}
+        </td>
+
+        <td
+          data-title="'GLOBAL.STATUS' | translate"
+          filter="{ status: 'select' }"
+          filter-data="vm.status"
+        >
+          <p
+            class="d-inline-block p-1"
+            style="
+            border-radius: 7px;
+            font-weight: 600;
+            font-size: {{
+              row.status.nameLang === 'pendiente por comprobante' ? '0.9rem' : '1rem'
+            }};
+            color: {{ vm.statusColor[row.status.nameLang].color }};
+            background-color: {{ vm.statusColor[row.status.nameLang].background }};
+          "
+          >
+            {{ row.status.nameLang }}
+          </p>
+        </td>
+        <td data-title="'GLOBAL.CREATED' | translate">
+          {{ row.created | date: 'yyyy-MM-dd' }}
+        </td>
+      </tr>
+    </table>
+  </div>
+</section>

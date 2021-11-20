@@ -1,0 +1,88 @@
+# OS
+# ===========
+.DS_Store
+ehthumbs.db
+Icon?
+Thumbs.db
+
+# Node and related ecosystem
+# ==========================
+.nodemonignore
+.sass-cache/
+node_modules/
+public/lib/
+app/tests/coverage/
+.bower-*/
+.idea/
+coverage/
+.coveralls.yml
+package-lock.json
+yarn.lock
+
+# MEAN.js app and assets
+# ======================
+public/dist/
+uploads
+modules/users/client/img/profile/uploads
+!modules/manager-files/client/files/
+modules/manager-files/client/files/*
+!modules/manager-files/client/files/63acc2e5842d85ffbd9566f77a6fda5c
+!modules/manager-files/client/files/e995cbbf996094f60d49e713744cc3cb
+!modules/manager-files/client/files/e97e2d57d1216ddf1e3f7b94ebfde9b5
+config/env/local.js
+config/env/local-*.js
+*.pem
+
+# Compiled less and sass files
+# ============================
+modules/*/client/scss/*.css
+modules/*/client/less/*.css
+
+# Ignoring MEAN.JS's gh-pages branch for documenation
+_site/
+
+# General
+# =======
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+*.tmp
+*.bak
+*.swp
+logs/
+build/
+
+# Sublime editor
+# ==============
+.sublime-project
+*.sublime-project
+*.sublime-workspace
+
+# Eclipse project files
+# =====================
+.project
+.settings/
+.*.md.html
+.metadata
+*~.nib
+local.properties
+
+# IntelliJ
+# ========
+*.iml
+
+# Cloud9 IDE
+# =========
+.c9/
+data/
+mongod
+
+# Visual Studio
+# =========
+*.suo
+*.ntvs*
+*.njsproj
+*.sln

@@ -1,0 +1,78 @@
+<section class="container">
+  <script type="text/ng-template" id="headerCheckbox.html">
+    <input type="checkbox" ng-model="vm.checkboxes.checked" class="select-all" value="" />
+  </script>
+  <div class="page-header">
+    <div class="row">
+      <div class="col-sm-11">
+        <h1>
+          {{ 'MANAGER_FILE.NAME' | translate }}
+        </h1>
+      </div>
+      <div class="col-sm-1">
+        <a type="button" class="btn btn-primary" data-ui-sref="managerFiles.create">
+          <i class="fas fa-plus"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <table
+    ng-table="vm.tableParams"
+    class="table table-condensed table-bordered table-striped table-responsive"
+  >
+    <tr ng-repeat="row in $data">
+      <td data-title="'GLOBAL.ACTIONS' | translate">
+        <div class="btn-group" role="group">
+          <button
+            type="button"
+            class="btn btn-default btn-sm"
+            ui-sref="managerFiles.view({ managerFileId: row._id })"
+          >
+            <span class="fas fa-eye"></span>
+          </button>
+          <button
+            type="button"
+            class="btn btn-default btn-sm"
+            ui-sref="managerFiles.edit({managerFileId: row._id})"
+          >
+            <span class="fas fa-pencil-alt"></span>
+          </button>
+          <button type="button" class="btn btn-default btn-sm" ng-click="vm.remove(row._id)">
+            <span class="fas fa-trash-alt"></span>
+          </button>
+        </div>
+      </td>
+      <td data-title="'MANAGER_FILE.FIELDNAME' | translate" filter="{ fieldname: 'text' }">
+        {{ row.fieldname }}
+      </td>
+      <td data-title="'MANAGER_FILE.ORIGINALNAME' | translate" filter="{ originalname: 'text' }">
+        {{ row.originalname }}
+      </td>
+      <td data-title="'MANAGER_FILE.ENCODING' | translate" filter="{ encoding: 'text' }">
+        {{ row.encoding }}
+      </td>
+      <td data-title="'MANAGER_FILE.MIMETYPE' | translate" filter="{ mimetype: 'text' }">
+        {{ row.mimetype }}
+      </td>
+      <td data-title="'MANAGER_FILE.DESTINATION' | translate" filter="{ destination: 'text' }">
+        {{ row.destination }}
+      </td>
+      <td data-title="'MANAGER_FILE.FILENAME' | translate" filter="{ filename: 'text' }">
+        {{ row.filename }}
+      </td>
+      <td data-title="'MANAGER_FILE.PATH' | translate" filter="{ path: 'text' }">
+        {{ row.path }}
+      </td>
+      <td data-title="'MANAGER_FILE.SIZE' | translate" filter="{ size: 'text' }">
+        {{ row.size }}
+      </td>
+      <td
+        data-title="'SHOP.NAME' | translate"
+        filter="{ 'shop': 'select' }"
+        filter-data="vm.listShops"
+      >
+        {{ row.shop.name }}
+      </td>
+    </tr>
+  </table>
+</section>

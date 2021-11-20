@@ -1,0 +1,119 @@
+<section class="container">
+  <div class="row">
+    <div class="col-sm-12 mt-5">
+      <form
+        name="vm.form.optionsForm"
+        class="needs-validation"
+        ng-submit="vm.save(vm.form.optionsForm.$valid)"
+        novalidate
+      >
+        <div class="form-row">
+          <!-- Datos de Envío  -->
+
+          <fieldset class="border p-2 col-md-12">
+            <legend class="w-auto">{{ 'PRODUCT.CHARACTERISTIC' | translate }}</legend>
+            <div class="row">
+              <!-- Producto esta activo  -->
+              <div class="col-md-4 mb-3 text-center">
+                <label class="control-label" for="status" translate>
+                  {{ 'GLOBAL.STATUS' | translate }}
+                </label>
+                <input
+                  class="form-control"
+                  type="checkbox"
+                  name="status"
+                  id="status"
+                  data-ng-model="vm.product.status"
+                  checked="true"
+                />
+              </div>
+
+              <div class="col-md-4 mb-3 text-center">
+                <label class="control-label" for="showPrice" translate>
+                  {{ 'PRODUCT.SHOW_PRICE' | translate }}
+                </label>
+                <input
+                  class="form-control"
+                  type="checkbox"
+                  name="showPrice"
+                  id="showPrice"
+                  data-ng-model="vm.product.showPrice"
+                  checked="true"
+                />
+              </div>
+
+              <div class="col-md-4 mb-3 text-center">
+                <label class="control-label" for="isOffer" translate>
+                  {{ 'PRODUCT.IS_OFFER' | translate }}
+                </label>
+                <input
+                  class="form-control"
+                  type="checkbox"
+                  name="isOffer"
+                  id="isOffer"
+                  data-ng-model="vm.product.isOffer"
+                  checked="true"
+                />
+              </div>
+
+              <div class="col-md-4 mb-3 text-center">
+                <label class="control-label" for="availableNow" translate>
+                  {{ 'PRODUCT.AVAILABLE_NOW' | translate }}
+                </label>
+                <input
+                  class="form-control"
+                  type="checkbox"
+                  name="availableNow"
+                  id="availableNow"
+                  data-ng-model="vm.product.availableNow"
+                  checked="true"
+                />
+              </div>
+
+              <div class="col-md-4 mb-3 text-center">
+                <label class="control-label" for="deliveryInStock" translate>
+                  {{ 'PRODUCT.DELIVERY_IN_STOCK' | translate }}
+                </label>
+                <input
+                  class="form-control"
+                  type="checkbox"
+                  name="deliveryInStock"
+                  id="deliveryInStock"
+                  data-ng-model="vm.product.deliveryInStock"
+                  checked="true"
+                />
+              </div>
+
+              <div class="col-md-4 mb-3 text-center">
+                <label class="control-label" for="outstanding" translate>
+                  {{ 'PRODUCT.OUTSTANDING' | translate }}
+                </label>
+                <input
+                  class="form-control"
+                  type="checkbox"
+                  name="outstanding"
+                  id="outstanding"
+                  data-ng-model="vm.product.outstanding"
+                  checked="true"
+                />
+              </div>
+
+              <div class="col-md-4 mb-3 text-center">
+                <label class="control-label" for="showInSectionsByCategory" translate>
+                  {{ 'PRODUCT.SHOW_IN_SECTIONS_BY_CATEGORY' | translate }}
+                </label>
+                <input
+                  class="form-control"
+                  type="checkbox"
+                  name="show_in_sections_by_category"
+                  id="show_in_sections_by_category"
+                  data-ng-model="vm.product.show_in_sections_by_category"
+                />
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

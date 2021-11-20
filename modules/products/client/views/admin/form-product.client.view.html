@@ -1,0 +1,123 @@
+<section class="container pt-4">
+  <div class="row">
+    <div class="col-sm-11">
+      <h1>
+        {{ vm.product._id ? 'PRODUCT.EDIT' : 'PRODUCT.NEW' | translate }}
+      </h1>
+    </div>
+    <div class="col-sm-1">
+      <a ng-show="vm.product._id" class="btn btn-primary" ng-click="vm.remove()">
+        <i class="fas fa-trash-alt"> </i>
+      </a>
+    </div>
+
+    <ul
+      ng-if="!vm.product._id"
+      class="nav nav-tabs"
+      id="myTab"
+      role="tablist"
+      style="cursor: pointer;"
+    >
+      <li class="nav-item">
+        <a
+          class="nav-link active"
+          ng-class="vm.product.tab == 'basic' ? 'active': 'inactive'"
+          ui-sref="products.create.basic"
+        >
+          {{ 'PRODUCT.BASIC' | translate }}
+        </a>
+      </li>
+    </ul>
+
+    <ul
+      ng-if="vm.product._id"
+      class="nav nav-tabs"
+      id="myTab"
+      role="tablist"
+      style="cursor: pointer;"
+    >
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          ng-class="vm.product.tab == 'basic' ? 'active': 'inactive'"
+          ng-click="vm.changeTab('basic')"
+        >
+          {{ 'PRODUCT.BASIC' | translate }}
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          ng-class="vm.product.tab == 'quantity' ? 'active': 'inactive'"
+          ng-click="vm.changeTab('quantity')"
+        >
+          {{ 'PRODUCT.QUANTITY' | translate }}
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          ng-class="vm.product.tab == 'transport' ? 'active': 'inactive'"
+          ng-click="vm.changeTab('transport')"
+        >
+          {{ 'PRODUCT.TRANSPORT' | translate }}
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          ng-class="vm.product.tab == 'price' ? 'active': 'inactive'"
+          ng-click="vm.changeTab('price')"
+        >
+          {{ 'PRODUCT.PRICE' | translate }}
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          ng-class="vm.product.tab == 'seo' ? 'active': 'inactive'"
+          ng-click="vm.changeTab('seo')"
+        >
+          {{ 'PRODUCT.SEO' | translate }}
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          ng-class="vm.product.tab == 'options' ? 'active': 'inactive'"
+          ng-click="vm.changeTab('options')"
+        >
+          {{ 'PRODUCT.OPTIONS' | translate }}
+        </a>
+      </li>
+    </ul>
+
+    <div class="tab-content col-md-12" id="myTabContent">
+      <div ui-view></div>
+
+      <div class="col-md-6 mb-5 mt-5">
+        <a class="btn btn-primary text-white" ng-click="vm.save()">
+          {{ vm.product._id ? 'GLOBAL.UPDATE' : 'GLOBAL.CREATE' | translate }}
+          <span
+            ng-if="vm.isLoading"
+            class="spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"
+          ></span>
+        </a>
+      </div>
+
+      <div class="col-md-6 mb-5 mt-5">
+        <a class="btn btn-primary text-white" ng-click="vm.save('continue')">
+          {{ vm.product._id ? 'GLOBAL.UPDATE_AND_CONTINUE' : 'GLOBAL.CREATE_AND_CONTINUE' |
+          translate }}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

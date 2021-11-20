@@ -1,0 +1,146 @@
+<style>
+  .custom-category-craft-image {
+    border: 4px solid white;
+    -webkit-box-shadow: 1px 1px 13px -1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 1px 1px 13px -1px rgba(0, 0, 0, 0.75);
+    box-shadow: 1px 1px 13px -1px rgba(0, 0, 0, 0.5);
+    width: 245px;
+    height: 200px;
+  }
+
+  .left-image {
+    margin-left: 36% !important;
+  }
+
+  .right-image {
+    margin-left: 16% !important;
+  }
+
+  .custom-p {
+    font-weight: bold;
+    font-size: 2rem;
+    position: absolute;
+    top: 37%;
+  }
+
+  .leftp {
+    text-align: center;
+    left: 45%;
+  }
+
+  .rightp {
+    text-align: center;
+    left: 24%;
+  }
+
+  @media screen and (max-width: 660px) {
+    .leftp {
+      left: 26%;
+    }
+
+    .left-image {
+      margin-left: 5% !important;
+    }
+  }
+
+  @media screen and (max-width: 530px) {
+    .leftp {
+      left: 10%;
+    }
+
+    .custom-category-craft-image {
+      width: 220px;
+    }
+
+    .right-image {
+      margin-left: -10% !important;
+    }
+
+    .left-image {
+      margin-left: 3% !important;
+    }
+  }
+
+  @media screen and (max-width: 466px) {
+    .custom-category-craft-image {
+      width: 177px;
+      height: 177px;
+    }
+
+    .right-image {
+      margin-left: 0% !important;
+    }
+
+    .custom-p {
+      font-size: 1.4rem;
+    }
+  }
+
+  @media screen and (max-width: 398px) {
+    .custom-category-craft-image {
+      width: 145px;
+      height: 145px;
+    }
+
+    .right-image {
+      margin-left: -3% !important;
+    }
+  }
+</style>
+
+<section class="mb-4"> 
+  <div class="products-title mb-4">
+    <h1 class="text-center text-white">Categorías</h1>
+  </div>
+  <div class="wrap-crafts">
+    <div ng-repeat="category in vm.categories">
+      <section class="w-100 pb-5">
+        <img
+          class="rounded-circle ml-2"
+          ng-click="vm.goToCategory(category.categoryLang[0].name)"
+          loading="lazy"
+          style="
+            border: 4px solid white;
+            margin-left: 10% !important;
+            -webkit-box-shadow: 1px 1px 13px -1px rgba(0, 0, 0, 0.75);
+            -moz-box-shadow: 1px 1px 13px -1px rgba(0, 0, 0, 0.75);
+            box-shadow: 1px 1px 13px -1px rgba(0, 0, 0, 0.5);
+          "
+          src="{{category.managerFile_id[0].path}}"
+          width="80%"
+          height="200px"
+          alt="{{category.categoryLang.name}}"
+        />
+        <p class="text-center pt-2" style="font-weight: bold;">{{category.categoryLang[0].name}}</p>
+      </section>
+    </div>
+  <!-- <div class="row mb-5" ng-repeat="category in vm.categories">
+    <div class="col-md-6 col-sm-6 col-6" ng-if="($index + 1) % 2 !== 0">
+      <p class="leftp custom-p">{{ category.categoryLang[0].name }}</p>
+    </div>
+    <div class="col-md-6 col-sm-6 col-6" ng-if="($index + 1) % 2 !== 0">
+      <img
+        class="rounded-circle ml-2 custom-category-craft-image right-image"
+        ng-click="vm.goToCategory(category.categoryLang[0].name)"
+        loading="lazy"
+        src="{{ category.managerFile_id[0].path }}"
+        alt="{{ category.categoryLang.name }}"
+      />
+    </div>
+
+    <div class="col-md-6 col-sm-6 col-6" ng-if="($index + 1) % 2 === 0">
+      <img
+        class="rounded-circle ml-2 custom-category-craft-image left-image"
+        ng-click="vm.goToCategory(category.categoryLang[0].name)"
+        loading="lazy"
+        src="{{ category.managerFile_id[0].path }}"
+        alt="{{ category.categoryLang.name }}"
+      />
+    </div>
+    <div class="col-md-6 col-sm-6 col-6" ng-if="($index + 1) % 2 === 0">
+      <p class="rightp custom-p">{{ category.categoryLang[0].name }}</p>
+    </div>
+  </div>
+  </div> -->
+
+  </section>

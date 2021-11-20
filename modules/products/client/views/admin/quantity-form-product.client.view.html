@@ -1,0 +1,367 @@
+<section class="container">
+  <div class="row">
+    <div class="col-sm-12 mt-5">
+      <form
+        name="vm.form.quantityForm"
+        class="needs-validation"
+        ng-submit="vm.save(vm.form.quantityForm.$valid)"
+        novalidate
+      >
+        <div class="form-row">
+          <!-- Datos Basicos  -->
+          <fieldset class="border p-2 col-md-12">
+            <legend class="w-auto">{{ 'PRODUCT.BASIC' | translate }}</legend>
+
+            <!-- Fabricante del producto  -->
+            <div class="col-md-12 mb-3">
+              <label class="control-label" for="maker_id">
+                {{ 'PRODUCT.MAKER' | translate }}
+              </label>
+              <select
+                class="custom-select"
+                name="maker_id"
+                id="maker_id"
+                ng-model="vm.product.maker_id"
+                ng-init="vm.product.maker_id"
+                ng-options="item as item.name for item in vm.listMakers track by item._id"
+                required
+              >
+                <option selected disabled value="">{{ 'PRODUCT.MAKER_SELECT' | translate }}</option>
+              </select>
+              <div class="valid-feedback">
+                {{ 'PRODUCT.MAKER_VALID' | translate }}
+              </div>
+              <div class="invalid-feedback">
+                {{ 'PRODUCT.MAKER_INVALID' | translate }}
+              </div>
+            </div>
+
+            <!-- Provedor del producto -->
+            <div class="col-md-12 mb-3">
+              <label class="control-label" for="provider_id">
+                {{ 'PRODUCT.PROVIDER' | translate }}
+              </label>
+              <select
+                class="custom-select"
+                name="provider_id"
+                id="provider_id"
+                ng-model="vm.product.provider_id"
+                ng-init="vm.product.provider_id"
+                ng-options="item as item.name for item in vm.listProviders track by item._id"
+                required
+              >
+                <option selected disabled value=""
+                  >{{ 'PRODUCT.PROVIDER_SELECT' | translate }}</option
+                >
+              </select>
+              <div class="valid-feedback">
+                {{ 'PRODUCT.PROVIDER_VALID' | translate }}
+              </div>
+              <div class="invalid-feedback">
+                {{ 'PRODUCT.PROVIDER_INVALID' | translate }}
+              </div>
+            </div>
+
+            <!-- Codigo de Barras  -->
+            <div class="col-md-12 mb-3">
+              <label class="control-label" for="barCode">
+                {{ 'PRODUCT.BAR_CODE' | translate }}
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                name="barCode"
+                id="barCode"
+                ng-model="vm.product.barCode"
+                required
+              />
+              <div class="valid-feedback">
+                {{ 'PRODUCT.VALID' | translate }}
+              </div>
+              <div class="invalid-feedback">
+                {{ 'PRODUCT.INVALID' | translate }}
+              </div>
+            </div>
+
+            <!-- Codigo interno del producto  -->
+            <div class="col-md-12 mb-3">
+              <label class="control-label" for="code">
+                {{ 'PRODUCT.CODE' | translate }}
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                name="code"
+                id="code"
+                ng-model="vm.product.code"
+                required
+              />
+              <div class="valid-feedback">
+                {{ 'PRODUCT.VALID' | translate }}
+              </div>
+              <div class="invalid-feedback">
+                {{ 'PRODUCT.INVALID' | translate }}
+              </div>
+            </div>
+
+            <!-- Cantidad Minima del producto  -->
+            <div class="col-md-12 mb-3">
+              <label class="control-label" for="quantityMin">
+                {{ 'PRODUCT.QUANTITY_MIN' | translate }}
+              </label>
+              <input
+                type="number"
+                class="form-control"
+                name="quantityMin"
+                id="quantityMin"
+                ng-model="vm.product.quantityMin"
+                required
+              />
+              <div class="valid-feedback">
+                {{ 'PRODUCT.VALID' | translate }}
+              </div>
+              <div class="invalid-feedback">
+                {{ 'PRODUCT.INVALID' | translate }}
+              </div>
+            </div>
+          </fieldset>
+          <!-- FIN Datos Basicos  -->
+
+          <!-- Tipo de Combinación -->
+          <fieldset class="border p-2 col-md-12">
+            <legend class="w-auto">{{ 'PRODUCT.TYPE_COMBINATIONS' | translate }}</legend>
+            <div class="col-md-12">
+              <div class="form-check" ng-repeat="item in vm.listTypeCombination">
+                <label class="form-check-label">
+                  <input
+                    type="radio"
+                    class="form-check-input"
+                    name="radioTypeCombination"
+                    ng-model="vm.product.typeCombination"
+                    ng-value="item.id"
+                  />
+                  {{ item.name }}
+                </label>
+              </div>
+            </div>
+          </fieldset>
+          <!-- FIN Tipo de Combinación -->
+
+          <!-- FIN Producto Con Combinaciones  -->
+          <fieldset class="border p-2 col-md-12" ng-if="vm.product.typeCombination == 2">
+            <legend class="w-auto">{{ 'PRODUCT.COMBINATIONS' | translate }}</legend>
+
+            <div class="container">
+              <div class="row">
+                <div class="col-md-3 text-center" ng-repeat="item in vm.listFeatureDetails">
+                  <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                      <h4 class="my-0 font-weight-normal">{{item.nameLang}}</h4>
+                    </div>
+                    <div class="card-body">
+                      <div ng-repeat="itemData in item.data">
+                        <input
+                          type="checkbox"
+                          name="vm.product.combinations[item._id][itemData._id][itemData._id]"
+                          id="vm.product.combinations[item._id][itemData._id][itemData._id]"
+                          ng-model="vm.product.combinations[itemData._id]"
+                          checked="true"
+                          ng-change="vm.orderCombinations(vm.product.combinations, item, itemData)"
+                        />
+                        <label class="control-label" translate>
+                          {{ itemData.nameLang}}
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Combinaciones  -->
+            <div class="col-md-12 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <span ng-repeat="itemFather in vm.textCombinations">
+                    <span class="btn btn-primary" ng-repeat="itemSons in itemFather.data">
+                      {{itemFather.nameLang + ' : ' + itemSons.nameLang + '. '}}
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Combinaciones  -->
+            <div class="col-md-12 mb-3">
+              <span class="btn btn-primary" ng-click="vm.generateCombinations(vm.textCombinations)">
+                {{ 'PRODUCT.GENERATE_COMBINATIONS' | translate }}
+              </span>
+            </div>
+
+            <div class="col-md-12 mb-3">
+              <table
+                ng-table="vm.tableParams"
+                class="table table-condensed table-bordered table-striped table-responsive"
+              >
+                <colgroup>
+                  <col width="50%" />
+                  <col width="25%" />
+                  <col width="15%" />
+                  <col width="10%" />
+                </colgroup>
+                <tr ng-repeat="row in vm.listCombinations" ng-show="row.data.status">
+                  <td data-title="'PRODUCT.COMBINATION' | translate">
+                    <span ng-repeat="item in row.sons"
+                      >{{ item.parentNameLang + ': ' + item.nameLang + '. ' }}
+                    </span>
+                  </td>
+                  <td data-title="'PRODUCT.QUANTITY' | translate">
+                    <div class="row">
+                      <div ng-show="false" class="col-md-12">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="movementId[$index]"
+                          id="movementId[$index]"
+                          ng-init="vm.product.movements[$index].data._id=row.data._id"
+                          ng-model="vm.product.movements[$index].data._id"
+                        />
+                      </div>
+
+                      <div ng-show="false" class="col-md-12">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="sonsCombination[$index]"
+                          id="sonsCombination[$index]"
+                          ng-init="vm.product.movements[$index].sons=row.sons"
+                          ng-model="vm.product.movements[$index].sons"
+                        />
+                      </div>
+
+                      <div class="col-md-12">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="quantityCombination[$index]"
+                          id="quantityCombination[$index]"
+                          ng-init="vm.product.movements[$index].data.quantity=row.data.quantity"
+                          ng-model="vm.product.movements[$index].data.quantity"
+                          required
+                        />
+                        <input
+                          type="hidden"
+                          class="form-control"
+                          name="managerFileCombination[$index]"
+                          id="managerFileCombination[$index]"
+                          ng-init="vm.product.movements[$index].data.managerFile_id=row.data.managerFile_id"
+                        />
+                      </div>
+
+                      <div ng-show="false" class="col-md-12">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="statusCombination[$index]"
+                          id="statusCombination[$index]"
+                          ng-init="vm.product.movements[$index].data.status=row.data.status"
+                          ng-model="vm.product.movements[$index].data.status"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </td>
+                  <td data-title="'PRODUCT.PRICE' | translate">
+                    <div class="row">
+                      <div class="col-md-12" ng-if="vm.movement[$index]">
+                        <input
+                          type="number"
+                          class="form-control"
+                          name="priceCombination[$index]"
+                          id="priceCombination[$index]"
+                          ng-init="vm.product.movements[$index].data.price=row.data.price"
+                          ng-model="vm.product.movements[$index].data.price"
+                        />
+                      </div>
+                      <div class="col-md-4 mx-auto" ng-if="!vm.movement[$index] && !row.data._id">
+                        <button
+                          class="btn btn-primary rounded-circle"
+                          ng-click="vm.movement[$index] = true"
+                        >
+                          <i class="fas fa-plus"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td data-title="'PRODUCT.IS_DEFAULT' | translate">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <input
+                          type="checkbox"
+                          ng-disabled="row.data._id"
+                          ng-change="vm.changeDefault($index)"
+                          class="form-control"
+                          name="isDefaultCombination[$index]"
+                          id="isDefaultCombination[$index]"
+                          ng-init="vm.product.movements[$index].data.isDefault=row.data.isDefault"
+                          ng-model="vm.product.movements[$index].data.isDefault"
+                        />
+                      </div>
+                    </div>
+                  </td>
+                  <td data-title="'GLOBAL.ACTIONS' | translate">
+                    <a
+                      style="text-decoration: none;"
+                      ui-sref="products.edit.combinationPicture({index: $index})"
+                      class="text-secondary"
+                      href="#"
+                      ><i class="fas fa-images"></i
+                    ></a>
+                    <div ng-if="!row.data._id" class="btn-group" role="group">
+                      <button
+                        type="button"
+                        class="btn btn-default btn-sm"
+                        ng-click="vm.removeCombination($index)"
+                      >
+                        <span class="fas fa-trash-alt"></span>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </fieldset>
+          <!-- FIN Producto Con Combinaciones  -->
+
+          <!-- Producto Simple  -->
+          <fieldset class="border p-2 col-md-12" ng-if="vm.product.typeCombination == 1">
+            <legend class="w-auto">{{ 'PRODUCT.SIMPLE' | translate }}</legend>
+
+            <!-- Cantidad del producto  -->
+            <div class="col-md-12 mb-3">
+              <label class="control-label" for="quantity">
+                {{ 'PRODUCT.QUANTITY' | translate }}
+              </label>
+              <input
+                type="number"
+                class="form-control"
+                name="quantity"
+                id="quantity"
+                ng-model="vm.product.quantity"
+                required
+              />
+              <div class="valid-feedback">
+                {{ 'PRODUCT.VALID' | translate }}
+              </div>
+              <div class="invalid-feedback">
+                {{ 'PRODUCT.INVALID' | translate }}
+              </div>
+            </div>
+          </fieldset>
+          <!-- FIN Producto Simple  -->
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

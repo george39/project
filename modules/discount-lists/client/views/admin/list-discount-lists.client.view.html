@@ -1,0 +1,50 @@
+<section class="container pt-4">
+  <script type="text/ng-template" id="headerCheckbox.html">
+    <input type="checkbox" ng-model="vm.checkboxes.checked" class="select-all" value="" />
+  </script>
+  <div class="page-header">
+    <div class="row">
+      <div class="col-sm-11">
+        <h1>
+          {{ 'DISCOUNT_LIST.NAME' | translate }}
+        </h1>
+      </div>
+      <div class="col-sm-1">
+        <a type="button" class="btn btn-primary" data-ui-sref="discountLists.create">
+          <i class="fas fa-plus"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped">
+    <tr ng-repeat="row in $data">
+      <td data-title="'GLOBAL.ACTIONS' | translate">
+        <div class="btn-group" role="group">
+          <button
+            type="button"
+            class="btn btn-default btn-sm"
+            ui-sref="discountLists.view({ discountListId: row._id })"
+          >
+            <span class="fas fa-eye"></span>
+          </button>
+          <button
+            type="button"
+            class="btn btn-default btn-sm"
+            ui-sref="discountLists.edit({discountListId: row._id})"
+          >
+            <span class="fas fa-pencil-alt"></span>
+          </button>
+          <button type="button" class="btn btn-default btn-sm" ng-click="vm.remove(row._id)">
+            <span class="fas fa-trash-alt"></span>
+          </button>
+        </div>
+      </td>
+      <td data-title="'DISCOUNT_LIST.NAME' | translate" filter="{ name: 'text' }">
+        {{ row.name }}
+      </td>
+      <td data-title="'DISCOUNT_LIST.STATUS' | translate" filter="{ status: 'text' }">
+        {{ row.status }}
+      </td>
+    </tr>
+  </table>
+</section>

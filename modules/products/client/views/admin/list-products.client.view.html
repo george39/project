@@ -1,0 +1,124 @@
+<section class="container pt-5">
+  <script type="text/ng-template" id="headerCheckbox.html">
+    <input type="checkbox" ng-model="vm.checkboxes.checked" class="select-all" value="" />
+  </script>
+  <div class="page-header">
+    <div class="row">
+      <div class="col-sm-11">
+        <h1>
+          {{ 'PRODUCT.NAME' | translate }}
+        </h1>
+      </div>
+      <div class="col-sm-1">
+        <a type="button" class="btn btn-primary" data-ui-sref="products.create.basic">
+          <i class="fas fa-plus"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <table
+    ng-table="vm.tableParams"
+    class="table table-condensed table-bordered table-striped table-responsive"
+  >
+    <tr ng-repeat="row in $data">
+      <td data-title="'GLOBAL.ACTIONS' | translate">
+        <div class="btn-group" role="group">
+          <button
+            type="button"
+            class="btn btn-default btn-sm"
+            ui-sref="products.view({ productId: row._id })"
+          >
+            <span class="fas fa-eye"></span>
+          </button>
+          <button
+            type="button"
+            class="btn btn-default btn-sm"
+            ui-sref="products.edit.basic({productId: row._id})"
+          >
+            <span class="fas fa-pencil-alt"></span>
+          </button>
+          <button type="button" class="btn btn-default btn-sm" ng-click="vm.remove(row)">
+            <span class="fas fa-trash-alt"></span>
+          </button>
+        </div>
+      </td>
+
+      <td
+        data-title="'CATEGORY.NAME' | translate"
+        filter="{ 'category_id': 'select' }"
+        filter-data="vm.listCategories"
+      >
+        {{ row.category_id[0].categoryLang[0].name }}
+      </td>
+      <td data-title="'PRODUCT.NAME' | translate" filter="{ 'productLang.name': 'text' }">
+        {{ row.productLang[0].name }}
+      </td>
+      <td data-title="'MANAGER_FILE.NAME' | translate">
+        <div class="text-center form-group">
+          <img ngf-src="row.managerFile_id[0].path" loading="lazy" height="50" />
+        </div>
+      </td>
+      <td
+        data-title="'TAX.NAME' | translate"
+        filter="{ 'tax_id': 'select' }"
+        filter-data="vm.listTaxes"
+      >
+        {{ row.tax_id[0].nameLang }}
+      </td>
+      <td
+        data-title="'PRODUCT.MAKER' | translate"
+        filter="{ 'maker_id': 'select' }"
+        filter-data="vm.listMakers"
+      >
+        {{ row.maker_id.name }}
+      </td>
+      <td
+        data-title="'PRODUCT.PROVIDER' | translate"
+        filter="{ 'provider_id': 'select' }"
+        filter-data="vm.listProviders"
+      >
+        {{ row.provider_id.name }}
+      </td>
+      <td data-title="'PRODUCT.BAR_CODE' | translate" filter="{ barCode: 'text' }">
+        {{ row.barCode }}
+      </td>
+      <td data-title="'PRODUCT.CODE' | translate" filter="{ code: 'text' }">
+        {{ row.code }}
+      </td>
+      <td data-title="'PRODUCT.QUANTITY' | translate" filter="{ quantity: 'text' }">
+        {{ row.quantity }}
+      </td>
+      <td data-title="'PRODUCT.QUANTITY_MIN' | translate" filter="{ quantityMin: 'text' }">
+        {{ row.quantityMin }}
+      </td>
+      <td data-title="'PRODUCT.COST' | translate" filter="{ cost: 'text' }">
+        {{ row.cost }}
+      </td>
+      <td data-title="'PRODUCT.PRICE' | translate" filter="{ price: 'text' }">
+        {{ row.price }}
+      </td>
+      <td data-title="'PRODUCT.SHOW_PRICE' | translate" filter="{ showPrice: 'text' }">
+        {{ row.showPrice }}
+      </td>
+      <td data-title="'PRODUCT.ONLINE_ONLY' | translate" filter="{ onlineOnly: 'text' }">
+        {{ row.onlineOnly }}
+      </td>
+      <td data-title="'PRODUCT.IS_OFFER' | translate" filter="{ isOffer: 'text' }">
+        {{ row.isOffer }}
+      </td>
+      <td data-title="'PRODUCT.AVAILABLE_NOW' | translate" filter="{ availableNow: 'text' }">
+        {{ row.availableNow }}
+      </td>
+      <td data-title="'PRODUCT.DELIVERY_IN_STOCK' | translate" filter="{ deliveryInStock: 'text' }">
+        {{ row.deliveryInStock }}
+      </td>
+      <td data-title="'PRODUCT.OUTSTANDING' | translate" filter="{ outstanding: 'text' }">
+        {{ row.outstanding }}
+      </td>
+      <td data-title="'GLOBAL.STATUS' | translate" filter="{ status: 'text' }">
+        {{ row.status == true ? 'GLOBAL.ACTIVE' : ('GLOBAL.INACTIVE' | translate) }}
+      </td>
+    </tr>
+  </table>
+</section>

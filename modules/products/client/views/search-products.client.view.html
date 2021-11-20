@@ -1,0 +1,142 @@
+<section>
+  <div class="jumbotron" ng-if="vm.products.length == 0">
+    <h1 class="display-4 text-center">No hay resultados!</h1>
+  </div>
+  <div ng-if="vm.products.length > 0">
+    <!--products-->
+    <div class="row mx-n2 pt-4 px-4 mx-sm-n3">
+      <div
+        class="col-12 col-sm-6 col-lg-3 px-2 px-sm-3 mb-3 mb-sm-5"
+        ng-repeat="col in vm.products"
+      >
+        <!-- Product -->
+        <div class="card text-center h-100">
+          <div class="position-relative">
+            <img
+              class="card-img-top"
+              height="240"
+              width="220"
+              ng-click="vm.go(col._id)"
+              src="{{ col.managerFile_id[0].path }}"
+              alt="Image Description"
+            />
+
+            <div class="position-absolute pt-3 pl-3" style="top: 0;">
+              <span
+                class="badge badge-pill"
+                style="background-color: var(--mainColor); color: white;"
+                >New arrival</span
+              >
+            </div>
+            <div class="position-absolute pt-3 pr-3" style="right: 0;">
+              <button
+                type="button"
+                class="btn btn-sm btn-icon btn-outline-secondary rounded-circle"
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Save for later"
+              >
+                <span class="fas fa-heart btn-icon__inner"></span>
+              </button>
+            </div>
+          </div>
+
+          <div class="card-body pt-4 px-4 pb-0">
+            <div class="mb-2">
+              <!-- <a class="d-inline-block text-secondary small font-weight-medium mb-1" href="#"
+            >Accessories</a
+          > -->
+              <h5 class="font-size-1 font-weight-normal">
+                <a class="text-secondary" href="#">{{ col.productLang.name }}</a>
+              </h5>
+              <div class="d-block font-size-1">
+                <span class="font-weight-medium"
+                  >{{ (col.discountPrice > 0 ? col.discountPrice : col.priceTaxIncluded) | price
+                  }}</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="card-footer border-0 pt-0 pb-4 px-4">
+            <div class="mb-3">
+              <a class="d-inline-flex align-items-center small" href="#">
+                <div class="text-warning mr-2">
+                  <small class="far fa-star text-muted"></small>
+                  <small class="far fa-star text-muted"></small>
+                  <small class="far fa-star text-muted"></small>
+                  <small class="far fa-star text-muted"></small>
+                  <small class="far fa-star text-muted"></small>
+                </div>
+                <span class="text-secondary">0</span>
+              </a>
+            </div>
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-main-color btn-sm-wide btn-pill transition-3d-hover"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+        <!-- End Product -->
+      </div>
+    </div>
+    <!--products-->
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-12 col-sm-10 col-md-4 col-lg-6 mx-auto">
+          <div id="paginator">
+            <ul class="mx-auto">
+              <button
+                class="custom-padding"
+                style="background-color: var(--mainColor);"
+                ng-disabled="vm.page <= 1"
+                ng-click="vm.page = 1; vm.getPage()"
+              >
+                <span class="navigation-text">
+                  <i class="fas fa-fast-backward mr-1"></i>
+                  {{ 'GLOBAL.FIRST' | translate }}
+                </span>
+              </button>
+              <button
+                class="custom-padding"
+                style="background-color: var(--mainColor);"
+                ng-disabled="vm.page <= 1"
+                ng-click="vm.page = vm.page - 1; vm.getPage()"
+              >
+                <span class="navigation-text">
+                  <i class="fas fa-step-backward mr-1"></i>
+                  {{ 'GLOBAL.PREVIOUS' | translate }}
+                </span>
+              </button>
+              <button
+                class="custom-padding"
+                style="background-color: var(--mainColor);"
+                ng-disabled="vm.page >= vm.totalPages"
+                ng-click="vm.page = vm.page + 1; vm.getPage()"
+              >
+                <span class="navigation-text">
+                  {{ 'GLOBAL.NEXT' | translate }}
+                  <i class="fas fa-step-forward ml-1"></i>
+                </span>
+              </button>
+              <button
+                ng-click="vm.page = vm.totalPages; vm.getPage()"
+                ng-disabled="vm.page >= vm.totalPages"
+                class="custom-padding"
+                style="background-color: var(--mainColor);"
+              >
+                <span class="navigation-text">
+                  {{ 'GLOBAL.LATEST' | translate }}
+                  <i class="fas fa-fast-forward ml-1"></i>
+                </span>
+              </button>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <p class="text-center">Pag {{ vm.page }} de {{ vm.totalPages }}</p>
+    </div>
+  </div>
+</section>

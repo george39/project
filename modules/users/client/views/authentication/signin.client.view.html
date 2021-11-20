@@ -1,0 +1,69 @@
+<!-- <div class="col-md-12 text-center" style="margin-right: 25%;">
+  <h3 class="col-xs-12 text-center">Or with your account</h3>
+  <div class="row">
+    <div class="col-xs-6">
+
+    </div>
+  </div>
+</div> -->
+<section class="container" style="min-height: 550px; padding-top: 50px;">
+  <div class="row mt-2">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 text-left">
+      <form
+        name="vm.userForm"
+        ng-submit="vm.signin(vm.userForm.$valid)"
+        class="signin"
+        novalidate
+        autocomplete="off"
+      >
+        <fieldset>
+          <div class="form-group" show-errors>
+            <uib-alert type="danger" ng-show="vm.error" class="text-center text-danger">
+              <span ng-bind="vm.error"></span>
+            </uib-alert>
+            <label for="usernameOrEmail">Email</label>
+            <input
+              type="text"
+              id="email"
+              name="email"
+              class="form-control"
+              ng-model="vm.credentials.email"
+              placeholder="Email"
+              required
+              autofocus
+            />
+            <div ng-messages="vm.userForm.email.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Email is required.</p>
+            </div>
+          </div>
+          <div class="form-group" show-errors>
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-control"
+              ng-model="vm.credentials.password"
+              placeholder="Password"
+              required
+            />
+            <div ng-messages="vm.userForm.password.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Password is required.</p>
+            </div>
+          </div>
+          <div class="text-center form-group">
+            <button type="submit" class="btn btn-primary">Sign in</button>
+            &nbsp; or&nbsp;
+            <a ui-sref="authentication.signup">Sign up</a>
+          </div>
+          <div class="text-center forgot-password">
+            <a ui-sref="password.forgot">Forgot your password?</a>
+          </div>
+          <br />
+        </fieldset>
+      </form>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+</section>

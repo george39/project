@@ -1,0 +1,84 @@
+<section class="container">
+  <div class="page-header">
+    <div class="row">
+      <div class="col-sm-11">
+        <h1 ng-bind="vm.lang.username"></h1>
+      </div>
+      <div class="col-sm-1">
+        <a class="btn btn-primary" ui-sref="langs.list">
+          <i class="fas fa-undo-alt"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'LANG.NAME' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.lang.name"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.UPLOAD_FILE' | translate }}</strong></div>
+        <div class="col-sm-3">
+          <img ngf-src="vm.lang.managerFile_id.path" height="50" />
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'LANG.ISO_CODE' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.lang.isoCode"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'LANG.LANGUAGE_CODE' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.lang.languageCode"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'LANG.LOCALE' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.lang.locale"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'LANG.DATE_FORMAT_LITE' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.lang.dateFormatLite"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'LANG.DATE_FORMAT_FULL' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.lang.dateFormatFull"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.STATUS' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.lang.status"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'SHOP.NAME' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.lang.shop.name"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.CREATED_BY' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.lang.user.displayName"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.CREATED' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.lang.created"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.MODIFIED_BY' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.lang.modifiedBy.displayName"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.MODIFIED' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.lang.modified"></div>
+      </div>
+    </div>
+  </div>
+</section>

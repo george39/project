@@ -1,0 +1,84 @@
+<section class="container">
+  <script type="text/ng-template" id="headerCheckbox.html">
+    <input type="checkbox" ng-model="vm.checkboxes.checked" class="select-all" value="" />
+  </script>
+  <div class="page-header">
+    <div class="row">
+      <div class="col-sm-11">
+        <h1>
+          {{ 'LANG.NAME' | translate }}
+        </h1>
+      </div>
+      <div class="col-sm-1">
+        <a type="button" class="btn btn-primary" data-ui-sref="langs.create">
+          <i class="fas fa-plus"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped table-responsive">
+    <colgroup>
+      <col width="10%" />
+      <col width="10%" />
+      <col width="10%" />
+      <col width="10%" />
+      <col width="10%" />
+      <col width="10%" />
+      <col width="10%" />
+      <col width="10%" />
+      <col width="10%" />
+      <col width="10%" />
+    </colgroup>
+    <tr ng-repeat="row in $data">
+      <td data-title="'GLOBAL.ACTIONS' | translate">
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-default btn-sm" ui-sref="langs.editFile({langId: row._id})">
+            <span class="fas fa-file-signature"></span>
+          </button>
+          <button type="button" class="btn btn-default btn-sm" ui-sref="langs.view({ langId: row._id })">
+            <span class="fas fa-eye"></span>
+          </button>
+          <button type="button" class="btn btn-default btn-sm" ui-sref="langs.edit({langId: row._id})">
+            <span class="fas fa-pencil-alt"></span>
+          </button>
+          <button type="button" class="btn btn-default btn-sm" ng-click="vm.remove(row)">
+            <span class="fas fa-trash-alt"></span>
+          </button>
+        </div>
+      </td>
+      <td
+        data-title="'MANAGER_FILE.IMAGE' | translate"
+        filter="{ 'managerFile_id': 'select' }"
+        filter-data="vm.listManagerFiles"
+      >
+        <div class="text-center form-group">
+          <img ngf-src="row.managerFile_id[0].path" height="50" />
+        </div>
+      </td>
+      <td data-title="'LANG.NAME' | translate" filter="{ name: 'text' }">
+        {{ row.name }}
+      </td>
+      <td data-title="'LANG.ISO_CODE' | translate" filter="{ isoCode: 'text' }">
+        {{ row.isoCode }}
+      </td>
+      <td data-title="'LANG.LANGUAGE_CODE' | translate" filter="{ languageCode: 'text' }">
+        {{ row.languageCode }}
+      </td>
+      <td data-title="'LANG.FILE_NAME' | translate" filter="{ languageCode: 'text' }">
+        {{ row.fileName }}
+      </td>
+      <td data-title="'LANG.LOCALE' | translate" filter="{ locale: 'text' }">
+        {{ row.locale }}
+      </td>
+      <td data-title="'LANG.DATE_FORMAT_LITE' | translate" filter="{ dateFormatLite: 'text' }">
+        {{ row.dateFormatLite }}
+      </td>
+      <td data-title="'LANG.DATE_FORMAT_FULL' | translate" filter="{ dateFormatFull: 'text' }">
+        {{ row.dateFormatFull }}
+      </td>
+      <td data-title="'GLOBAL.STATUS' | translate" filter="{ status: 'text' }">
+        {{ row.status }}
+      </td>
+    </tr>
+  </table>
+</section>

@@ -1,0 +1,134 @@
+<section class="container">
+  <div class="row">
+    <div class="col-sm-11">
+      <h1>
+        {{ vm.featureDetail._id ? 'FEATURE_DETAIL.EDIT' : 'FEATURE_DETAIL.NEW' | translate }}
+      </h1>
+    </div>
+    <div class="col-sm-1">
+      <a ng-show="vm.featureDetail._id" class="btn btn-primary" ng-click="vm.remove()">
+        <i class="fas fa-trash-alt"> </i>
+      </a>
+    </div>
+    <div class="col-sm-12">
+      <form
+        name="vm.form.featureDetailForm"
+        class="needs-validation"
+        ng-submit="vm.save(vm.form.featureDetailForm.$valid)"
+        novalidate
+      >
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="feature_id">
+              {{ 'FEATURE.TITLE' | translate }}
+            </label>
+            <select
+              class="custom-select"
+              name="feature_id"
+              id="feature_id"
+              ng-model="vm.featureDetail.feature_id._id"
+              ng-init="vm.featureDetail.feature_id._id"
+              required
+            >
+              <option value="">{{ 'FEATURE.SELECT' | translate }}</option>
+              <option ng-repeat="item in vm.listFeatures track by item._id" value="{{item._id}}">
+                {{ item.name }}
+              </option>
+            </select>
+            <div class="valid-feedback">
+              {{ 'FEATURE.VALID_NAME' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'FEATURE.INVALID_NAME' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="nameLang">
+              {{ 'FEATURE_DETAIL.NAME_LANG' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="nameLang"
+              id="nameLang"
+              ng-model="vm.featureDetail.nameLang"
+              required
+            />
+            <div class="valid-feedback">
+              {{ 'FEATURE_DETAIL.VALID_NAME_LANG' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'FEATURE_DETAIL.INVALID_NAME_LANG' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="order">
+              {{ 'FEATURE_DETAIL.ORDER' | translate }}
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              name="order"
+              id="order"
+              ng-model="vm.featureDetail.order"
+              required
+            />
+            <div class="valid-feedback">
+              {{ 'FEATURE_DETAIL.VALID_ORDER' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'FEATURE_DETAIL.INVALID_ORDER' | translate }}
+            </div>
+          </div>
+
+          <!-- <div class="col-md-12 mb-3">
+            <label class="control-label" for="shop">
+              {{ 'SHOP.TITLE' | translate }}
+            </label>
+            <select
+              class="custom-select"
+              name="shop"
+              id="shop"
+              ng-model="vm.featureDetail.shop._id"
+              ng-init="vm.featureDetail.shop._id"
+              required
+            >
+              <option value="">{{ 'SHOP.SELECT' | translate }}</option>
+              <option ng-repeat="item in vm.listShops track by item._id" value="{{item._id}}">
+                {{ item.name }}
+              </option>
+            </select>
+            <div class="valid-feedback">
+              {{ 'SHOP.VALID_NAME' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'SHOP.INVALID_NAME' | translate }}
+            </div>
+          </div> -->
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="status" translate>
+              {{ 'GLOBAL.STATUS' | translate }}
+            </label>
+            <input
+              class="form-control"
+              type="checkbox"
+              name="status"
+              id="status"
+              data-ng-model="vm.featureDetail.status"
+              checked="true"
+            />
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <button type="submit" class="btn btn-primary">
+              {{ vm.featureDetail._id ? 'GLOBAL.UPDATE' : 'GLOBAL.CREATE' | translate }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

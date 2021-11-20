@@ -1,0 +1,217 @@
+<section class="container">
+  <div class="row">
+    <div class="col-sm-12 mt-5">
+      <form
+        name="vm.form.basicForm"
+        class="needs-validation"
+        ng-submit="vm.save(vm.form.basicForm.$valid)"
+        novalidate
+      >
+        <div class="form-row">
+          <!-- Categoria -->
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="category_id">
+              {{ 'CATEGORY.NAME' | translate }}
+            </label>
+            <select
+              class="form-control select-multiple"
+              name="category_id"
+              id="category_id"
+              ng-model="vm.product.category_id"
+              ng-options="category as category.name for category in vm.listCategories track by category._id"
+              multiple="multiple"
+              required
+            >
+            </select>
+            <div class="valid-feedback">
+              {{ 'CATEGORY.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'CATEGORY.INVALID' | translate }}
+            </div>
+          </div>
+
+          <!-- Products Langs  -->
+          <fieldset class="border p-2 col-md-12" ng-repeat="item in vm.listLangs">
+            <legend class="w-auto">{{ item.name }}</legend>
+
+            <div class="row">
+              <div ng-show="false" class="col-md-12 mb-3">
+                <input
+                  class="form-control"
+                  name="productLang[$index]"
+                  id="productLang[$index]"
+                  ng-init="vm.product.productLang[$index].lang_id=item._id"
+                  ng-model="vm.product.productLang[$index].lang_id"
+                />
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <label class="control-label" for="productLang">
+                  {{ 'PRODUCT.LANG_ID' | translate }}
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="productName[$index]"
+                  id="productName[$index]"
+                  ng-model="vm.product.productLang[$index].name"
+                  required
+                />
+                <div class="valid-feedback">
+                  {{ 'CATEGORY.VALID_NAME' | translate }}
+                </div>
+                <div class="invalid-feedback">
+                  {{ 'CATEGORY.INVALID_NAME' | translate }}
+                </div>
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <label class="control-label" for="productLang">
+                  {{ 'PRODUCT.DESCRIPTION' | translate }}
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="productDescription[$index]"
+                  id="productDescription[$index]"
+                  ng-model="vm.product.productLang[$index].description"
+                  required
+                />
+                <div class="valid-feedback">
+                  {{ 'PRODUCT.VALID_DESCRIPTION' | translate }}
+                </div>
+                <div class="invalid-feedback">
+                  {{ 'PRODUCT.INVALID_DESCRIPTION' | translate }}
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Cargar Imagen -->
+          <div class="col-md-12 mb-3">
+            <div class="row">
+              <!-- Titulo Cargar Imagen -->
+              <div class="col-md-12">
+                <label class="control-label">
+                  {{ 'CATEGORY.LOAD_IMAGE' | translate }}
+                </label>
+              </div>
+
+              <div class="col-md-12 mb-3" ng-if="vm.product.multiFiles">
+                <div class="progress">
+                  <div
+                    class="progress-bar progress-bar-striped progress-bar-animated"
+                    role="progressbar"
+                    ng-style="{ width: vm.valueProgress + '%' }"
+                    aria-valuenow="{{ vm.valueProgress }}"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  >
+                    {{ vm.valueProgress }}%
+                  </div>
+                </div>
+              </div>
+
+              <!-- Muestra Imagenes -->
+              <div class="col-md-12" ng-if="vm.product.multiFiles">
+                <div class="form-group text-center">
+                  <div ng-repeat="file in vm.product.files">
+                    <div class="form-group text-center">
+                      <img
+                        ngf-src="file.$ngfName ? file : file.path"
+                        alt="{{ vm.user.displayName }}"
+                        class="rounded mx-auto d-bloc user-profile-picture"
+                      />
+                    </div>
+                    <div class="form-group text-center">
+                      <label class="control-label">
+                        {{ file.$ngfName ? file.$ngfName : file.originalname }}
+                      </label>
+                    </div>
+                    <div class="form-group text-center">
+                      <a
+                        type="button"
+                        class="btn btn-danger"
+                        ng-click="vm.removeFileById(file, vm.fileSelected ? 'files' : 'managerFile_id')"
+                      >
+                        X
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Muestra Imagen Unitaria -->
+              <div class="col-md-12" ng-if="!vm.product.multiFiles">
+                <div ng-show="vm.loading" class="form-group text-center">
+                  <img
+                    ng-src="/modules/core/client/img/loaders/loader.gif"
+                    height="50"
+                    width="50"
+                    alt="Loading image..."
+                  />
+                </div>
+                <div class="form-group text-center">
+                  <img
+                    ngf-src="vm.fileSelected ? vm.product.files : vm.product.managerFile_id[0].path"
+                    alt="{{ vm.user.displayName }}"
+                    class="img-thumbnail user-profile-picture"
+                    ngf-drop
+                  />
+                </div>
+                <div class="form-group text-center">
+                  <label class="control-label">
+                    {{
+                      vm.fileSelected
+                        ? vm.product.files.$ngfName
+                        : vm.product.managerFile_id[0].originalname
+                    }}
+                  </label>
+                </div>
+              </div>
+
+              <!-- Boton Selecciones Imagen  -->
+              <div class="col-md-12">
+                <div class="text-center form-group">
+                  <button
+                    class="btn btn-secondary btn-file"
+                    ngf-select="vm.uploadFiles($files)"
+                    ng-model="vm.product.files"
+                    accept="image/*"
+                    ngf-before-model-change="vm.loading = true;"
+                    ngf-resize="{width: 2000, height: 1990}"
+                    ngf-resize-if="$width > 2000 || $height > 1990"
+                    ngf-max-files="8"
+                    ngf-multiple="vm.product.multiFiles"
+                    ngf-keep="vm.product.multiFiles ? 'distinct' : false"
+                  >
+                    {{ 'MANAGER_FILE.SELECT_PICTURE' | translate }}
+                  </button>
+                </div>
+                <div class="text-center form-group">
+                  <input
+                    ng-show="false"
+                    class="form-control"
+                    type="checkbox"
+                    name="isFileSelected"
+                    id="isFileSelected"
+                    ng-model="vm.product.isFileSelected"
+                    required
+                  />
+                  <div class="valid-feedback text-center">
+                    {{ 'MANAGER_FILE.VALID_NAME' | translate }}
+                  </div>
+                  <div class="invalid-feedback text-center">
+                    {{ 'MANAGER_FILE.INVALID_NAME' | translate }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- // Fin Cargar Imagenes -->
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

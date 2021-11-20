@@ -1,0 +1,150 @@
+<!-- <section class="pb-5">
+  <figure class="d-flex justify-content-center pt-5">
+    <img
+      src="/modules/core/client/img/brand/compusum-color@2x.png"
+      width="260px"
+      height="110px"
+      alt=""
+    />
+  </figure>
+  <div class="products-title mb-5">
+    <h1 class="text-center">¿Quienes somos?</h1>
+  </div>
+  <div
+    style="
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: auto;
+      border-radius: 50%;
+      min-height: 500px;
+      display: flex;
+      padding: 35px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 740px;
+      /* -webkit-box-shadow: 0px 0px 20px 6px rgba(164, 107, 161, 0.21);
+      box-shadow: 0px 0px 20px 6px rgba(164, 107, 161, 0.21); */
+
+      -webkit-box-shadow: 0px 0px 41px 21px rgba(164, 107, 161, 0.21);
+      box-shadow: 0px 0px 41px 21px rgba(164, 107, 161, 0.21);
+    "
+  >
+    <p class="text-center font-weight-bold" style="font-size: 1.1rem; padding-top: 20px;">
+      {{vm.header.value}}
+    </p>
+    <br />
+    <p class="text-center pt-2" style="font-style: italic; font-weight: 100; font-size: large;">
+      {{vm.body.value}}
+    </p>
+  </div>
+</section> -->
+
+<style>
+  .header-about {
+    font-weight: 400;
+    font-size: 1.5rem;
+    padding: 1rem 10rem;
+  }
+
+  @media screen and (max-width: 900px) {
+    .header-about {
+      font-weight: 400;
+      font-size: 1.5rem;
+      padding: 1rem 2rem;
+    }
+  }
+
+  @media screen and (max-width: 625px) {
+    .header-about {
+      font-weight: 400;
+      font-size: 1.5rem;
+      padding: 0.5rem 0.5rem;
+    }
+
+    #card_who_we_are {
+      width: 95% !important;
+    }
+
+    .body-about img {
+      width: 50% !important;
+      margin: 0.5rem 0.5rem !important;
+    }
+
+    .body-about {
+      padding: 0.2rem !important;
+    }
+  }
+
+  @media screen and (max-width: 625px) {
+    .header-about {
+      padding: 0.2rem 0.2rem !important;
+    }
+
+    .body-about img {
+      width: 100% !important;
+      margin: 0.2rem 0.2rem !important;
+    }
+
+    .body-text-about {
+      padding-top: 0.8rem;
+    }
+  }
+
+  .body-about {
+    font-weight: 300;
+    font-size: 1.5rem;
+    padding: 1rem;
+  }
+
+  .body-about img {
+    float: left;
+    width: 40%;
+    margin: 0.5rem 1rem;
+    -webkit-box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.35);
+    box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.28);
+    border: 2px solid var(--purple);
+    border-radius: 4px;
+  }
+
+  #card_who_we_are {
+    width: 85%;
+    height: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2%;
+    margin-bottom: 7.5%;
+  }
+</style>
+
+<section class="mb-5">
+  <div class="products-title">
+    <h1>¿QUÍENES SOMOS?</h1>
+  </div>
+  <div id="card_who_we_are" class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-12">
+          <p class="header-about">
+            {{vm.header.value}}
+          </p>
+        </div>
+
+        <div class="col-md-12">
+          <p class="body-about">
+            <img
+              src="/modules/core/client/img/others/who_we_are_image.jpeg"
+              height="500px"
+              alt=""
+              class=""
+            />
+            <span class="body-text-about">
+              {{vm.body.value}}
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

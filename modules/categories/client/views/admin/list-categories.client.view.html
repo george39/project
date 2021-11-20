@@ -1,0 +1,77 @@
+<section class="container pt-4">
+  <script type="text/ng-template" id="headerCheckbox.html">
+    <input type="checkbox" ng-model="vm.checkboxes.checked" class="select-all" value="" />
+  </script>
+  <div class="page-header">
+    <div class="row">
+      <div class="col-sm-11">
+        <h1>
+          {{ 'CATEGORY.NAME' | translate }}
+        </h1>
+      </div>
+      <div class="col-sm-1">
+        <a type="button" class="btn btn-primary" data-ui-sref="categories.create">
+          <i class="fas fa-plus"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-md-12">
+      <a ng-repeat="row in vm.categories.results[0].ancestors | reverse" ng-click="vm.getChilds(row._id)" href="#">
+        {{row.categoryLang[0].name.toUpperCase()}} ->
+      </a>
+    </div>
+  </div>
+  <hr />
+  <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped table-responsive">
+    <colgroup>
+      <col width="12%" />
+      <col width="12%" />
+      <col width="42%" />
+      <col width="10%" />
+      <col width="12%" />
+      <col width="12%" />
+    </colgroup>
+    <tr ng-repeat="row in $data">
+      <td data-title="'GLOBAL.ACTIONS' | translate">
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-default btn-sm" ui-sref="categories.view({ categoryId: row._id })">
+            <span class="fas fa-eye"></span>
+          </button>
+          <button type="button" class="btn btn-default btn-sm" ui-sref="categories.edit({categoryId: row._id})">
+            <span class="fas fa-pencil-alt"></span>
+          </button>
+          <button type="button" class="btn btn-default btn-sm" ng-click="vm.remove(row)">
+            <span class="fas fa-trash-alt"></span>
+          </button>
+          <button type="button" class="btn btn-default btn-sm" ng-click="vm.getChilds(row._id)">
+            <span class="fas fa-hand-point-right"></span>
+          </button>
+        </div>
+      </td>
+      <td data-title="'MANAGER_FILE.NAME' | translate">
+        <div class="text-center form-group">
+          <img ngf-src="row.managerFile_id[0].path" height="50" />
+        </div>
+      </td>
+      <td data-title="'CATEGORY.NAME' | translate" filter="{ categoryLang: 'text' }">
+        {{ row.categoryLang[0].name }}
+      </td>
+      <td data-title="'CATEGORY.ORDER' | translate">
+        {{ row.order }}
+      </td>
+      <td
+        data-title="'CATEGORY.OUTSTANDING' | translate"
+        filter="{ status: 'select' }"
+        filter-data="vm.listStatus('status')"
+      >
+        {{ row.outstanding == true ? 'GLOBAL.ACTIVE' : 'GLOBAL.INACTIVE' | translate}}
+      </td>
+      <td data-title="'GLOBAL.STATUS' | translate" filter="{ status: 'select' }" filter-data="vm.listStatus('status')">
+        {{ row.status == true ? 'GLOBAL.ACTIVE' : 'GLOBAL.INACTIVE' | translate}}
+      </td>
+    </tr>
+  </table>
+</section>

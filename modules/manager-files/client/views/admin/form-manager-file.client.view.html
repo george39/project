@@ -1,0 +1,229 @@
+<section class="container">
+  <div class="row">
+    <div class="col-sm-11">
+      <h1>
+        {{ vm.managerFile._id ? 'MANAGER_FILE.EDIT' : 'MANAGER_FILE.NEW' | translate }}
+      </h1>
+    </div>
+    <div class="col-sm-1">
+      <a ng-show="vm.managerFile._id" class="btn btn-primary" ng-click="vm.remove()">
+        <i class="fas fa-trash-alt"> </i>
+      </a>
+    </div>
+    <div class="col-sm-12">
+      <form
+        name="vm.form.managerFileForm"
+        class="needs-validation"
+        ng-submit="vm.save(vm.form.managerFileForm.$valid)"
+        novalidate
+      >
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="fieldname">
+              {{ 'MANAGER_FILE.FIELDNAME' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="fieldname"
+              id="fieldname"
+              ng-model="vm.managerFile.fieldname"
+              placeholder="{{ 'MANAGER_FILE.FIELDNAME' | translate }}"
+              required
+              autofocus
+            />
+            <div class="valid-feedback">
+              {{ 'MANAGER_FILE.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'MANAGER_FILE.INVALID' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="originalname">
+              {{ 'MANAGER_FILE.ORIGINALNAME' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="originalname"
+              id="originalname"
+              ng-model="vm.managerFile.originalname"
+              placeholder="{{ 'MANAGER_FILE.ORIGINALNAME' | translate }}"
+              required
+              autofocus
+            />
+            <div class="valid-feedback">
+              {{ 'MANAGER_FILE.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'MANAGER_FILE.INVALID' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="encoding">
+              {{ 'MANAGER_FILE.ENCODING' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="encoding"
+              id="encoding"
+              ng-model="vm.managerFile.encoding"
+              placeholder="{{ 'MANAGER_FILE.ENCODING' | translate }}"
+              required
+              autofocus
+            />
+            <div class="valid-feedback">
+              {{ 'MANAGER_FILE.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'MANAGER_FILE.INVALID' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="mimetype">
+              {{ 'MANAGER_FILE.MIMETYPE' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="mimetype"
+              id="mimetype"
+              ng-model="vm.managerFile.mimetype"
+              placeholder="{{ 'MANAGER_FILE.MIMETYPE' | translate }}"
+              required
+              autofocus
+            />
+            <div class="valid-feedback">
+              {{ 'MANAGER_FILE.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'MANAGER_FILE.INVALID' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="destination">
+              {{ 'MANAGER_FILE.DESTINATION' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="destination"
+              id="destination"
+              ng-model="vm.managerFile.destination"
+              placeholder="{{ 'MANAGER_FILE.DESTINATION' | translate }}"
+              required
+              autofocus
+            />
+            <div class="valid-feedback">
+              {{ 'MANAGER_FILE.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'MANAGER_FILE.INVALID' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="filename">
+              {{ 'MANAGER_FILE.FILENAME' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="filename"
+              id="filename"
+              ng-model="vm.managerFile.filename"
+              placeholder="{{ 'MANAGER_FILE.FILENAME' | translate }}"
+              required
+              autofocus
+            />
+            <div class="valid-feedback">
+              {{ 'MANAGER_FILE.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'MANAGER_FILE.INVALID' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="path">
+              {{ 'MANAGER_FILE.PATH' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="path"
+              id="path"
+              ng-model="vm.managerFile.path"
+              placeholder="{{ 'MANAGER_FILE.PATH' | translate }}"
+              required
+              autofocus
+            />
+            <div class="valid-feedback">
+              {{ 'MANAGER_FILE.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'MANAGER_FILE.INVALID' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="size">
+              {{ 'MANAGER_FILE.SIZE' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="size"
+              id="size"
+              ng-model="vm.managerFile.size"
+              placeholder="{{ 'MANAGER_FILE.SIZE' | translate }}"
+              required
+              autofocus
+            />
+            <div class="valid-feedback">
+              {{ 'MANAGER_FILE.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'MANAGER_FILE.INVALID' | translate }}
+            </div>
+          </div>
+
+          <!-- <div class="col-md-12 mb-3">
+            <label class="control-label" for="shop">
+              {{ 'SHOP.TITLE' | translate }}
+            </label>
+            <select
+              class="custom-select"
+              name="shop"
+              id="shop"
+              ng-model="vm.managerFile.shop"
+              ng-init="vm.managerFile.shop"
+              ng-options="item as item.name for item in vm.listShops track by item._id"
+              required
+            >
+              <option selected disabled value="">{{ 'SHOP.SELECT' | translate }}</option>
+            </select>
+            <div class="valid-feedback">
+              {{ 'SHOP.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'SHOP.INVALID' | translate }}
+            </div>
+          </div> -->
+
+          <div class="col-md-12 mb-3">
+            <button type="submit" class="btn btn-primary">
+              {{ vm.managerFile._id ? 'GLOBAL.UPDATE' : 'GLOBAL.CREATE' | translate }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,283 @@
+<section class="container pt-4">
+  <div class="row">
+    <div class="col-sm-11">
+      <h1>
+        {{ vm.craft._id ? 'CRAFT.EDIT' : 'CRAFT.NEW' | translate }}
+      </h1>
+    </div>
+    <div class="col-sm-1">
+      <a ng-show="vm.craft._id" class="btn btn-primary text-white" ng-click="vm.remove()">
+        <i class="fas fa-trash-alt"> </i>
+      </a>
+    </div>
+    <div class="col-sm-12">
+      <form
+        name="vm.form.craftForm"
+        class="needs-validation"
+        ng-submit="vm.save(vm.form.craftForm.$valid)"
+        novalidate
+      >
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="category_id">
+              {{ 'CATEGORY.NAME' | translate }}
+            </label>
+            <select
+              name="category_id"
+              class="form-control"
+              id="category_id"
+              ng-model="vm.craft.category_id"
+              ng-init="vm.craft.category_id = vm.craft.category_id ? vm.craft.category_id._id : null"
+              required
+            >
+              <option value="{{category._id}}" ng-repeat="category in vm.listCategories"
+                >{{category.categoryLang[0].name}}</option
+              >
+            </select>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="name">
+              {{ 'CRAFT.NAME' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="name"
+              id="name"
+              ng-model="vm.craft.name"
+              required
+              autofocus
+            />
+            <div class="valid-feedback">
+              {{ 'CRAFT.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'CRAFT.INVALID' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="description">
+              {{ 'CRAFT.DESCRIPTION' | translate }}
+            </label>
+            <textarea
+              type="text"
+              class="form-control"
+              name="description"
+              id="description"
+              ng-model="vm.craft.description"
+              required
+            ></textarea>
+            <div class="valid-feedback">
+              {{ 'CRAFT.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'CRAFT.INVALID' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="materials">
+              {{ 'CRAFT.MATERIALS' | translate }}
+            </label>
+            <select
+              multiple="multiple"
+              class="form-control multiple-select"
+              name="materials"
+              id="materials"
+              ng-model="vm.craft.materials"
+              required
+            >
+              <option disabled value="">{{ 'PRODUCT.SELECT' | translate }}</option>
+              <option
+                ng-repeat="item in vm.listProducts"
+                ng-selected="vm.craft.materials.includes(item._id)"
+                value="{{item._id}}"
+                >{{item.name}}</option
+              >
+            </select>
+            <div class="valid-feedback">
+              {{ 'PRODUCT.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'PRODUCT.INVALID' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="urlVideo">
+              {{ 'CRAFT.URL_VIDEO' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="urlVideo"
+              id="urlVideo"
+              ng-model="vm.craft.urlVideo"
+            />
+            <div class="valid-feedback">
+              {{ 'CRAFT.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'CRAFT.INVALID' | translate }}
+            </div>
+          </div>
+
+          <figure class="col-md-4 mx-auto" ng-if="vm.craft.image">
+            <img
+              src="{{vm.craft.image.path || vm.craft.image}}"
+              class="mx-auto"
+              width="100%"
+              height="280px"
+              alt=""
+            />
+            <section class="row mt-2">
+              <div class="col-md-2 mx-auto">
+                <button
+                  class="btn btn-danger text-white"
+                  type="button"
+                  ng-click="vm.removeImage(vm.craft.image._id || false)"
+                >
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </section>
+          </figure>
+
+          <div class="col-md-12 mb-3" ng-if="!vm.craft.image">
+            <label for="craftImage">Imagen</label>
+            <br />
+            <a
+              href="#"
+              id="craftImage"
+              class="text-center mx-auto btn btn-primary"
+              ng-model="vm.files"
+              ngf-select="vm.upload($files)"
+              accept="image/*"
+              ngf-resize="{width: 2000, height: 1990}"
+              ngf-resize-if="$width > 2000 || $height > 1990"
+              ngf-max-files="1"
+              ngf-multiple="false"
+              ngf-keep="true ? 'distinct' : false"
+            >
+              <i class="fas fa-plus" title="Añadir Imagen"></i>
+            </a>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="status" translate>
+              ¿Es gratis?
+            </label>
+            <input
+              class="form-control"
+              type="checkbox"
+              name="isFree"
+              id="isFree"
+              data-ng-model="vm.craft.isFree"
+            />
+          </div>
+
+          <div class="col-md-12 mb-3 mt-5">
+            <h2 class="text-center">Paso a Paso</h2>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <div
+              class="row pb-2 pt-2"
+              style="border-bottom: 1px solid #dadeeb;"
+              ng-repeat="step in vm.craft.steps"
+            >
+              <div class="col-md-4">
+                <label for="step-name{{$index}}">Name:</label>
+                <input
+                  type="text"
+                  id="step-name{{$index}}"
+                  name="name{{$index}}"
+                  ng-model="vm.craft.steps[$index].name"
+                  class="form-control"
+                />
+
+                <input
+                  type="hidden"
+                  id="step-order{{$index}}"
+                  name="order{{$index}}"
+                  ng-model="vm.craft.steps[$index].order"
+                  ng-init="vm.craft.steps[$index].order = $index"
+                />
+              </div>
+              <div class="col-md-6">
+                <label for="step-description{{$index}}">Description:</label>
+                <textarea
+                  name="description{{$index}}"
+                  class="form-control"
+                  id="step-description{{$index}}"
+                  ng-model="vm.craft.steps[$index].description"
+                ></textarea>
+              </div>
+              <div class="col-md-1 col-12 col-sm-12 pt-2">
+                <img
+                  ng-if="vm.craft.steps[$index].image"
+                  src="{{vm.craft.steps[$index].image.path || vm.craft.steps[$index].image}}"
+                  alt="Step Image"
+                  width="100%"
+                  height="100%"
+                />
+                <button
+                  type="button"
+                  ng-if="!vm.craft.steps[$index].image"
+                  ngf-select="vm.addStepImage($files, $index)"
+                  accept="image/*"
+                  ngf-resize="{width: 2000, height: 1990}"
+                  ngf-resize-if="$width > 2000 || $height > 1990"
+                  ngf-max-files="1"
+                  ngf-multiple="false"
+                  ngf-keep="true ? 'distinct' : false"
+                  class="btn btn-primary btn-block mt-4"
+                >
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 mb-3 mx-auto d-flex justify-content-center">
+            <button
+              type="button"
+              ng-click="vm.craft.steps[vm.craft.steps ? vm.craft.steps.length : 0] = {}"
+              class="btn btn-primary"
+            >
+              Agregar paso
+            </button>
+          </div>
+
+          <div class="col-md-12 mb-3" ng-if="!vm.craft.isFree">
+            <label class="control-label" for="price">
+              Precio
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              name="price"
+              id="price"
+              ng-model="vm.craft.price"
+              required
+            />
+            <div class="valid-feedback">
+              {{ 'CRAFT.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'CRAFT.INVALID' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <button type="submit" class="btn btn-primary">
+              {{ vm.craft._id ? 'GLOBAL.UPDATE' : 'GLOBAL.CREATE' | translate }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

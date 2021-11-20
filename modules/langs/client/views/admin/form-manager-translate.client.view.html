@@ -1,0 +1,134 @@
+<section class="container">
+  <div class="page-header">
+    <div class="row">
+      <div class="col-sm-11">
+        <h1>
+          {{ vm.lang._id ? 'LANG.EDIT' : 'LANG.NEW' | translate }} {{ vm.lang._id ? vm.lang.name : '' }}
+        </h1>
+      </div>
+      <div class="col-sm-1">
+        <a class="btn btn-primary" ui-sref="langs.list">
+          <i class="fas fa-undo-alt"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="col-sm-12">
+    <div class="accordion" id="accordionModuleGroups">
+      <div class="card" ng-repeat="(keyMain, valueMain) in vm.lang.dataFileLang">
+        <div class="card-header" id="{{keyMain + 'Heading'}}">
+          <h2 class="mb-0">
+            <button
+              class="btn btn-link"
+              type="button"
+              data-toggle="collapse"
+              data-target="{{'#' + keyMain + 'Collapse'}}"
+              aria-expanded="false"
+              aria-controls="{{keyMain + 'Collapse'}}"
+            >
+              {{ keyMain }}
+            </button>
+          </h2>
+        </div>
+        <div
+          id="{{keyMain + 'Collapse'}}"
+          class="collapse"
+          aria-labelledby="{{keyMain + 'Heading'}}"
+          data-parent="#accordionModuleGroups"
+        >
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-5 col-12 mb-1" ng-show="vm.showInputs[keyMain]">
+                <input type="text" class="form-control" ng-model="vm.keyObject[keyMain]" />
+              </div>
+              <div class="col-md-5 col-12 mb-1" ng-show="vm.showInputs[keyMain]">
+                <input type="text" class="form-control" ng-model="vm.valueObject[keyMain]" />
+              </div>
+              <div class="col-md-2 col-12 mb-3 ml-auto text-right">
+                <button
+                  class="btn btn-primary"
+                  ng-click="vm.showInputs[keyMain] = !vm.showInputs[keyMain]"
+                  ng-if="!vm.showInputs[keyMain]"
+                >
+                  <span class="fas fa-plus-circle"></span>
+                </button>
+                <button
+                  class="btn btn-light"
+                  ng-click="vm.isEditingMain[keyMain] = !vm.isEditingMain[keyMain]"
+                  ng-if="!vm.isEditingMain[keyMain]"
+                >
+                  <span class="far fa-window-close"></span>
+                </button>
+                <button
+                  class="btn btn-success"
+                  ng-click="vm.newField(keyMain, valueMain)"
+                  ng-if="vm.showInputs[keyMain]"
+                >
+                  <span class="fas fa-file-medical"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="row" ng-repeat="(key, value) in valueMain">
+              <div class="col-md-5 col-12 mb-1 ml-auto text-left">
+                <input type="text" class="form-control" ng-value="key" name="key" ng-disabled="true" />
+              </div>
+              <div class="col-md-5 col-12 mb-1 ml-auto text-left">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="results[keyMain][key]"
+                  ng-value="vm.lang.dataFileLang[keyMain][key]"
+                  ng-model="vm.lang.dataFileLang[keyMain][key]"
+                  ng-disabled="!vm.isEditing[keyMain][key]"
+                />
+              </div>
+              <div class="col-md-2 col-12 mb-3 ml-auto text-left">
+                <button
+                  class="btn btn-light"
+                  ng-click="vm.isEditing[keyMain][key] = !vm.isEditing[keyMain][key]"
+                  ng-if="vm.isEditing[keyMain][key]"
+                >
+                  <span class="far fa-check-circle"></span>
+                </button>
+                <button
+                  class="btn btn-light"
+                  ng-click="vm.isEditing[keyMain][key] = !vm.isEditing[keyMain][key]"
+                  ng-if="vm.isEditing[keyMain][key]"
+                >
+                  <span class="far fa-window-close"></span>
+                </button>
+                <button
+                  class="btn btn-light"
+                  ng-click="vm.isEditing[keyMain][key] = true"
+                  ng-if="!vm.isEditing[keyMain][key]"
+                >
+                  <span class="fas fa-pencil-alt"></span>
+                </button>
+                <button
+                  class="btn btn-danger"
+                  ng-click="vm.newField(keyMain, valueMain)"
+                  ng-if="!vm.isEditing[keyMain][key]"
+                >
+                  <span class="far fa-trash-alt"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr />
+
+    <button class="btn btn-primary" ng-click="vm.save(true)">
+      {{ vm.lang._id ? 'Update' : 'Create' }}
+    </button>
+
+    <hr />
+  </div>
+</section>

@@ -1,0 +1,130 @@
+<section class="container pt-4">
+  <script type="text/ng-template" id="headerCheckbox.html">
+    <input type="checkbox" ng-model="vm.checkboxes.checked" class="select-all" value="" />
+  </script>
+  <div class="page-header">
+    <div class="row">
+      <div class="col-sm-11">
+        <h1>
+          Groups
+        </h1>
+      </div>
+      <div class="col-sm-1">
+        <a class="btn btn-primary" data-ui-sref="groups.create">
+          <i class="fas fa-plus"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped">
+    <colgroup>
+      <col width="88%" />
+      <col width="12%" />
+    </colgroup>
+    <tr ng-repeat="row in $data">
+      <td data-title="'Name'" filter="{ name: 'text' }">
+        {{row.name}}
+      </td>
+      <td>
+        <button class="btn btn-default btn-sm" ui-sref="groups.view({ groupId: row._id })">
+          <span class="fas fa-eye"></span>
+        </button>
+        <button class="btn btn-default btn-sm" ui-sref="groups.edit({groupId: row._id})">
+          <span class="fas fa-pencil-alt"></span>
+        </button>
+        <button class="btn btn-default btn-sm" ng-click="vm.remove(row._id)">
+          <span class="fas fa-trash-alt"></span>
+        </button>
+      </td>
+    </tr>
+  </table>
+  <!-- <p>TypeAhead</p>
+  <input
+    type="text"
+    name="title"
+    ng-model="vm.group.title"
+    typeahead-on-select="vm.selectTypeAhead($item)"
+    uib-typeahead="group.title for group in vm.listGroups | filter:{title:$viewValue}"
+    typeahead-loading="loading"
+    typeahead-no-results="noResults"
+    class="form-control input-sm"
+    autocomplete="off">
+		<i ng-show="loading" class="fas fa-eye"></i>
+		<div ng-show="noResults">
+			<i class="fas fa-trash-alt"></i> No Results Found
+    </div>
+  </input> -->
+  <!-- <table
+    ng-table-dynamic="vm.tableParams with vm.cols"
+    class="table table-bordered table-condensed table-hover editable-table"
+    ng-form="vm.tableForm"
+    disable-filter="vm.isAdding"
+    demo-tracked-table="vm.tableTracker">
+    <colgroup>
+      <col width="58%" />
+      <col width="15%" />
+      <col width="15%" />
+      <col width="12%" />
+    </colgroup>
+    <tr
+      ng-repeat="row in $data"
+      ng-form="rowForm"
+      demo-tracked-table-row="row">
+      <td
+        ng-repeat="col in $columns"
+        ng-class="rowForm[col.field].$dirty ? 'bg-warning' : ''"
+        ng-form="{{col.field}}"
+        vm-tracked-table-cell>
+        <span
+          ng-if="col.dataType !== 'command' && !vm.isEditing"
+          class="editable-text">{{row[col.field]}}
+        </span>
+        <div
+          ng-if="col.dataType !== 'command' && vm.isEditing" 
+          class="controls"
+          ng-class="rowForm[col.field].$invalid && rowForm[col.field].$dirty ? 'has-error' : ''"
+          ng-switch="col.dataType">
+          <input
+            ng-switch-default
+            type="text"
+            name="{{col.field}}"
+            ng-model="row[col.field]"
+            class="editable-input form-control input-sm"
+            required />
+          <input
+            ng-switch-when="object"
+            type="object"
+            name="{{col.field}}"
+            ng-model="row[col.field]"
+            class="editable-input form-control input-sm"
+            required />
+          <input
+            ng-switch-when="number"
+            type="number"
+            name="{{col.field}}"
+            ng-model="row[col.field]"
+            class="editable-input form-control input-sm"
+            required />
+        </div>
+        <button
+          ng-if="col.dataType === 'command'"
+          class="btn btn-default btn-sm"
+          ui-sref="groups.view({ groupId: row._id })">
+          <span class="fas fa-eye"></span>
+        </button>
+        <button
+          ng-if="col.dataType === 'command'"
+          class="btn btn-default btn-sm"
+          ui-sref="groups.edit({groupId: row._id})">
+          <span class="fas fa-pencil-alt"></span>
+        </button>
+        <button
+          ng-if="col.dataType === 'command'"
+          class="btn btn-default btn-sm"
+          ng-click="vm.remove(row._id)">
+          <span class="fas fa-trash-alt"></span>
+        </button>
+      </td>
+    </tr>
+  </table> -->
+</section>

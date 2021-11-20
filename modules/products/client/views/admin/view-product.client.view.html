@@ -1,0 +1,154 @@
+<section class="container">
+  <div class="page-header">
+    <div class="row">
+      <div class="col-sm-11">
+        <h1 ng-bind="vm.product.username"></h1>
+      </div>
+      <div class="col-sm-1">
+        <a class="btn btn-primary" ui-sref="products.list">
+          <i class="fas fa-undo-alt"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'CATEGORY.NAME' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.product.category_id[0].categoryLang[0].name"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'PRODUCT.NAME' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.product.productLang[0].name"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.UPLOAD_FILE' | translate }}</strong></div>
+        <div class="col-sm-3">
+          <img ngf-src="vm.product.managerFile_id[0].path" height="50" />
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'TAX.NAME' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.product.tax_id[0].nameLang"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'PRODUCT.MAKER' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.product.maker_id.name"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'PRODUCT.PROVIDER' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.product.provider_id.name"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'PRODUCT.BAR_CODE' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.product.barCode"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'PRODUCT.CODE' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.product.code"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'PRODUCT.QUANTITY' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.product.quantity"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'PRODUCT.QUANTITY_MIN' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.product.quantityMin"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'PRODUCT.COST' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.product.cost"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'PRODUCT.PRICE' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.product.price"></div>
+      </div>
+      <hr />
+      <!-- <div class="row">
+        <div class="col-sm-9"><strong>{{ 'PRODUCT.PROFIT' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.product.profit"></div>
+      </div>
+      <hr /> -->
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'PRODUCT.PERCENT_DISCOUNT' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.product.percentDiscount"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'SHIPPER.NAME' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.product.shippingData.shipper_id[0].third_id.name"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'PRODUCT.SHOW_PRICE' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.product.showPrice"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'PRODUCT.ONLINE_ONLY' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.product.onlineOnly"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'PRODUCT.IS_OFFER' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.product.isOffer"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'PRODUCT.AVAILABLE_NOW' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.product.availableNow"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'PRODUCT.DELIVERY_IN_STOCK' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.product.deliveryInStock"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'PRODUCT.OUTSTANDING' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.product.outstanding"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'PRODUCT.STATUS' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.product.status"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'SHOP.NAME' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.product.shop.name"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.CREATED_BY' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.product.user.displayName"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.CREATED' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.product.created"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.MODIFIED_BY' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.product.modifiedBy.displayName"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.MODIFIED' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.product.modified"></div>
+      </div>
+    </div>
+  </div>
+</section>

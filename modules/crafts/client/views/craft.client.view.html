@@ -1,0 +1,82 @@
+<section class="pt-4" style="padding-left: 25px; padding-right: 25px;">
+  <div class="products-title">
+    <h1 class="text-center">{{vm.craft.name | uppercase}}</h1>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-6 d-flex justify-content-center">
+      <img
+        class="p-3 mb-5 bg-white rounded card-shadow-craft"
+        style="max-width: 100%; max-height: 620px;"
+        src="{{vm.craft.image.path}}"
+        loading="lazy"
+        alt="{{vm.craft.name}}"
+      />
+    </div>
+    <div class="col-md-6">
+      <article>
+        <p style="font-size: 1.1rem;">{{vm.craft.description}}</p>
+      </article>
+      <div class="card border">
+        <div class="card-header">
+          <h3>Materiales:</h3>
+        </div>
+        <div class="card-body">
+          <ol>
+            <li ng-repeat="material in vm.craft.materials" style="font-size: 1.3rem;">
+              <a
+                href="#"
+                class="text-secondary"
+                style="text-decoration: none;"
+                ui-sref="products.view-single({productId: material._id })"
+                ><i class="fas fa-caret-right"></i> {{material.productLang[0].name}}</a
+              >
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="text-center mb-3" style="font-weight: bold;" ng-if="vm.craft.urlVideo">
+    Tutorial de la manualidad
+  </h2>
+  <div ng-if="vm.craft.urlVideo" class="d-flex justify-content-center">
+    <div class="card card-shadow-craft">
+      <div class="card-body">
+        <iframe
+          width="600"
+          height="340"
+          ng-src="{{vm.trustSrc(vm.craft.urlVideo)}}"
+          frameborder="0"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="text-center pb-4 pt-5" style="font-weight: bold;">PASO A PASO</h2>
+
+  <div class="row mb-4">
+    <div class="col-md-4 mb-3" ng-repeat="step in vm.craft.steps">
+      <div class="craft-card">
+        <div class="step-index">{{$index + 1}}</div>
+        <img src="{{step.image.path}}" alt="{{step.name}}" width="100%" height="100%" />
+        <div class="overlay">
+          <div class="items"></div>
+          <div class="items head">
+            <p style="font-weight: bold;" class="pt-3">{{step.name}}</p>
+            <p>{{step.description}}</p>
+            <hr />
+          </div>
+          <!-- <div class="items price">
+              <p class="old">$699</p>
+              <p class="new">$345</p>
+            </div> -->
+          <!-- <div class="items cart">
+              <i class="fa fa-shopping-cart"></i>
+              <span>ADD TO CART</span>
+            </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

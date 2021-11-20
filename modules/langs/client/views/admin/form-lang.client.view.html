@@ -1,0 +1,247 @@
+<section class="container">
+  <div class="row">
+    <div class="col-sm-11">
+      <h1>
+        {{ vm.lang._id ? 'LANG.EDIT' : 'LANG.NEW' | translate }}
+      </h1>
+    </div>
+    <div class="col-sm-1">
+      <a ng-show="vm.lang._id" class="btn btn-primary text-white" ng-click="vm.remove()">
+        <i class="fas fa-trash-alt"> </i>
+      </a>
+    </div>
+    <div class="col-sm-12">
+      <form name="vm.form.langForm" class="needs-validation" ng-submit="vm.save(vm.form.langForm.$valid)" novalidate>
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="name">
+              {{ 'LANG.NAME' | translate }}
+            </label>
+            <input type="text" class="form-control" name="name" id="name" ng-model="vm.lang.name" required autofocus />
+            <div class="valid-feedback">
+              {{ 'LANG.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'LANG.INVALID' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="isoCode">
+              {{ 'LANG.ISO_CODE' | translate }}
+            </label>
+            <input type="text" class="form-control" name="isoCode" id="isoCode" ng-model="vm.lang.isoCode" required />
+            <div class="valid-feedback">
+              {{ 'LANG.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'LANG.INVALID' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="languageCode">
+              {{ 'LANG.LANGUAGE_CODE' | translate }}
+            </label>
+            <input type="text" class="form-control" name="languageCode" id="languageCode"
+              ng-model="vm.lang.languageCode" required />
+            <div class="valid-feedback">
+              {{ 'LANG.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'LANG.INVALID' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="fileName">
+              {{ 'LANG.FILE_NAME' | translate }}
+            </label>
+            <input type="text" class="form-control" name="fileName" id="fileName" ng-model="vm.lang.fileName=vm.lang.languageCode + '.json'" ng-disabled="true"
+              required />
+            <div class="valid-feedback">
+              {{ 'LANG.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'LANG.INVALID' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="locale">
+              {{ 'LANG.LOCALE' | translate }}
+            </label>
+            <input type="text" class="form-control" name="locale" id="locale" ng-model="vm.lang.locale" required />
+            <div class="valid-feedback">
+              {{ 'LANG.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'LANG.INVALID' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="dateFormatLite">
+              {{ 'LANG.DATE_FORMAT_LITE' | translate }}
+            </label>
+            <input type="text" class="form-control" name="dateFormatLite" id="dateFormatLite"
+              ng-model="vm.lang.dateFormatLite" required />
+            <div class="valid-feedback">
+              {{ 'LANG.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'LANG.INVALID' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="dateFormatFull">
+              {{ 'LANG.DATE_FORMAT_FULL' | translate }}
+            </label>
+            <input type="text" class="form-control" name="dateFormatFull" id="dateFormatFull"
+              ng-model="vm.lang.dateFormatFull" required />
+            <div class="valid-feedback">
+              {{ 'LANG.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'LANG.INVALID' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="status">
+              {{ 'GLOBAL.STATUS' | translate }}
+            </label>
+            <input class="form-control" type="checkbox" id="status" ng-model="vm.lang.status" />
+          </div>
+
+          <!-- Cargar Imagen -->
+          <div class="col-md-12 mb-3">
+            <div class="row">
+              <!-- Titulo Cargar Imagen -->
+              <div class="col-md-12">
+                <label class="control-label">
+                  {{ 'CATEGORY.LOAD_IMAGE' | translate }}
+                </label>
+              </div>
+
+              <div class="col-md-12 mb-3" ng-if="vm.multiFiles">
+                <div class="progress">
+                  <div
+                    class="progress-bar progress-bar-striped progress-bar-animated"
+                    role="progressbar"
+                    ng-style="{ 'width': vm.valueProgress + '%' }"
+                    aria-valuenow="{{ vm.valueProgress }}"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  >
+                    {{ vm.valueProgress }}%
+                  </div>
+                </div>
+              </div>
+
+              <!-- Muestra Imagenes -->
+              <div class="col-md-12" ng-if="vm.multiFiles">
+                <div class="form-group text-center">
+                  <div ng-repeat="file in vm.lang.files">
+                    <div class="form-group text-center">
+                      <img
+                        ngf-src="file.$ngfName ? file : file.path"
+                        alt="{{vm.user.displayName}}"
+                        class="rounded mx-auto d-bloc user-profile-picture"
+                      />
+                    </div>
+                    <div class="form-group text-center">
+                      <label class="control-label">
+                        {{ file.$ngfName ? file.$ngfName : file.originalname }}
+                      </label>
+                    </div>
+                    <div class="form-group text-center">
+                      <a
+                        type="button"
+                        class="btn btn-danger"
+                        ng-click="vm.removeFileById(file, vm.fileSelected ? 'files' : 'managerFile_id')"
+                      >
+                        X
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Muestra Imagen Unitaria -->
+              <div class="col-md-12" ng-if="!vm.multiFiles">
+                <div ng-show="vm.loading" class="form-group text-center">
+                  <img
+                    ng-src="/modules/core/client/img/loaders/loader.gif"
+                    height="50"
+                    width="50"
+                    alt="Loading image..."
+                  />
+                </div>
+                <div class="form-group text-center">
+                  <img
+                    ngf-src="vm.fileSelected ? vm.lang.files : vm.lang.managerFile_id[0].path"
+                    alt="{{vm.user.displayName}}"
+                    class="img-thumbnail user-profile-picture"
+                    ngf-drop
+                  />
+                </div>
+                <div class="form-group text-center">
+                  <label class="control-label">
+                    {{ vm.fileSelected ? vm.lang.files.$ngfName : vm.lang.managerFile_id[0].originalname }}
+                  </label>
+                </div>
+              </div>
+
+              <!-- Boton Selecciones Imagen  -->
+              <div class="col-md-12">
+                <div class="text-center form-group">
+                  <button
+                    class="btn btn-secondary btn-file"
+                    ngf-select="vm.uploadFiles($files)"
+                    ng-model="vm.lang.files"
+                    accept="image/*"
+                    ngf-before-model-change="vm.loading = true;"
+                    ngf-resize="{width: 400, height: 400}"
+                    ngf-resize-if="$width > 400 || $height > 400"
+                    ngf-max-files="10"
+                    ngf-multiple="vm.multiFiles"
+                    ngf-keep="vm.multiFiles ? 'distinct' : false"
+                  >
+                    {{ 'MANAGER_FILE.SELECT_PICTURE' | translate }}
+                  </button>
+                </div>
+                <div class="text-center form-group">
+                  <input
+                    ng-show="false"
+                    class="form-control"
+                    type="checkbox"
+                    name="isFileSelected"
+                    id="isFileSelected"
+                    ng-model="vm.lang.isFileSelected"
+                    required
+                  />
+                  <div class="valid-feedback text-center">
+                    {{ 'MANAGER_FILE.VALID_NAME' | translate }}
+                  </div>
+                  <div class="invalid-feedback text-center">
+                    {{ 'MANAGER_FILE.INVALID_NAME' | translate }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <br><br>
+        <div class="col-md-12 mb-3">
+          <button type="submit" class="btn btn-primary">
+            {{ vm.lang._id ? 'GLOBAL.UPDATE' : 'GLOBAL.CREATE' | translate }}
+          </button>
+        </div>
+    </div>
+    </form>
+  </div>
+  </div>
+</section>

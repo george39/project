@@ -1,0 +1,68 @@
+<section>
+  <figure class="d-flex justify-content-center mt-3">
+    <img src="/modules/core/client/img/brand/compusum-color@2x.png" alt="Compusum logo" />
+  </figure>
+  <div class="products-title">
+    <h1 class="text-center">Trabaje con nosotros</h1>
+  </div>
+
+  <!-- <p>
+    si desea trabajar con nosotros, por favor llene el siguiente formulario y adjunte su hoja
+  </p> -->
+
+  <form
+    name="vm.workWithUsForm"
+    class="mt-4 mb-4"
+    ng-submit="vm.sendForm(vm.workWithUsForm.$valid)"
+  >
+    <fieldset class="row w-100">
+      <section class="col-md-6 mx-auto">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex justify-content-center mt-4">
+              <button
+                type="submit"
+                class="btn btn-primary btn-block mb-3 mx-auto btn-file"
+                ngf-select="vm.uploadCurriculum($file)"
+                ng-model="vm.userdata.curriculum"
+                ngf-accept="'.pdf,image/*'"
+                ngf-before-model-change="vm.loading = true;"
+                ngf-max-files="1"
+                ngf-multiple="false"
+                ngf-keep="false"
+              >
+                <i class="fas fa-upload"></i> Adjuntar hoja de vida
+              </button>
+            </div>
+            <input
+              type="text"
+              name="name"
+              placeholder="Nombre Completo:"
+              ng-model="vm.userdata.name"
+              class="form-control mb-4"
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Correo:"
+              ng-model="vm.userdata.email"
+              class="form-control mb-4"
+            />
+            <input
+              type="text"
+              name="phone"
+              placeholder="Teléfono:"
+              ng-model="vm.userdata.phone"
+              class="form-control"
+            />
+            <div class="d-flex justify-content-center mt-4">
+              <button type="submit" class="btn btn-success mx-auto btn-block">
+                <i class="fas fa-check"></i> Enviar
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </fieldset>
+  </form>
+</section>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es" ng-strict-di>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+    <title page-title></title>
+    <meta name="description" content="{{description}}" />
+    <meta name="fragment" content="!" />
+
+    <!-- Apple META -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+    <!-- Facebook META -->
+    <meta property="fb:app_id" content="{{facebookAppId}}" />
+    <meta property="og:site_name" content="{{title}}" />
+    <meta property="og:title" content="{{title}}" />
+    <meta property="og:description" content="{{description}}" />
+    <meta property="og:url" content="{{url}}" />
+    <meta property="og:image" content="{{logo}}" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter META -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="{{twitterUsername}}" />
+    <meta name="twitter:title" content="{{title}}" />
+    <meta name="twitter:description" content="{{description}}" />
+    <meta name="twitter:image" content="{{logo}}" />
+
+    <!-- Fav Icon -->
+    <link href="/{{favicon}}" rel="shortcut icon" type="image/x-icon" />
+
+    <!-- Manifest -->
+    <link href="/manifest.json" rel="manifest" />
+
+    <!-- Application CSS Files -->
+    {{#each cssFiles}}
+    <link rel="stylesheet" href="/{{this}}" />
+    {{/each}}
+  </head>
+
+  <body id="page-top" class="ng-cloak">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <span ng-include="'/modules/core/client/views/sidebar.client.view.html'"></span>
+
+      <!-- End of Sidebar -->
+
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+          <!-- Topbar -->
+          <span ng-include=" 'modules/core/client/views/header.client.view.html'"></span>
+          <!-- End of Topbar -->
+
+          <!-- Begin Page Content -->
+          <div class="container">
+            {{{block "content"}}}
+          </div>
+          <!-- /.container-fluid -->
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Copyright &copy; Your Website 2019</span>
+            </div>
+          </div>
+        </footer>
+        <!-- End of Footer -->
+      </div>
+      <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" onclick="window.scrollTo({top: 0, left: 0})">
+      <i class="fas fa-angle-up"></i>
+    </a>
+
+    <noscript>
+      <style>
+        [ng\:cloak],
+        [ng-cloak],
+        [x-ng-cloak],
+        .ng-cloak,
+        .x-ng-cloak {
+          display: block !important;
+        }
+      </style>
+      <div class="alert alert-warning">
+        <strong>This page requires JavaScript.</strong> Please enable it in your browser.
+      </div>
+    </noscript>
+
+    <!--Embedding The User Object-->
+    <script type="text/javascript">
+      var user = {{{ user }}};
+      var env = "{{{ env }}}";
+    </script>
+
+    <!--Load The Socket.io File-->
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+
+    <!--Application JavaScript Files-->
+    {{#each jsFiles}}
+    <script type="text/javascript" src="/{{this}}"></script>
+    {{/each}}
+
+    <!--owasp config sync-->
+    <script type="text/javascript">
+      var sharedConfig = {{{ sharedConfig }}};
+      owaspPasswordStrengthTest.config(sharedConfig.owasp);
+    </script>
+
+    {{#if livereload}}
+    <!--Livereload script rendered -->
+    <script type="text/javascript" src="{{host}}:35729/livereload.js"></script>
+    {{/if}}
+  </body>
+</html>

@@ -1,0 +1,63 @@
+<section class="container">
+  <script type="text/ng-template" id="headerCheckbox.html">
+    <input type="checkbox" ng-model="vm.checkboxes.checked" class="select-all" value="" />
+  </script>
+  <div class="page-header">
+    <div class="row">
+      <div class="col-sm-11">
+        <h1>
+          {{ 'SHOP.NAME' | translate }}
+        </h1>
+      </div>
+      <div class="col-sm-1">
+        <a type="button" class="btn btn-primary" data-ui-sref="shops.create">
+          <i class="fas fa-plus"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped table-responsive">
+    <tr ng-repeat="row in $data">
+      <td data-title="'GLOBAL.ACTIONS' | translate">
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-default btn-sm" ui-sref="shops.view({ shopId: row._id })">
+            <span class="fas fa-eye"></span>
+          </button>
+          <button type="button" class="btn btn-default btn-sm" ui-sref="shops.edit({shopId: row._id})">
+            <span class="fas fa-pencil-alt"></span>
+          </button>
+          <button type="button" class="btn btn-default btn-sm" ng-click="vm.remove(row)">
+            <span class="fas fa-trash-alt"></span>
+          </button>
+        </div>
+      </td>
+      <td data-title="'SHOP.NAME' | translate" filter="{ name: 'text' }">
+        {{ row.name }}
+      </td>
+      <td data-title="'SHOP.USER' | translate" filter="{ 'user_id': 'text' }">
+        {{ row.user_id.displayName }}
+      </td>
+      <td
+        data-title="'MANAGER_FILE.NAME' | translate"
+        filter="{ 'managerFile_id': 'select' }"
+        filter-data="vm.listManagerFiles"
+      >
+        <div class="text-center form-group">
+          <img ngf-src="row.managerFile_id.path" height="50" />
+        </div>
+      </td>
+      <td data-title="'SHOP.DESCRIPTION' | translate" filter="{ description: 'text' }">
+        {{ row.description }}
+      </td>
+      <td data-title="'SHOP.URL' | translate" filter="{ url: 'text' }">
+        {{ row.url }}
+      </td>
+      <td data-title="'SHOP.TEMPLATE' | translate" filter="{ template: 'text' }">
+        {{ row.template }}
+      </td>
+      <td data-title="'SHOP.STATUS' | translate" filter="{ status: 'text' }" filter-data="vm.listStatus('status')">
+        {{ row.status == true ? 'GLOBAL.ACTIVE' : 'GLOBAL.INACTIVE' | translate}}
+      </td>
+    </tr>
+  </table>
+</section>

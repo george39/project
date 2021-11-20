@@ -1,0 +1,64 @@
+<section class="container mt-5">
+  <div class="page-header">
+    <div class="row">
+      <div class="col-sm-11">
+        <h1 ng-bind="vm.notification.username"></h1>
+      </div>
+      <div class="col-sm-1">
+        <a class="btn btn-primary" ui-sref="notifications.list">
+          <i class="fas fa-undo-alt"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'NOTIFICATION.NAME' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.notification.name"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'NOTIFICATION.DESCRIPTION' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.notification.description"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'NOTIFICATION.REDIRECT_TO' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.notification.redirectTo"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'NOTIFICATION.READ' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.notification.read"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.STATUS' | translate }}</strong></div>
+        <div class="col-sm-3">
+          {{ (vm.notification.status == true ? 'GLOBAL.ACTIVE' : 'GLOBAL.INACTIVE') | translate}}
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.CREATED_BY' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.notification.user.displayName"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.CREATED' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.notification.created"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.MODIFIED_BY' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.notification.modifiedBy.displayName"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.MODIFIED' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.notification.modified"></div>
+      </div>
+    </div>
+  </div>
+</section>

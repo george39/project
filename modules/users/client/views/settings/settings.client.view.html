@@ -1,0 +1,39 @@
+<section class="container">
+  <div class="page-header">
+    <h1>Settings</h1>
+  </div>
+  <div class="row">
+    <nav class="col-sm-3 col-md-3">
+      <ul class="list-group" style="cursor: pointer;">
+        <li class="list-group-item" ui-sref-active="active" ui-sref="settings.profile">
+          {{ 'SETTINGS.PROFILE' | translate }}
+        </li>
+        <li class="list-group-item" ui-sref-active="active" ui-sref="settings.picture">
+          {{ 'SETTINGS.PICTURE' | translate }}
+        </li>
+        <li
+          class="list-group-item"
+          ui-sref-active="active"
+          ng-show="vm.user.provider === 'local'"
+          ui-sref="settings.password"
+        >
+          {{ 'SETTINGS.CHANGE_PASSWORD' | translate }}
+        </li>
+        <li
+          class="list-group-item"
+          ui-sref-active="active"
+          ng-show="vm.user.provider === 'local'"
+          ui-sref="settings.privacy"
+        >
+          {{ 'SETTINGS.PRIVACY' | translate }}
+        </li>
+        <li class="list-group-item" ui-sref-active="active" ui-sref="settings.address">
+          {{ 'SETTINGS.ADDRESS' | translate }}
+        </li>
+      </ul>
+    </nav>
+    <div class="col-sm-9 col-md-8 col-lg-8 mx-auto">
+      <div ui-view></div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,43 @@
+{
+  "name": "binlab-store",
+  "description": "Awesome Store by BinLab",
+  "homepage": "http://binlab-store.binlab.io",
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "^3.4.1",
+    "angular": "1.7.9",
+    "angular-animate": "1.7.9",
+    "angular-bootstrap": "^2.5.0",
+    "angular-messages": "1.7.9",
+    "angular-mocks": "1.7.9",
+    "angular-resource": "1.7.9",
+    "angular-cookies": "1.7.9",
+    "angular-sanitize": "1.7.9",
+    "angular-ui-notification": "^0.3.6",
+    "angular-ui-router": "^1.0.24",
+    "bootstrap": "^4.4.1",
+    "ng-file-upload": "^12.2.13",
+    "owasp-password-strength-test": "^1.3.0",
+    "font-awesome": "^5.12.0",
+    "ng-table-bundle": "^4.0.0",
+    "angular-translate-storage-cookie": "^2.18.2",
+    "angular-translate-storage-local": "^2.18.2",
+    "angular-translate-loader-url": "^2.18.2",
+    "angular-translate-loader-static-files": "^2.18.2",
+    "select2": "^4.0.13"
+  },
+  "overrides": {
+    "jquery": {
+      "main": ["dist/jquery.min.js"]
+    },
+    "font-awesome": {
+      "main": ["css/all.css", "js/all.js"]
+    },
+    "bootstrap": {
+      "main": ["dist/css/bootstrap.min.css", "dist/js/bootstrap.min.js"]
+    }
+  },
+  "devDependencies": {
+    "angular-translate": "^2.18.2"
+  }
+}

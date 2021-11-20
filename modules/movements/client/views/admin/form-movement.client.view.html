@@ -1,0 +1,204 @@
+<style>
+  .autocomplete {
+    /*the container must be positioned relative:*/
+    position: relative;
+    display: inline-block;
+  }
+
+  .autocomplete-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
+    left: 0;
+    right: 0;
+  }
+  .autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+  }
+  .autocomplete-items div:hover {
+    /*when hovering an item:*/
+    background-color: #e9e9e9;
+  }
+  .autocomplete-active {
+    /*when navigating through the items using the arrow keys:*/
+    background-color: DodgerBlue !important;
+    color: #ffffff;
+  }
+</style>
+
+<section class="container">
+  <div class="row">
+    <div class="col-sm-11">
+      <h1>
+        {{ vm.movement._id ? 'MOVEMENT.EDIT' : ('MOVEMENT.NEW' | translate) }}
+      </h1>
+    </div>
+    <div class="col-sm-1">
+      <a ng-show="vm.movement._id" class="btn btn-primary" ng-click="vm.remove()">
+        <i class="fas fa-trash-alt"> </i>
+      </a>
+    </div>
+    <div class="col-sm-12">
+      <form
+        name="vm.form.movementForm"
+        class="needs-validation"
+        ng-submit="vm.save(vm.form.movementForm.$valid)"
+        novalidate
+      >
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="product_id">
+              {{ 'PRODUCT.TITLE' | translate }}
+            </label>
+            <div class="autocomplete" style="width: 100%;">
+              <input
+                id="productInput"
+                class="form-control"
+                autocomplete="off"
+                type="text"
+                name="product"
+              />
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3" ng-if="vm.listFeatureDetails.length > 0">
+            <label class="control-label" for="featureDetail_id">
+              {{ 'PRODUCT.COMBINATION' | translate }}
+            </label>
+            <select
+              class="custom-select"
+              name="featureDetail_id"
+              id="featureDetail_id"
+              ng-model="vm.movement.featureDetail_id._id"
+              ng-init="vm.movement.featureDetail_id._id"
+              required
+            >
+              <option value="">{{ 'GLOBAL.SELECT_OPTION' | translate }}</option>
+              <option
+                ng-repeat="item in vm.listFeatureDetails track by item._id"
+                value="{{ item._id }}"
+              >
+                {{ item.name }}
+              </option>
+            </select>
+
+            <div class="valid-feedback">
+              {{ 'FEATURE_DETAIL.VALID_NAME' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'FEATURE_DETAIL.INVALID_NAME' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="typeMovement_id">
+              {{ 'MOVEMENT.TYPE_MOVEMENT' | translate }}
+            </label>
+            <select
+              class="custom-select"
+              name="typeMovement_id"
+              id="typeMovement_id"
+              ng-model="vm.movement.typeMovement_id._id"
+              ng-init="vm.movement.typeMovement_id._id"
+              required
+            >
+              <option value="">{{ 'GLOBAL.SELECT_OPTION' | translate }}</option>
+              <option
+                ng-repeat="item in vm.listTypeMovements track by item._id"
+                value="{{ item._id }}"
+              >
+                {{ 'MOVEMENT.' + item.name.toUpperCase() | translate }}
+              </option>
+            </select>
+            <div class="valid-feedback">
+              {{ 'TYPE_MOVEMENT.VALID_NAME' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'TYPE_MOVEMENT.INVALID_NAME' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="quantity">
+              {{ 'MOVEMENT.QUANTITY' | translate }}
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              name="quantity"
+              id="quantity"
+              ng-model="vm.movement.quantity"
+              required
+            />
+            <div class="valid-feedback">
+              {{ 'MOVEMENT.VALID_QUANTITY' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'MOVEMENT.INVALID_QUANTITY' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="price">
+              {{ 'PRODUCT.PRICE' | translate }}
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              name="price"
+              id="price"
+              ng-model="vm.movement.price"
+            />
+            <div class="valid-feedback">
+              {{ 'MOVEMENT.VALID_QUANTITY' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'MOVEMENT.INVALID_QUANTITY' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="isDefault" translate>
+              {{ 'PRODUCT.IS_DEFAULT' | translate }}
+            </label>
+            <input
+              class="form-control"
+              type="checkbox"
+              name="isDefault"
+              id="isDefault"
+              data-ng-model="vm.movement.isDefault"
+              checked="true"
+            />
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="status" translate>
+              {{ 'GLOBAL.STATUS' | translate }}
+            </label>
+            <input
+              class="form-control"
+              type="checkbox"
+              name="status"
+              id="status"
+              data-ng-model="vm.movement.status"
+              checked="true"
+            />
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <button type="submit" class="btn btn-primary">
+              {{ vm.movement._id ? 'GLOBAL.UPDATE' : ('GLOBAL.CREATE' | translate) }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,93 @@
+<section class="container">
+  <script type="text/ng-template" id="headerCheckbox.html">
+    <input type="checkbox" ng-model="vm.checkboxes.checked" class="select-all" value="" />
+  </script>
+  <div class="page-header">
+    <div class="row">
+      <div class="col-sm-11">
+        <h1>
+          {{ 'SHIPPER.NAME' | translate }}
+        </h1>
+      </div>
+      <div class="col-sm-1">
+        <a type="button" class="btn btn-primary" data-ui-sref="shippers.create">
+          <i class="fas fa-plus"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped table-responsive">
+    <colgroup>
+      <col width="10%" />
+      <col width="20%" />
+      <col width="20%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+    </colgroup>
+    <tr ng-repeat="row in $data">
+      <td data-title="'GLOBAL.ACTIONS' | translate">
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-default btn-sm" ui-sref="shippers.view({ shipperId: row._id })">
+            <span class="fas fa-eye"></span>
+          </button>
+          <button type="button" class="btn btn-default btn-sm" ui-sref="shippers.edit({shipperId: row._id})">
+            <span class="fas fa-pencil-alt"></span>
+          </button>
+          <button type="button" class="btn btn-default btn-sm" ng-click="vm.remove(row)">
+            <span class="fas fa-trash-alt"></span>
+          </button>
+        </div>
+      </td>
+      <td data-title="'MANAGER_FILE.IMAGE' | translate">
+        <div class="text-center form-group">
+          <img ngf-src="row.managerFile_id[0].path" height="50" />
+        </div>
+      </td>
+      <td data-title="'THIRD.NAME' | translate" filter="{ 'third_id': 'select' }" filter-data="vm.listThirds">
+        {{ row.third_id.name }}
+      </td>
+      <td data-title="'SHIPPER.URL' | translate" filter="{ url: 'text' }">
+        {{ row.url }}
+      </td>
+      <td data-title="'SHIPPER.SHIPPING_SPEED' | translate" filter="{ shippingSpeed: 'text' }">
+        {{ row.shippingSpeed }}
+      </td>
+      <td data-title="'SHIPPER.SHIPPING_COST' | translate" filter="{ shippingCost: 'text' }">
+        {{ row.shippingCost }}
+      </td>
+      <td data-title="'SHIPPER.MAX_WIDTH' | translate" filter="{ maxWidth: 'text' }">
+        {{ row.maxWidth }}
+      </td>
+      <td data-title="'SHIPPER.MAX_HEIGHT' | translate" filter="{ maxHeight: 'text' }">
+        {{ row.maxHeight }}
+      </td>
+      <td data-title="'SHIPPER.MAX_DEPTH' | translate" filter="{ maxDepth: 'text' }">
+        {{ row.maxDepth }}
+      </td>
+      <td data-title="'SHIPPER.MAX_WEIGHT' | translate" filter="{ maxWeight: 'text' }">
+        {{ row.maxWeight }}
+      </td>
+      <td data-title="'SHIPPER.RATE' | translate" filter="{ rate: 'text' }">
+        {{ row.rate }}
+      </td>
+      <td
+        data-title="'SHIPPER.IS_FREE' | translate"
+        filter="{ isFree: 'select' }"
+        filter-data="vm.listStatus('status')"
+      >
+        {{ row.isFree == true ? 'GLOBAL.ACTIVE' : 'GLOBAL.INACTIVE' | translate}}
+      </td>
+      <td data-title="'SHIPPER.STATUS' | translate" filter="{ status: 'select' }" filter-data="vm.listStatus('status')">
+        {{ row.status == true ? 'GLOBAL.ACTIVE' : 'GLOBAL.INACTIVE' | translate}}
+      </td>
+    </tr>
+  </table>
+</section>

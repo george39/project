@@ -1,0 +1,97 @@
+<style>
+  .button-upload-image {
+    float: right;
+    margin-right: 15px;
+    margin-top: 15px;
+  }
+</style>
+
+<section class="container pt-5 mb-5" style="min-height: 490px;">
+  <div class="accordion" id="accordionExample">
+    <div class="card mt-3" style="border: 1px solid #d7d9de;" ng-repeat="order in vm.historyOrders">
+      <div class="row">
+        <div class="col-md-6">
+          <a class="btn btn-link btn-block text-left d-inline-block">
+            <strong>creado: </strong>{{ order.created | date: 'yyyy-MM-dd' }} <br />
+            <strong>direccíon: </strong>{{ order.address.address }} <br />
+            <strong>total: </strong>{{ order.total }} <br />
+            <strong>status: </strong>{{ order.status.nameLang }} <br />
+          </a>
+        </div>
+        <div
+          class="col-md-6"
+          ng-if="
+            order.order_id.payType.nameLang === 'Transacción' && !order.order_id.paymentReceipt
+          "
+        >
+          <button
+            ng-if="!vm.paymentReceipt[order.order_id._id]"
+            class="btn btn-success btn-file button-upload-image {{ 'i' + order.order_id._id }}"
+            ngf-select="vm.uploadPaymentReceipt($file, order.order_id._id)"
+            ng-model="vm.paymentReceipt[order.order_id._id]"
+            accept="image/*"
+            ngf-before-model-change="vm.loading = true;"
+            ngf-resize="{width: 2000, height: 1990}"
+            ngf-resize-if="$width > 2000 || $height > 1990"
+            ngf-max-files="1"
+            ngf-multiple="false"
+            ngf-keep="false"
+          >
+            {{ 'Subir comprobante' | translate }} <i class="fas fa-upload"></i>
+          </button>
+          <button
+            ng-if="vm.paymentReceipt[order.order_id._id]"
+            ng-click="vm.removeImage(order.order_id._id)"
+            class="btn btn-danger button-upload-image {{ 'i' + order.order_id._id }}"
+          >
+            <i class="fas fa-window-close"></i>
+          </button>
+          <button
+            class="btn btn-success button-upload-image {{ 'i' + order.order_id._id }}"
+            ng-click="vm.uploadImage(order.order_id._id)"
+            ng-if="vm.paymentReceipt[order.order_id._id]"
+          >
+            <i class="fas fa-check"></i>
+          </button>
+        </div>
+      </div>
+
+      <div
+        id="collapse{{ $index }}"
+        class="collapse show"
+        aria-labelledby="headingOne"
+        data-parent="#accordionExample"
+      >
+        <h2 class="text-secondary text-center">Historial de pedido</h2>
+        <table class="table table-condensed table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>{{ 'GLOBAL.CREATED' | translate }}</th>
+              <th>{{ 'ORDER.MESSAGE' | translate }}</th>
+              <th>{{ 'SHOP.STATUS' | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="history in order.history">
+              <td>{{ history.created | date: 'yyyy-MM-dd' }}</td>
+              <td>{{ history.message }}</td>
+              <td>
+                <p
+                  class="d-inline-block p-1"
+                  style="
+            border-radius: 7px;
+            font-weight: 600;
+            color: {{ vm.statusColor[history.status.nameLang].color }};
+            background-color: {{ vm.statusColor[history.status.nameLang].background }};
+          "
+                >
+                  {{ history.status.nameLang }}
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>

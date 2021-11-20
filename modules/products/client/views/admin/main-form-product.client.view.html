@@ -1,0 +1,903 @@
+<section class="container">
+  <div class="row">
+    <div class="col-sm-11">
+      <h1>
+        {{ vm.product._id ? 'PRODUCT.EDIT' : 'PRODUCT.NEW' | translate }}
+      </h1>
+    </div>
+    <div class="col-sm-1">
+      <a ng-show="vm.product._id" class="btn btn-primary" ng-click="vm.remove()">
+        <i class="fas fa-trash-alt"> </i>
+      </a>
+    </div>
+    <div class="col-sm-12">
+      <form
+        name="vm.form.productForm"
+        class="needs-validation"
+        ng-submit="vm.save(vm.form.productForm.$valid)"
+        novalidate
+      >
+        <div class="form-row">
+          <!-- Categoria -->
+          <!-- <div class="col-md-12 mb-3">
+            <label class="control-label" for="category_id">
+              {{ 'CATEGORY.NAME' | translate }}
+            </label>
+            <select
+              class="custom-select"
+              name="product_id"
+              id="product_id"
+              ng-model="vm.product.category_id"
+              ng-options="item as item.name for item in vm.listCategories track by item._id"
+              ng-init="vm.product.category_id._id"
+              multiple
+              autofocus
+            >
+            </select>
+            <div class="valid-feedback">
+              {{ 'CATEGORY.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'CATEGORY.INVALID' | translate }}
+            </div>
+          </div> -->
+
+          <!-- Products Langs  -->
+          <!-- <fieldset class="border p-2 col-md-12" ng-repeat="item in vm.listLangs">
+            <legend class="w-auto">{{ item.name }}</legend>
+
+            <div class="row">
+              <div ng-show="false" class="col-md-12 mb-3">
+                <input
+                  class="form-control"
+                  name="productLang[$index]"
+                  id="productLang[$index]"
+                  ng-init="vm.product.productLang[$index].lang_id=item._id"
+                  ng-model="vm.product.productLang[$index].lang_id"
+                />
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <label class="control-label" for="productLang">
+                  {{ 'PRODUCT.LANG_ID' | translate }}
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="productName[$index]"
+                  id="productName[$index]"
+                  ng-model="vm.product.productLang[$index].name"
+                  required
+                />
+                <div class="valid-feedback">
+                  {{ 'CATEGORY.VALID_NAME' | translate }}
+                </div>
+                <div class="invalid-feedback">
+                  {{ 'CATEGORY.INVALID_NAME' | translate }}
+                </div>
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <label class="control-label" for="productLang">
+                  {{ 'PRODUCT.DESCRIPTION' | translate }}
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="productDescription[$index]"
+                  id="productDescription[$index]"
+                  ng-model="vm.product.productLang[$index].description"
+                  required
+                />
+                <div class="valid-feedback">
+                  {{ 'PRODUCT.VALID_DESCRIPTION' | translate }}
+                </div>
+                <div class="invalid-feedback">
+                  {{ 'PRODUCT.INVALID_DESCRIPTION' | translate }}
+                </div>
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <label class="control-label" for="productLang">
+                  {{ 'GLOBAL.LINK_REWRITE' | translate }}
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="productLinkRewrite[$index]"
+                  id="productLinkRewrite[$index]"
+                  ng-model="vm.product.productLang[$index].linkRewrite"
+                  required
+                />
+                <div class="valid-feedback">
+                  {{ 'GLOBAL.VALID_LINK_REWRITE' | translate }}
+                </div>
+                <div class="invalid-feedback">
+                  {{ 'GLOBAL.INVALID_LINK_REWRITE' | translate }}
+                </div>
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <label class="control-label" for="productLang">
+                  {{ 'GLOBAL.META_TITLE' | translate }}
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="productMetaTitle[$index]"
+                  id="productMetaTitle[$index]"
+                  ng-model="vm.product.productLang[$index].metaTitle"
+                  required
+                />
+                <div class="valid-feedback">
+                  {{ 'GLOBAL.VALID_META_TITLE' | translate }}
+                </div>
+                <div class="invalid-feedback">
+                  {{ 'GLOBAL.INVALID_META_TITLE' | translate }}
+                </div>
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <label class="control-label" for="productLang">
+                  {{ 'GLOBAL.META_KEYWORDS' | translate }}
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="productMetaKeywords[$index]"
+                  id="productMetaKeywords[$index]"
+                  ng-model="vm.product.productLang[$index].metaKeywords"
+                  required
+                />
+                <div class="valid-feedback">
+                  {{ 'GLOBAL.VALID_META_KEYWORDS' | translate }}
+                </div>
+                <div class="invalid-feedback">
+                  {{ 'GLOBAL.INVALID_META_KEYWORDS' | translate }}
+                </div>
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <label class="control-label" for="productLang">
+                  {{ 'GLOBAL.META_DESCRIPTION' | translate }}
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="productMetaDescription[$index]"
+                  id="productMetaDescription[$index]"
+                  ng-model="vm.product.productLang[$index].metaDescription"
+                  required
+                />
+                <div class="valid-feedback">
+                  {{ 'GLOBAL.VALID_META_DESCRIPTION' | translate }}
+                </div>
+                <div class="invalid-feedback">
+                  {{ 'GLOBAL.INVALID_META_DESCRIPTION' | translate }}
+                </div>
+              </div>
+            </div>
+          </fieldset> -->
+
+          <!-- Fabricante del producto  -->
+          <!-- <div class="col-md-12 mb-3">
+            <label class="control-label" for="maker_id">
+              {{ 'PRODUCT.MAKER' | translate }}
+            </label>
+            <select
+              class="custom-select"
+              name="maker_id"
+              id="maker_id"
+              ng-model="vm.product.maker_id"
+              ng-init="vm.product.maker_id"
+              ng-options="item as item.name for item in vm.listMakers track by item._id"
+              required
+            >
+              <option selected disabled value="">{{ 'PRODUCT.MAKER_SELECT' | translate }}</option>
+            </select>
+            <div class="valid-feedback">
+              {{ 'PRODUCT.MAKER_VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'PRODUCT.MAKER_INVALID' | translate }}
+            </div>
+          </div> -->
+
+          <!-- Provedor del producto -->
+          <!-- <div class="col-md-12 mb-3">
+            <label class="control-label" for="provider_id">
+              {{ 'PRODUCT.PROVIDER' | translate }}
+            </label>
+            <select
+              class="custom-select"
+              name="provider_id"
+              id="provider_id"
+              ng-model="vm.product.provider_id"
+              ng-init="vm.product.provider_id"
+              ng-options="item as item.name for item in vm.listProviders track by item._id"
+              required
+            >
+              <option selected disabled value="">{{ 'PRODUCT.PROVIDER_SELECT' | translate }}</option>
+            </select>
+            <div class="valid-feedback">
+              {{ 'PRODUCT.PROVIDER_VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'PRODUCT.PROVIDER_INVALID' | translate }}
+            </div>
+          </div> -->
+
+          <!-- Codigo de Barras  -->
+          <!-- <div class="col-md-6 mb-3">
+            <label class="control-label" for="barCode">
+              {{ 'PRODUCT.BAR_CODE' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="barCode"
+              id="barCode"
+              ng-model="vm.product.barCode"
+              required
+            />
+            <div class="valid-feedback">
+              {{ 'PRODUCT.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'PRODUCT.INVALID' | translate }}
+            </div>
+          </div> -->
+
+          <!-- Codigo interno del producto  -->
+          <!-- <div class="col-md-6 mb-3">
+            <label class="control-label" for="code">
+              {{ 'PRODUCT.CODE' | translate }}
+            </label>
+            <input type="text" class="form-control" name="code" id="code" ng-model="vm.product.code" required />
+            <div class="valid-feedback">
+              {{ 'PRODUCT.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'PRODUCT.INVALID' | translate }}
+            </div>
+          </div> -->
+
+          <!-- Cantidad del producto  -->
+          <!-- <div class="col-md-6 mb-3">
+            <label class="control-label" for="quantity">
+              {{ 'PRODUCT.QUANTITY' | translate }}
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              name="quantity"
+              id="quantity"
+              ng-model="vm.product.quantity"
+              required
+            />
+            <div class="valid-feedback">
+              {{ 'PRODUCT.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'PRODUCT.INVALID' | translate }}
+            </div>
+          </div> -->
+
+          <!-- Cantidad Minima del producto  -->
+          <!-- <div class="col-md-6 mb-3">
+            <label class="control-label" for="quantityMin">
+              {{ 'PRODUCT.QUANTITY_MIN' | translate }}
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              name="quantityMin"
+              id="quantityMin"
+              ng-model="vm.product.quantityMin"
+              required
+            />
+            <div class="valid-feedback">
+              {{ 'PRODUCT.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'PRODUCT.INVALID' | translate }}
+            </div>
+          </div> -->
+
+          <!-- Impuestos  -->
+          <!-- <div class="col-md-12 mb-3">
+            <label class="control-label" for="tax_id">
+              {{ 'TAX.NAME' | translate }}
+            </label>
+            <select
+              class="custom-select"
+              name="tax_id"
+              id="tax_id"
+              ng-model="vm.product.tax_id"
+              ng-init="vm.product.tax_id"
+              ng-options="item as item.name for item in vm.listTaxes track by item._id"
+              multiple
+              required
+            >
+            </select>
+            <div class="valid-feedback">
+              {{ 'TAX.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'TAX.INVALID' | translate }}
+            </div>
+          </div> -->
+
+          <!-- Costo del producto  -->
+          <!-- <div class="col-md-6 mb-3">
+            <label class="control-label" for="cost">
+              {{ 'PRODUCT.COST' | translate }}
+            </label>
+            <input type="number" class="form-control" name="cost" id="cost" ng-model="vm.product.cost" required />
+            <div class="valid-feedback">
+              {{ 'PRODUCT.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'PRODUCT.INVALID' | translate }}
+            </div>
+          </div> -->
+
+          <!-- Precio del producto  -->
+          <!-- <div class="col-md-6 mb-3">
+            <label class="control-label" for="price">
+              {{ 'PRODUCT.PRICE' | translate }}
+            </label>
+
+            <input
+              type="number"
+              class="form-control"
+              name="price"
+              id="price"
+              ng-model="vm.product.price"
+              ng-change="vm.calculateNewValue('price')"
+              required
+            />
+            <div class="valid-feedback">
+              {{ 'PRODUCT.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'PRODUCT.INVALID' | translate }}
+            </div>
+          </div> -->
+
+          <!-- Typo de descuento del producto  -->
+          <!-- <div class="col-md-12 mb-3">
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" ng-model="vm.product.typeDiscount" value="null" />
+                Ninguna
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" ng-model="vm.product.typeDiscount" value="global" />
+                Global
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" ng-model="vm.product.typeDiscount" value="percent" />
+                Descuento
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" ng-model="vm.product.typeDiscount" value="listPrice" />
+                Listas
+              </label>
+            </div>
+          </div> -->
+
+          <!-- <div ng-if="vm.product.typeDiscount == 'percent'" class="col-md-12 mb-3">
+            <label class="control-label" for="percentDiscount">
+              {{ 'PRODUCT.PERCENT_DISCOUNT' | translate }}
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              name="percentDiscount"
+              id="percentDiscount"
+              ng-model="vm.product.percentDiscount"
+              required
+            />
+            <div class="valid-feedback">
+              {{ 'PRODUCT.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'PRODUCT.INVALID' | translate }}
+            </div>
+          </div> -->
+
+          <!-- Descuento local  -->
+          <!-- <fieldset ng-if="vm.product.typeDiscount == 'percent'" class="border p-2 col-md-12">
+            <legend class="w-auto">{{ item.name }}</legend>
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label class="control-label" for="price_list_id">
+                  {{ 'PRICE_LIST.DISCOUNT_TYPE' | translate }}
+                </label>
+                <select
+                  class="custom-select"
+                  name="product.localDiscount.discountType"
+                  id="product.localDiscount.discountType"
+                  ng-model="vm.product.localDiscount.discountType"
+                  ng-init="vm.product.localDiscount.discountType"
+                  ng-options="item.id as item.name for item in vm.listTypeDiscount"
+                  required
+                >
+                </select>
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label class="control-label" for="price_list_id.discountValue">
+                  {{ 'PRICE_LIST.DISCOUNT_VALUE' | translate }}
+                </label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="product.localDiscount.discountValue"
+                  id="product.localDiscount.discountValue"
+                  ng-model="vm.product.localDiscount.discountValue"
+                />
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label class="control-label" for="price_list_id.newPrice">
+                  {{ 'PRICE_LIST.NEW_PRICE' | translate }}
+                </label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="product.localDiscount.newPrice"
+                  id="product.localDiscount.newPrice"
+                  ng-model="vm.product.localDiscount.newPrice"
+                  disabled
+                />
+              </div>
+            </div>
+          </fieldset> -->
+          <!-- // FIN Descuento local  -->
+
+          <!-- Listados de precios -->
+          <!-- <fieldset
+            ng-if="vm.product.typeDiscount == 'listPrice'"
+            class="border p-2 col-md-12"
+            ng-repeat="item in vm.listDiscountLists"
+          >
+            <legend class="w-auto">{{ item.name }}</legend>
+
+            <div class="row">
+              <div ng-show="false" class="col-md-4 mb-3">
+                <label class="control-label" for="price_list_id">
+                  _ID list price
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="priceListId[$index]"
+                  id="priceListId[$index]"
+                  ng-init="vm.product.discountList_id[$index]._id=item._id"
+                  ng-model="vm.product.discountList_id[$index]._id"
+                />
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label class="control-label" for="price_list_id">
+                  {{ 'PRICE_LIST.DISCOUNT_TYPE' | translate }}
+                </label>
+                <select
+                  class="custom-select"
+                  name="priceListType[$index]"
+                  id="priceListType[$index]"
+                  ng-model="vm.product.discountList_id[$index].discountType"
+                  ng-init="vm.product.discountList_id[$index].discountType"
+                  ng-options="item.id as item.name for item in vm.listTypeDiscount"
+                  ng-change="vm.calculateNewValue('discountValue',$index)"
+                  required
+                >
+                </select>
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label class="control-label" for="price_list_id.discountValue">
+                  {{ 'PRICE_LIST.DISCOUNT_VALUE' | translate }}
+                </label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="priceListValue[$index]"
+                  id="priceListValue[$index]"
+                  ng-model="vm.product.discountList_id[$index].discountValue"
+                  ng-change="vm.calculateNewValue('discountValue',$index)"
+                />
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label class="control-label" for="price_list_id.newPrice">
+                  {{ 'PRICE_LIST.NEW_PRICE' | translate }}
+                </label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="priceListNewPrice[$index]"
+                  id="priceListNewPrice[$index]"
+                  ng-model="vm.product.discountList_id[$index].newPrice"
+                  disabled
+                />
+              </div>
+            </div>
+          </fieldset> -->
+          <!-- // FIN Listados de precios -->
+
+          <!-- Datos de Envío  -->
+          <!-- <fieldset class="border p-2 col-md-12">
+            <legend class="w-auto">{{ 'PRODUCT.SHIPPINGDATA' | translate}}</legend>
+
+            <div class="col-md-12 mb-3">
+              <label class="control-label" for="shippingData">
+                {{ 'SHIPPER.NAME' | translate }}
+              </label>
+              <select
+                class="custom-select"
+                name="shippingData.shipper_id"
+                id="shippingData.shipper_id"
+                ng-model="vm.product.shippingData.shipper_id"
+                ng-init="vm.product.shippingData.shipper_id"
+                ng-options="item as item.name for item in vm.listShippers track by item._id"
+                multiple
+                required
+              >
+              </select>
+              <div class="valid-feedback">
+                {{ 'SHIPPER.VALID' | translate }}
+              </div>
+              <div class="invalid-feedback">
+                {{ 'SHIPPER.INVALID' | translate }}
+              </div>
+            </div>
+
+            <div class="col-md-12 mb-3">
+              <label class="control-label" for="shippingData.location">
+                {{ 'PRODUCT.LOCATION' | translate }}
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                name="shippingData.location"
+                id="shippingData.location"
+                ng-model="vm.product.shippingData.location"
+                required
+              />
+              <div class="valid-feedback">
+                {{ 'PRODUCT.LOCATION_VALID' | translate }}
+              </div>
+              <div class="invalid-feedback">
+                {{ 'PRODUCT.LOCATION_INVALID' | translate }}
+              </div>
+            </div>
+
+            <div class="row p-3">
+              <div class="col-md-3 mb-3">
+                <label class="control-label" for="shippingData.width">
+                  {{ 'PRODUCT.WIDTH' | translate }}
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="shippingData.width"
+                  id="shippingData.width"
+                  ng-model="vm.product.shippingData.width"
+                  required
+                />
+                <div class="valid-feedback">
+                  {{ 'PRODUCT.WIDTH_VALID' | translate }}
+                </div>
+                <div class="invalid-feedback">
+                  {{ 'PRODUCT.WIDTH_INVALID' | translate }}
+                </div>
+              </div>
+
+              <div class="col-md-3 mb-3">
+                <label class="control-label" for="shippingData.height">
+                  {{ 'PRODUCT.HEIGHT' | translate }}
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="shippingData.height"
+                  id="shippingData.height"
+                  ng-model="vm.product.shippingData.height"
+                  required
+                />
+                <div class="valid-feedback">
+                  {{ 'PRODUCT.HEIGHT_VALID' | translate }}
+                </div>
+                <div class="invalid-feedback">
+                  {{ 'PRODUCT.HEIGHT_INVALID' | translate }}
+                </div>
+              </div>
+
+              <div class="col-md-3 mb-3">
+                <label class="control-label" for="shippingData.depth">
+                  {{ 'PRODUCT.DEPTH' | translate }}
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="shippingData.depth"
+                  id="shippingData.depth"
+                  ng-model="vm.product.shippingData.depth"
+                  required
+                />
+                <div class="valid-feedback">
+                  {{ 'PRODUCT.DEPTH_VALID' | translate }}
+                </div>
+                <div class="invalid-feedback">
+                  {{ 'PRODUCT.DEPTH_INVALID' | translate }}
+                </div>
+              </div>
+
+              <div class="col-md-3 mb-3">
+                <label class="control-label" for="shippingData.weight">
+                  {{ 'PRODUCT.WEIGHT' | translate }}
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="shippingData.weight"
+                  id="shippingData.weight"
+                  ng-model="vm.product.shippingData.weight"
+                  required
+                />
+                <div class="valid-feedback">
+                  {{ 'PRODUCT.WEIGHT_VALID' | translate }}
+                </div>
+                <div class="invalid-feedback">
+                  {{ 'PRODUCT.WEIGHT_INVALID' | translate }}
+                </div>
+              </div>
+            </div>
+          </fieldset> -->
+          <!-- FIN Datos de Envío  -->
+
+          <!-- Propiedades  -->
+          <fieldset class="border p-2 col-md-12">
+            <legend class="w-auto">{{ 'PRODUCT.CHARACTERISTIC' | translate}}</legend>
+            <div class="row">
+              <div class="col-md-4 mb-3 text-center">
+                <label class="control-label" for="showPrice" translate>
+                  {{ 'PRODUCT.SHOW_PRICE' | translate }}
+                </label>
+                <input
+                  class="form-control"
+                  type="checkbox"
+                  name="showPrice"
+                  id="showPrice"
+                  data-ng-model="vm.product.showPrice"
+                  checked="true"
+                />
+              </div>
+
+              <div class="col-md-4 mb-3 text-center">
+                <label class="control-label" for="onlineOnly" translate>
+                  {{ 'PRODUCT.ONLINE_ONLY' | translate }}
+                </label>
+                <input
+                  class="form-control"
+                  type="checkbox"
+                  name="onlineOnly"
+                  id="onlineOnly"
+                  data-ng-model="vm.product.onlineOnly"
+                  checked="true"
+                />
+              </div>
+
+              <div class="col-md-4 mb-3 text-center">
+                <label class="control-label" for="isOffer" translate>
+                  {{ 'PRODUCT.IS_OFFER' | translate }}
+                </label>
+                <input
+                  class="form-control"
+                  type="checkbox"
+                  name="isOffer"
+                  id="isOffer"
+                  data-ng-model="vm.product.isOffer"
+                  checked="true"
+                />
+              </div>
+
+              <div class="col-md-4 mb-3 text-center">
+                <label class="control-label" for="availableNow" translate>
+                  {{ 'PRODUCT.AVAILABLE_NOW' | translate }}
+                </label>
+                <input
+                  class="form-control"
+                  type="checkbox"
+                  name="availableNow"
+                  id="availableNow"
+                  data-ng-model="vm.product.availableNow"
+                  checked="true"
+                />
+              </div>
+
+              <div class="col-md-4 mb-3 text-center">
+                <label class="control-label" for="deliveryInStock" translate>
+                  {{ 'PRODUCT.DELIVERY_IN_STOCK' | translate }}
+                </label>
+                <input
+                  class="form-control"
+                  type="checkbox"
+                  name="deliveryInStock"
+                  id="deliveryInStock"
+                  data-ng-model="vm.product.deliveryInStock"
+                  checked="true"
+                />
+              </div>
+
+              <div class="col-md-4 mb-3 text-center">
+                <label class="control-label" for="outstanding" translate>
+                  {{ 'PRODUCT.OUTSTANDING' | translate }}
+                </label>
+                <input
+                  class="form-control"
+                  type="checkbox"
+                  name="outstanding"
+                  id="outstanding"
+                  data-ng-model="vm.product.outstanding"
+                  checked="true"
+                />
+              </div>
+            </div>
+          </fieldset>
+          <!-- FIN Propiedades  -->
+
+          <!-- Producto esta activo  -->
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="status" translate>
+              {{ 'GLOBAL.STATUS' | translate }}
+            </label>
+            <input
+              class="form-control"
+              type="checkbox"
+              name="status"
+              id="status"
+              data-ng-model="vm.product.status"
+              checked="true"
+            />
+          </div>
+
+          <!-- Cargar Imagen -->
+          <div class="col-md-12 mb-3">
+            <div class="row">
+              <!-- Titulo Cargar Imagen -->
+              <div class="col-md-12">
+                <label class="control-label">
+                  {{ 'CATEGORY.LOAD_IMAGE' | translate }}
+                </label>
+              </div>
+
+              <div class="col-md-12 mb-3" ng-if="vm.multiFiles">
+                <div class="progress">
+                  <div
+                    class="progress-bar progress-bar-striped progress-bar-animated"
+                    role="progressbar"
+                    ng-style="{ 'width': vm.valueProgress + '%' }"
+                    aria-valuenow="{{ vm.valueProgress }}"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  >
+                    {{ vm.valueProgress }}%
+                  </div>
+                </div>
+              </div>
+
+              <!-- Muestra Imagenes -->
+              <div class="col-md-12" ng-if="vm.multiFiles">
+                <div class="form-group text-center">
+                  <div ng-repeat="file in vm.product.files">
+                    <div class="form-group text-center">
+                      <img
+                        ngf-src="file.$ngfName ? file : file.path"
+                        alt="{{vm.user.displayName}}"
+                        class="rounded mx-auto d-bloc user-profile-picture"
+                      />
+                    </div>
+                    <div class="form-group text-center">
+                      <label class="control-label">
+                        {{ file.$ngfName ? file.$ngfName : file.originalname }}
+                      </label>
+                    </div>
+                    <div class="form-group text-center">
+                      <a
+                        type="button"
+                        class="btn btn-danger"
+                        ng-click="vm.removeFileById(file, vm.fileSelected ? 'files' : 'managerFile_id')"
+                      >
+                        X
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Muestra Imagen Unitaria -->
+              <div class="col-md-12" ng-if="!vm.multiFiles">
+                <div ng-show="vm.loading" class="form-group text-center">
+                  <img
+                    ng-src="/modules/core/client/img/loaders/loader.gif"
+                    height="50"
+                    width="50"
+                    alt="Loading image..."
+                  />
+                </div>
+                <div class="form-group text-center">
+                  <img
+                    ngf-src="vm.fileSelected ? vm.product.files : vm.product.managerFile_id[0].path"
+                    alt="{{vm.user.displayName}}"
+                    class="img-thumbnail user-profile-picture"
+                    ngf-drop
+                  />
+                </div>
+                <div class="form-group text-center">
+                  <label class="control-label">
+                    {{ vm.fileSelected ? vm.product.files.$ngfName : vm.product.managerFile_id[0].originalname }}
+                  </label>
+                </div>
+              </div>
+
+              <!-- Boton Selecciones Imagen  -->
+              <div class="col-md-12">
+                <div class="text-center form-group">
+                  <button
+                    class="btn btn-secondary btn-file"
+                    ngf-select="vm.uploadFiles($files)"
+                    ng-model="vm.product.files"
+                    accept="image/*"
+                    ngf-before-model-change="vm.loading = true;"
+                    ngf-resize="{width: 400, height: 400}"
+                    ngf-resize-if="$width > 400 || $height > 400"
+                    ngf-max-files="10"
+                    ngf-multiple="vm.multiFiles"
+                    ngf-keep="vm.multiFiles ? 'distinct' : false"
+                  >
+                    {{ 'MANAGER_FILE.SELECT_PICTURE' | translate }}
+                  </button>
+                </div>
+                <div class="text-center form-group">
+                  <input
+                    ng-show="false"
+                    class="form-control"
+                    type="checkbox"
+                    name="isFileSelected"
+                    id="isFileSelected"
+                    ng-model="vm.product.isFileSelected"
+                    required
+                  />
+                  <div class="valid-feedback text-center">
+                    {{ 'MANAGER_FILE.VALID_NAME' | translate }}
+                  </div>
+                  <div class="invalid-feedback text-center">
+                    {{ 'MANAGER_FILE.INVALID_NAME' | translate }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- // Fin Cargar Imagenes -->
+
+          <div class="col-md-12 mb-3">
+            <button type="submit" class="btn btn-primary">
+              {{ vm.product._id ? 'GLOBAL.UPDATE' : 'GLOBAL.CREATE' | translate }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

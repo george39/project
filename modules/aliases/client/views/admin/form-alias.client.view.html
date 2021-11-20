@@ -1,0 +1,79 @@
+<section class="container pt-4">
+  <div class="row">
+    <div class="col-sm-11">
+      <h1>
+        {{ vm.alias._id ? 'ALIAS.EDIT' : 'ALIAS.NEW' | translate }}
+      </h1>
+    </div>
+    <div class="col-sm-1">
+      <a ng-show="vm.alias._id" class="btn btn-primary" ng-click="vm.remove()">
+        <i class="fas fa-trash-alt"> </i>
+      </a>
+    </div>
+    <div class="col-sm-12">
+      <form name="vm.form.aliasForm" class="needs-validation" ng-submit="vm.save(vm.form.aliasForm.$valid)" novalidate>
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="nameLang">
+              {{ 'ALIAS.NAME_LANG' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="nameLang"
+              id="nameLang"
+              required
+              ng-model="vm.alias.nameLang"
+            />
+            <div class="valid-feedback">
+              {{ 'ALIAS.VALID_NAME_LANG' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'ALIAS.INVALID_NAME_LANG' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="systemName">
+              {{ 'ALIAS.SYSTEM_NAME' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="systemName"
+              id="systemName"
+              ng-model="vm.alias.systemName"
+              required
+            />
+            <div class="valid-feedback">
+              {{ 'ALIAS.VALID_SYSTEM_NAME' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'ALIAS.INVALID_SYSTEM_NAME' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="status" translate>
+              {{ 'GLOBAL.STATUS' | translate }}
+            </label>
+            <input
+              class="form-control"
+              type="checkbox"
+              name="status"
+              id="status"
+              data-ng-model="vm.alias.status"
+              checked="true"
+            />
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <button type="submit" class="btn btn-primary">
+              {{ vm.alias._id ? 'GLOBAL.UPDATE' : 'GLOBAL.CREATE' | translate }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

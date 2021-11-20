@@ -1,0 +1,110 @@
+<style>
+  @media (max-width: 768px) {
+    .safari {
+      display: none;
+    }
+  }
+</style>
+
+<div ng-controller="SidebarController as vm" ng-cloak>
+  <div
+    ng-if="vm.authentication.user &&
+      (vm.authentication.user.roles.includes('admin') ||
+      vm.authentication.user.roles.includes('manager')
+    )"
+  >
+    <ul
+      class="navbar-nav sidebar sidebar-dark accordion toggled"
+      id="accordionSidebar"
+      ng-class="vm.isSafari ? 'safari' : ''"
+      style="background-color: #1aa1e0;"
+      ng-if="vm.menu.shouldRender(vm.authentication.user);"
+    >
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <i class="fas fa-store"></i>
+        </div>
+        <div class="sidebar-brand-text ml-2">
+          <img
+            src="/modules/core/client/img/brand/compusum.png"
+            width="150px"
+            height="47px"
+            alt="Compusum logo"
+          />
+        </div>
+      </a>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0" />
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item active">
+        <a class="nav-link" href="/">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a
+        >
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider" />
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li
+        class="nav-item"
+        style="cursor: pointer;"
+        ng-repeat="item in vm.menu.items | orderBy: 'position'"
+        ng-switch="item.type"
+        ng-if="item.shouldRender(vm.authentication.user);"
+      >
+        <span ng-switch-when="dropdown">
+          <a
+            class="nav-link collapsed"
+            href="#"
+            data-toggle="collapse"
+            data-target="#collapse{{item.title}}"
+            aria-expanded="true"
+            aria-controls="collapse{{item.title}}"
+          >
+            <i class="{{item.ico}}"></i>
+            <span>{{ item.title + '.NAME' | uppercase | translate }}</span>
+          </a>
+          <div
+            id="collapse{{item.title}}"
+            class="collapse"
+            aria-labelledby="headingPages"
+            data-parent="#accordionSidebar"
+          >
+            <div class="bg-blue py-2 collapse-inner rounded">
+              <a
+                class="collapse-item"
+                ng-repeat="subitem in item.items | orderBy: 'position'"
+                ng-if="subitem.shouldRender(vm.authentication.user);"
+                ui-sref="{{subitem.state}}({{subitem.params}})"
+                >{{ subitem.title | uppercase | translate }}</a
+              >
+            </div>
+          </div>
+        </span>
+        <span ng-switch-default>
+          <a class="nav-link" ui-sref="{{item.state}}">
+            <i class="{{item.ico}}"></i>
+            <span>{{ item.title + '.NAME' | uppercase | translate }}</span>
+          </a>
+        </span>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block" />
+
+      <!-- Sidebar Toggler (Sidebar) -->
+      <div class="text-center d-none d-md-block">
+        <button
+          class="rounded-circle border-0"
+          id="sidebarToggle"
+          ng-click="vm.toggleSidebar($event)"
+        ></button>
+      </div>
+    </ul>
+  </div>
+</div>

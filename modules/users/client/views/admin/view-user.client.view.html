@@ -1,0 +1,141 @@
+<section class="container pt-5">
+  <div class="page-header">
+    <div class="row">
+      <div class="col-md-6">
+        <h1 ng-bind="vm.user.username"></h1>
+      </div>
+      <div class="col-md-4">
+        <a class="btn btn-primary" ui-sref="admin.user-edit({userId: vm.user._id})">
+          <i class="fas fa-pencil-alt"></i>
+        </a>
+        <a
+          class="btn btn-primary text-white"
+          ng-click="vm.remove()"
+          ng-if="!vm.isContextUserSelf()"
+        >
+          <i class="fas fa-trash-alt"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="row">
+        <div class="col-md-3">
+          <strong>{{ 'USER.FIRSTNAME' | translate }}</strong>
+        </div>
+        <div class="col-md-6" ng-bind="vm.user.firstName"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-md-3">
+          <strong>{{ 'USER.LASTNAME' | translate }}</strong>
+        </div>
+        <div class="col-md-6" ng-bind="vm.user.lastName"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-md-3"><strong>Email</strong></div>
+        <div class="col-md-6" ng-bind="vm.user.email"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-md-3">
+          <strong>{{ 'GLOBAL.DNI' | translate }}</strong>
+        </div>
+        <div class="col-md-6" ng-bind="vm.user.DNI"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-md-3">
+          <strong>{{ 'GLOBAL.PHONE' | translate }}</strong>
+        </div>
+        <div class="col-md-6" ng-bind="vm.user.phone"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-md-3">
+          <strong>{{ 'USER.GROUP' | translate }}</strong>
+        </div>
+        <div class="col-md-6" ng-bind="vm.user.group.name"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-md-3"><strong>Created</strong></div>
+        <div class="col-md-6" ng-bind="vm.user.created | date:'yyyy-MM-dd'"></div>
+      </div>
+      <hr />
+      <div ng-if="vm.authentication.user.roles.includes('admin')">
+        <div class="row">
+          <div class="col-md-3"><strong>Roles</strong></div>
+          <div class="col-md-6" ng-bind="vm.user.roles"></div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-md-3"><strong>Tienda</strong></div>
+          <div class="col-md-6" ng-bind="vm.user.shop.name"></div>
+        </div>
+        <hr />
+      </div>
+      <div class="row" ng-if="vm.user.listDiscount_id">
+        <div class="col-md-3"><strong>Lista de descuento</strong></div>
+        <div class="col-md-6" ng-bind="vm.user.listDiscount_id.name"></div>
+      </div>
+    </div>
+  </div>
+  <br /><br />
+  <hr />
+  <div class="row">
+    <div class="col-md-2">
+      <div class="page-header">
+        <h3>{{ 'USER.ADDRESSES' | translate }}</h3>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <a
+        class="btn btn-primary"
+        ui-sref="admin.user-address-edit({userId: vm.user._id, addressId: 'addAddress'})"
+      >
+        <i class="fas fa-plus-circle" title="Agregar Dirección"></i>
+      </a>
+    </div>
+    <div class="col-md-8"></div>
+  </div>
+  <br /><br />
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-condensed table-bordered table-striped table-responsive">
+        <tr>
+          <td>{{ 'USER.ADDRESS' | translate }}></td>
+          <td>{{ 'USER.COUNTRY' | translate }}</td>
+          <td>{{ 'USER.CITY' | translate }}</td>
+          <td>{{ 'USER.ZONE' | translate }}</td>
+          <td>{{ 'USER.IS_DEFAULT_ADDRESS' | translate }}</td>
+          <td>{{ 'GLOBAL.ACTIONS' | translate }}</td>
+        </tr>
+        <tr ng-repeat="address in vm.user.addresses">
+          <td>{{ address.address }}</td>
+          <td>{{ address.country }}</td>
+          <td>{{ address.city }}</td>
+          <td>{{ address.zone }}</td>
+          <td>
+            {{ address.isDefaultAddress == true ? 'GLOBAL.ACTIVE' : ('GLOBAL.INACTIVE' | translate)
+            }}
+          </td>
+          <td>
+            <button
+              class="btn btn-default btn-sm"
+              ui-sref="admin.user-address-edit({userId: vm.user._id, addressId: address._id})"
+            >
+              <span class="fas fa-pencil-alt"></span>
+            </button>
+            <button class="btn btn-default btn-sm" ng-click="vm.removeAddress(address._id)">
+              <span class="fas fa-trash-alt"></span>
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</section>

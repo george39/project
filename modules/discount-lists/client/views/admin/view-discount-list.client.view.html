@@ -1,0 +1,47 @@
+<section class="container">
+  <div class="page-header">
+    <div class="row">
+      <div class="col-sm-11">
+        <h1 ng-bind="vm.discountList.username"></h1>
+      </div>
+      <div class="col-sm-1">
+        <a class="btn btn-primary" ui-sref="discountLists.list">
+          <i class="fas fa-undo-alt"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'DISCOUNT_LIST.NAME' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.discountList.name"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'DISCOUNT_LIST.STATUS' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.discountList.status"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.CREATED_BY' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.discountList.user.displayName"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.CREATED' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.discountList.created"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.MODIFIED_BY' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.discountList.modifiedBy.displayName"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.MODIFIED' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.discountList.modified"></div>
+      </div>
+    </div>
+  </div>
+</section>

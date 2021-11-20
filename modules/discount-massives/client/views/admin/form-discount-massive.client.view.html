@@ -1,0 +1,213 @@
+<style>
+  .filter {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+  }
+</style>
+
+<section class="container mt-5">
+  <div class="row">
+    <div class="col-sm-11">
+      <h1>
+        {{
+          (vm.discountMassive._id ? 'DISCOUNT_MASSIVE.EDIT' : 'DISCOUNT_MASSIVE.NEW') | translate
+        }}
+      </h1>
+    </div>
+    <div class="col-sm-1">
+      <a ng-show="vm.discountMassive._id" class="btn btn-primary" ng-click="vm.remove()">
+        <i class="fas fa-trash-alt"> </i>
+      </a>
+    </div>
+    <div class="col-sm-12">
+      <form
+        name="vm.form.discountMassiveForm"
+        class="needs-validation"
+        ng-submit="vm.save(vm.form.discountMassiveForm.$valid)"
+        novalidate
+      >
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="name">
+              {{ 'DISCOUNT_MASSIVE.NAME' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="name"
+              id="name"
+              ng-model="vm.discountMassive.name"
+              required
+            />
+            <div class="valid-feedback">{{ 'DISCOUNT_MASSIVE.VALID_NAME' | translate }}</div>
+            <div class="invalid-feedback">{{ 'DISCOUNT_MASSIVE.INVALID_NAME' | translate }}</div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <h2>Seleccionar categoría</h2>
+          </div>
+
+          <div class="col-md-12 mb-3 filter">
+            <select
+              class="form-control select-multiple"
+              name="category"
+              multiple="multiple"
+              id="category"
+              ng-model="vm.discountMassive.categories"
+              ng-change="vm.changeCategories(vm.discountMassive.categories)"
+              required
+            >
+              <option value=""></option>
+              <option ng-repeat="(key, value) in vm.categories" value="{{ key }}">
+                {{ value }}
+              </option>
+            </select>
+            <button
+              type="button"
+              class="btn btn-success ml-2"
+              ng-click="vm.searchProducts(vm.discountMassive.categories)"
+            >
+              Buscar
+            </button>
+          </div>
+
+          <div class="col-md-12 mb-4" ng-if="vm.categoriesResult">
+            <button type="button" class="btn btn-info" ng-click="vm.checkAll()">
+              Seleccionar todo
+            </button>
+          </div>
+
+          <div
+            class="col-md-4 mb-3"
+            ng-repeat="(categoryId, products) in vm.categoriesResult"
+            ng-if="products.length > 0"
+          >
+            <div class="card">
+              <div class="card-head pt-2">
+                <span style="font-size: 1.8rem; width: 80%;" class="text-center d-inline-block">{{
+                  vm.categoriesNames[categoryId]
+                }}</span>
+                <input
+                  type="checkbox"
+                  name="categoryId"
+                  id="categoryId"
+                  ng-model="vm.checkCategories[categoryId]"
+                  ng-change="vm.onCheckAllCategory(categoryId, vm.checkCategories[categoryId])"
+                />
+              </div>
+              <div class="card-body">
+                <div ng-repeat="product in products">
+                  <input
+                    type="checkbox"
+                    name="product{{ product._id }}"
+                    id="product{{ product._id }}"
+                    ng-model="vm.checkProducts[product._id]"
+                    ng-change="vm.onCheckProduct(categoryId, product._id, vm.checkProducts[product._id])"
+                  />
+                  <span style="font-size: 0.9rem;">{{ product.productLang[0].name }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Descuento local  -->
+          <fieldset class="border p-2 col-md-12 my-4">
+            <legend class="w-auto">{{ item.nameLang }}</legend>
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label class="control-label" for="price_list_id">
+                  {{ 'DISCOUNT_LIST.DISCOUNT_TYPE' | translate }}
+                </label>
+                <select
+                  class="custom-select"
+                  name="vm.discountMassive.typeValueDiscount"
+                  id="vm.discountMassive.typeValueDiscount"
+                  ng-model="vm.discountMassive.typeValueDiscount"
+                  required
+                >
+                  <option
+                    value="{{ typeValueDiscount._id }}"
+                    ng-repeat="typeValueDiscount in vm.listTypeValueDiscount"
+                    >{{ 'GLOBAL.' + typeValueDiscount.name.toUpperCase() | translate }}</option
+                  >
+                </select>
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label class="control-label" for="price_list_id.discountValue">
+                  {{ 'DISCOUNT_LIST.DISCOUNT_VALUE' | translate }}
+                </label>
+                <input
+                  type="number"
+                  max="100"
+                  min="5"
+                  class="form-control"
+                  name="vm.discountMassive.discountValue"
+                  id="vm.discountMassive.discountValue"
+                  ng-model="vm.discountMassive.discountValue"
+                />
+              </div>
+            </div>
+          </fieldset>
+          <!-- // FIN Descuento local  -->
+
+          <div class="col-md-12" ng-if="vm.productsInCommon">
+            <h2 class="text-center">
+              {{ 'DISCOUNT_MASSIVE.THERE_ARE_PRODUCTS_IN_COMMON' | translate }}
+            </h2>
+
+            <div class="row pt-3">
+              <div class="col-md-6 px-2" ng-repeat="massiveDiscount in vm.productsInCommon">
+                <div class="card">
+                  <div class="card-head pt-2">
+                    <h4 class="text-center pb-3">{{ massiveDiscount.massiveDiscountName }}</h4>
+                  </div>
+                  <div class="card-body">
+                    <p ng-repeat="product in massiveDiscount.products">
+                      {{ product.productLang.name }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <h3 class="text-center pt-3">{{ 'DISCOUNT_MASSIVE.ACTION' | translate }}</h3>
+            <div class="action-buttons">
+              <button type="button" ng-click="vm.overrideProducts()" class="btn btn-success mr-2">
+                {{ 'DISCOUNT_MASSIVE.OVERRIDE_PRODUCTS' | translate }}
+              </button>
+              <button type="button" class="btn btn-danger" ng-click="vm.redirect()">
+                {{ 'DISCOUNT_MASSIVE.IGNORE_PRODUCTS' | translate }}
+              </button>
+            </div>
+          </div>
+
+          <div class="col-md-12 pt-3 mb-3">
+            <label class="control-label" for="status" translate>
+              {{ 'GLOBAL.STATUS' | translate }}
+            </label>
+            <input
+              class="form-control"
+              type="checkbox"
+              name="status"
+              id="status"
+              data-ng-model="vm.discountMassive.status"
+              checked="true"
+            />
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <button type="submit" class="btn btn-primary" ng-disabled="vm.disableSaveButton">
+              {{ (vm.discountMassive._id ? 'GLOBAL.UPDATE' : 'GLOBAL.CREATE') | translate }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

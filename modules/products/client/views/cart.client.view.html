@@ -1,0 +1,644 @@
+<style>
+  .card-item {
+    display: grid;
+    grid-template-columns: 20% 70% 10%;
+  }
+
+  #info {
+    margin-left: 20px;
+  }
+
+  @media (max-width: 990px) {
+    .card-item {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: auto;
+    }
+  }
+
+  @media (max-width: 470px) {
+    .card-item {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+    }
+
+    #delete-button {
+      margin-top: 6% !important;
+    }
+  }
+</style>
+
+<section class="ml-3 mr-2 mb-5 pt-5">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card" style="border: 1px solid #d7d9de;">
+        <div class="card-body">
+          <h1
+            class="mb-2"
+            style="border-bottom: 1px solid var(--mainColor); color: var(--mainColor);"
+          >
+            {{ 'GLOBAL.ATM' | translate }}
+          </h1>
+          <p>
+            <strong>{{ 'PRODUCT.TOTAL_PRODUCTS' | translate }}: </strong>{{ cart.length > 0 ?
+            totalProducts : 0 }}
+          </p>
+          <p>
+            <strong>{{ 'PRODUCT.PRODUCTS_PRICE' | translate }}: </strong>{{ (totalPrice ? totalPrice
+            : 0) | price }}
+          </p>
+          <p>
+            <strong>{{ 'PRODUCT.SHIPPING_PRICE' | translate }}: </strong>{{ vm.shippingPrice | price
+            }}
+          </p>
+          <p style="color: var(--mainColor);">
+            <strong>{{ 'PRODUCT.TOTAL_PRICE' | translate }}: </strong>{{ (totalPrice ? totalPrice :
+            0) + vm.shippingPrice | price }}
+          </p>
+
+          <button
+            class="modal-button-confirm btn-block"
+            id="buy-button"
+            ng-disabled="(!cart || cart.length == 0)"
+            data-toggle="modal"
+            data-target="#stepsModal"
+          >
+            {{ 'GLOBAL.BUY' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="row">
+        <div class="col-md-12" ng-if="cart.length === 0">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="text-center">¡{{ 'GLOBAL.CART_EMPTY' | translate }}!</h3>
+
+              <div class="form-group d-flex justify-content-center">
+                <button class="btn btn-primary" ui-sref="listCategories">
+                  {{ 'PRODUCT.SEE_PRODUCTS' | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 mb-1" ng-repeat="item in cart track by $index">
+          <div class="card" style="border: 1px solid #d7d9de;">
+            <div class="card-body card-item">
+              <figure class="d-block">
+                <img
+                  src="{{ item.product.managerFile_id[0].path }}"
+                  alt="Product Image"
+                  height="125px"
+                  width="125px"
+                />
+              </figure>
+              <section class="d-inline-block" id="info">
+                <strong>{{ item.product.productLang.name }}</strong>
+                <br />
+                <span
+                  ><strong>{{ 'MOVEMENT.PRICE' | translate }}: </strong>{{ item.unitPrice | price }}
+                  <span ng-if="item.oldPrice" style="text-decoration: line-through;"
+                    >- {{ item.oldPrice }}</span
+                  >
+                  <span ng-if="item.oldPrice">-12%</span>
+                </span>
+                <br />
+                <span
+                  ><strong>{{ 'MOVEMENT.QUANTITY' | translate }}: </strong>{{ item.quantity }}</span
+                >
+                <br />
+                <span
+                  ><strong>{{ 'ORDER.TOTAL' | translate }}: </strong>{{ item.price | price }}</span
+                >
+              </section>
+              <section>
+                <button
+                  id="delete-button"
+                  ng-click="vm.remove($index)"
+                  style="margin-top: 29%; font-size: 1.3rem;"
+                  class="btn"
+                >
+                  <i class="fas fa-trash"></i>
+                </button>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEPS MODAL -->
+  <div
+    class="modal fade bd-example-modal-lg"
+    tabindex="-1"
+    id="stepsModal"
+    role="dialog"
+    aria-labelledby="myLargeModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="container-fluid" id="grad1">
+          <div class="row justify-content-center mt-0">
+            <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
+              <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                <h2 style="color: rgb(70, 67, 67);" class="mb-4">
+                  <strong>{{ 'PRODUCT.COMPLETE_STEPS' | translate }}!</strong>
+                </h2>
+                <div class="row">
+                  <div class="col-md-12 mx-0">
+                    <!-- progressbar -->
+                    <ul id="progressbar">
+                      <li class="active w-20" id="account" ng-if="!vm.authentication.user">
+                        <strong>{{ 'GLOBAL.ACCOUNT' | translate }}</strong>
+                      </li>
+                      <li ng-class="vm.authentication.user ? 'active w-25' : 'w-20'" id="personal">
+                        <strong>{{ 'SETTINGS.ADDRESS' | translate }}</strong>
+                      </li>
+                      <!-- <li ng-class="vm.authentication.user ? 'w-16' : 'w-20'" id="shipper">
+                        <strong>{{ 'SHIPPER.NAME' | translate }}</strong>
+                      </li> -->
+                      <li ng-class="vm.authentication.user ? 'w-25' : 'w-20'" id="payment">
+                        <strong>{{ 'GLOBAL.PAYMENT' | translate }}</strong>
+                      </li>
+                      <li ng-class="vm.authentication.user ? 'w-25' : 'w-20'" id="details">
+                        <strong>{{ 'GLOBAL.DETAILS' | translate }}</strong>
+                      </li>
+                      <li ng-class="vm.authentication.user ? 'w-25' : 'w-20'" id="confirm">
+                        <strong>{{ 'GLOBAL.FINISH' | translate }}</strong>
+                      </li>
+                    </ul>
+                    <div id="msform">
+                      <!-- fieldsets -->
+                      <fieldset ng-if="!vm.authentication.user">
+                        <ul class="nav nav-tabs">
+                          <li class="nav-item">
+                            <a
+                              class="nav-link active"
+                              id="signin-tab"
+                              data-toggle="tab"
+                              href="#signin"
+                              role="tab"
+                              aria-controls="signin"
+                              aria-selected="false"
+                              >{{ 'SIDENAV.SIGNIN' | translate }}</a
+                            >
+                          </li>
+                          <li class="nav-item">
+                            <a
+                              class="nav-link"
+                              id="signup-tab"
+                              data-toggle="tab"
+                              href="#signup"
+                              role="tab"
+                              aria-controls="signup"
+                              aria-selected="false"
+                              >{{ 'SIDENAV.SIGNUP' | translate }}</a
+                            >
+                          </li>
+                        </ul>
+                        <div class="tab-content">
+                          <section
+                            class="tab-pane fade active show pt-2"
+                            id="signin"
+                            role="tabpanel"
+                            aria-labelledby="signin-tab"
+                          >
+                            <div class="form-card">
+                              <h2 class="fs-title text-center">
+                                {{ 'SIDENAV.SIGNIN' | translate }}
+                              </h2>
+                              <form
+                                name="vm.signInForm"
+                                ng-submit="vm.signIn(vm.signInForm.$valid)"
+                              >
+                                <div class="form-group pt-3 d-flex justify-content-center">
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    id="email"
+                                    name="email"
+                                    autocomplete="email"
+                                    ng-model="vm.signin.email"
+                                    placeholder="Email"
+                                    required
+                                  />
+                                </div>
+                                <div class="form-group d-flex justify-content-center">
+                                  <input
+                                    type="password"
+                                    name="current-password"
+                                    class="form-control"
+                                    autocomplete="current-password"
+                                    ng-model="vm.signin.password"
+                                    placeholder="Password"
+                                    required
+                                  />
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                  <button class="btn btn-primary px-4" type="submit">
+                                    {{ 'GLOBAL.NEXT' | translate }}
+                                  </button>
+                                </div>
+                                <!-- <input type="password" name="cpwd" placeholder="Confirm Password" /> -->
+                              </form>
+                            </div>
+                          </section>
+                          <section
+                            class="tab-pane fade pt-2"
+                            id="signup"
+                            role="tabpanel"
+                            aria-labelledby="signup-tab"
+                          >
+                            <div class="form-card">
+                              <h2 class="fs-title text-center">
+                                {{ 'SIDENAV.SIGNUP' | translate }}
+                              </h2>
+                              <form
+                                name="vm.signupForm"
+                                ng-submit="vm.signUp(vm.signupForm.$valid)"
+                              >
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <input
+                                      required
+                                      type="text"
+                                      class="mx-auto form-control"
+                                      ng-model="vm.signup.firstName"
+                                      name="firstName"
+                                      placeholder="{{ 'USER.FIRSTNAME' | translate }}"
+                                    />
+                                  </div>
+                                  <div class="col-md-6">
+                                    <input
+                                      required
+                                      type="text"
+                                      class="w-100 form-control"
+                                      ng-model="vm.signup.lastName"
+                                      name="lastName"
+                                      placeholder="{{ 'USER.LASTNAME' | translate }}"
+                                    />
+                                  </div>
+                                </div>
+                                <div class="form-group mt-4">
+                                  <input
+                                    required
+                                    type="email"
+                                    name="email"
+                                    class="w-100 form-control"
+                                    autocomplete="off"
+                                    placeholder="Email"
+                                    ng-model="vm.signup.email"
+                                  />
+                                </div>
+                                <div class="form-group mt-4">
+                                  <input
+                                    required
+                                    type="text"
+                                    name="phone"
+                                    class="w-100 form-control"
+                                    autocomplete="off"
+                                    placeholder="{{ 'GLOBAL.PHONE' | translate }}"
+                                    ng-model="vm.signup.phone"
+                                  />
+                                </div>
+                                <div class="form-group">
+                                  <input
+                                    required
+                                    type="password"
+                                    name="new-password"
+                                    class="w-100 form-control"
+                                    placeholder="Password"
+                                    autocomplete="off"
+                                    ng-model="vm.signup.password"
+                                  />
+                                </div>
+                                <div class="form-group d-flex justify-content-center">
+                                  <button type="submit" class="btn px-4 btn-primary">
+                                    {{ 'GLOBAL.NEXT' | translate }}
+                                  </button>
+                                </div>
+                              </form>
+                            </div>
+                          </section>
+                        </div>
+                      </fieldset>
+                      <fieldset>
+                        <form
+                          name="vm.addressForm"
+                          ng-submit="vm.addAddress(vm.addressForm.$valid)"
+                          id="addressForm"
+                        >
+                          <div class="row">
+                            <div
+                              class="col-md-10 mb-1 mx-auto"
+                              style="border: 1px solid rgb(201, 197, 197); border-radius: 10px;"
+                              ng-repeat="address in vm.authentication.user.addresses"
+                            >
+                              <input
+                                type="radio"
+                                ng-value="address._id"
+                                style="position: relative; top: -30%; right: 20px;"
+                                ng-model="vm.address.radio"
+                                ng-change="vm.changeAddress(address)"
+                              />
+                              <div class="d-inline-block">
+                                {{ address.address }} <br />
+                                {{ address.country }} <br />
+                                {{ address.city }} <br />
+                              </div>
+                            </div>
+                          </div>
+                          <a
+                            href="#"
+                            ng-if="!vm.showAddressForm"
+                            class="mb-2 mt-2 text-primary"
+                            ng-click="vm.showAddressForm = true"
+                            >¿{{ 'USER.ADD_ADDRESS' | translate }}?</a
+                          >
+                          <div ng-if="vm.showAddressForm" class="form-card mt-4">
+                            <h2 class="fs-title">{{ 'USER.ADDRESS' | translate }}</h2>
+                            <input
+                              type="text"
+                              required
+                              class="w-100 mt-3 form-control"
+                              ng-model="vm.address.address"
+                              name="address"
+                              placeholder="{{ 'USER.ADDRESS' | translate }}"
+                            />
+                            <input
+                              type="text"
+                              class="w-100 mt-3 form-control"
+                              required
+                              ng-model="vm.address.country"
+                              name="country"
+                              placeholder="{{ 'USER.COUNTRY' | translate }}"
+                            />
+                            <input
+                              type="text"
+                              class="w-100 mt-3 form-control"
+                              required
+                              ng-model="vm.address.city"
+                              name="city"
+                              placeholder="{{ 'USER.CITY' | translate }}"
+                            />
+                            <div class="form-group mt-3">
+                              <label for="zone">{{ 'USER.ZONE' | translate }}</label>
+                              <select
+                                class="form-control"
+                                required
+                                name="zone"
+                                ng-model="vm.address.zone"
+                              >
+                                <option ng-repeat="zone in vm.zones" value="{{ zone.value }}"
+                                  >{{ zone.label }}</option
+                                >
+                              </select>
+                            </div>
+
+                            <label for="isDefaultAddress" class="d-block mt-3 text-center">
+                              ¿{{ 'USER.USE_ADDRESS' | translate }}?
+                              <input
+                                type="checkbox"
+                                id="isDefaultAddress"
+                                name="isDefaultAddress"
+                                ng-model="vm.address.isDefaultAddress"
+                              />
+                            </label>
+                            <div class="form-group d-flex justify-content-center">
+                              <button type="submit" form="addressForm" class="btn btn-primary px-4">
+                                {{ 'GLOBAL.ADD' | translate }}
+                              </button>
+                            </div>
+                          </div>
+                        </form>
+                        <button class="address-form btn btn-purple px-4 mt-2">
+                          {{ 'GLOBAL.NEXT' | translate }}
+                          <i class="fas fa-caret-right ml-2"></i>
+                        </button>
+                      </fieldset>
+
+                      <fieldset>
+                        <div class="row" data-toggle="buttons">
+                          <div class="col-md-4" ng-repeat="(key, value) in vm.paymentMethods">
+                            <p class="text-center">{{ value.name }}</p>
+                            <label
+                              class="btn paymentMethod"
+                              ng-class="value.pos == 0 ? 'active' : ''"
+                            >
+                              <div
+                                class="method"
+                                style="background-image: url('/modules/products/client/img/{{
+                                  value.name.toLowerCase()
+                                }}.png');"
+                              ></div>
+                              <input
+                                type="radio"
+                                ng-value="key"
+                                ng-model="vm.order.payType"
+                                name="paymentMethod"
+                                ng-checked="value.pos == 0 ? true : false"
+                              />
+                            </label>
+                          </div>
+                        </div>
+                        <form
+                          id="finishForm"
+                          action="https://pay.binlab.io/process/"
+                          target="_blank"
+                          method="post"
+                        >
+                          <input
+                            type="hidden"
+                            name="button_id"
+                            value="9bf31c7ff062936a96d3c8bd1f8f2ff3"
+                          />
+                          <input id="amount" type="hidden" name="amount" />
+                          <input type="hidden" name="custom" id="custom_input" />
+                          <section class="form-group mt-3">
+                            <label for="message"> {{ 'ORDER.ORDER_MESSAGE' | translate }} </label>
+                            <textarea
+                              type="text"
+                              class="w-100 form-control"
+                              name="order.message"
+                              id="message"
+                              ng-model="vm.order.message"
+                            ></textarea>
+                          </section>
+                          <button
+                            type="submit"
+                            ng-show="false"
+                            form="finishForm"
+                            id="button-credit-card"
+                          ></button>
+                        </form>
+                        <button
+                          type="button"
+                          name="previous"
+                          class="previous btn btn-primary mt-4 px-4"
+                        >
+                          <i class="fas fa-caret-left mr-2"></i>
+                          {{ 'GLOBAL.PREVIOUS' | translate }}
+                        </button>
+                        <button name="make_payment" class="payment-form btn btn-purple mt-4 px-4">
+                          {{ 'GLOBAL.NEXT' | translate }}
+                          <i class="fas fa-caret-right ml-2"></i>
+                        </button>
+                      </fieldset>
+                      <fieldset>
+                        <div class="form-card">
+                          <h2 class="fs-title text-center">{{ 'GLOBAL.DETAILS' | translate }}!</h2>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <p>
+                                <strong>{{ 'PRODUCT.TOTAL_PRODUCTS' | translate }}: </strong>{{
+                                cart.length > 0 ? totalProducts : 0 }}
+                              </p>
+                            </div>
+                            <div class="col-md-6">
+                              <p>
+                                <strong>{{ 'PRODUCT.PRODUCTS_PRICE' | translate }}: </strong>{{
+                                (totalPrice ? totalPrice : 0) | price }}
+                              </p>
+                            </div>
+                            <div class="col-md-6">
+                              <p>
+                                <strong>{{ 'PRODUCT.SHIPPING_PRICE' | translate }}: </strong>{{
+                                vm.shippingPrice | price }}
+                              </p>
+                            </div>
+                            <div class="col-md-6">
+                              <p style="color: var(--purple);">
+                                <strong>{{ 'PRODUCT.TOTAL_PRICE' | translate }}: </strong>{{
+                                (totalPrice ? totalPrice : 0) + vm.shippingPrice | price }}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          name="previous"
+                          class="previous btn btn-primary mt-4 px-4"
+                        >
+                          <i class="fas fa-caret-left mr-2"></i>
+                          {{ 'GLOBAL.PREVIOUS' | translate }}
+                        </button>
+                        <button name="make_payment" class="accept-button btn btn-purple mt-4 px-4">
+                          {{ 'GLOBAL.CONFIRM' | translate }}
+                          <i class="far fa-check-circle"></i>
+                        </button>
+                      </fieldset>
+                      <fieldset>
+                        <div class="form-card">
+                          <h2 class="fs-title text-center">{{ 'GLOBAL.SUCCESS' | translate }}!</h2>
+                          <br /><br />
+                          <div class="row justify-content-center">
+                            <div class="col-3">
+                              <img
+                                src="https://img.icons8.com/color/96/000000/ok--v2.png"
+                                class="fit-image"
+                              />
+                            </div>
+                          </div>
+                          <br /><br />
+                          <div class="row justify-content-center">
+                            <div class="col-7 text-center">
+                              <h5>{{ 'ORDER.SUCCESS' | translate }}</h5>
+                            </div>
+                          </div>
+                        </div>
+                      </fieldset>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /STEPS MODAL-->
+
+  <!-- TRANSACTION DETAIL MODAL-->
+  <div
+    class="modal fade"
+    tabindex="-1"
+    id="transactionDetailModal"
+    role="dialog"
+    aria-labelledby="transactionDetailModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="text-center">Detalles de transacción</h2>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-content">
+          <!-- BANCOLOMBIA-->
+          <h3 class="text-purple companyTransactionDetail">BANCOLOMBIA</h3>
+          <p class="text-secondary pl-5 transactionDetail">
+            Cuenta de ahorros <span>#7060-7039404</span>
+          </p>
+          <p class="text-secondary pl-5 transactionDetail">Convenio <span>54499</span></p>
+          <!-- BANCO DE OCCIDENTE-->
+          <h3 class="text-purple companyTransactionDetail">BANCO DE OCCIDENTE</h3>
+          <p class="text-secondary pl-5 transactionDetail">
+            Cuenta corriente <span>#06300191-1</span>
+          </p>
+          <p class="text-secondary pl-5 transactionDetail">
+            Formato de recaudo en linea
+          </p>
+          <!-- DAVIVIENDA-->
+          <h3 class="text-purple companyTransactionDetail">DAVIVIENDA</h3>
+          <p class="text-secondary pl-5 transactionDetail">
+            Cuenta corriente <span>#127669999816</span>
+          </p>
+
+          <h5 class="text-center pt-3">Por favor suba una imagen del recibo de pago</h5>
+          <div class="d-flex justify-content-center" style="padding: 10px;">
+            <div>
+              <button
+                class="btn btn-primary btn-file mb-3"
+                ngf-select="vm.uploadPaymentReceipt($file)"
+                ng-model="vm.order.paymentReceipt"
+                accept="image/*"
+                ngf-before-model-change="vm.loading = true;"
+                ngf-resize="{width: 2000, height: 1990}"
+                ngf-resize-if="$width > 2000 || $height > 1990"
+                ngf-max-files="1"
+                ngf-multiple="false"
+                ngf-keep="false"
+              >
+                {{ 'MANAGER_FILE.SELECT_PICTURE' | translate }} <i class="fas fa-upload"></i>
+              </button>
+            </div>
+            <div ng-if="vm.order.paymentReceipt">
+              <button class="btn btn-success ml-3 mb-3" ng-click="vm.orderByTransaction(true)">
+                {{ 'Enviar comprobante' | translate }}
+              </button>
+            </div>
+            <div>
+              <button class="btn btn-danger ml-2" ng-click="vm.orderByTransaction(false)">
+                Saltar y subirlo luego <i class="fas fa-forward"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

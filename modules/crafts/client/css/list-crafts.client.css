@@ -1,0 +1,176 @@
+.wrap-crafts {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+@media (max-width: 1200px) {
+	.wrap-crafts {
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+}
+
+@media (max-width: 935px) {
+	.wrap-crafts {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+@media (max-width: 630px) {
+	.wrap-crafts {
+		grid-template-columns: 1fr;
+	}
+}
+
+.card-shadow-craft {
+	-webkit-box-shadow: 1px 1px 13px -1px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: 1px 1px 13px -1px rgba(0, 0, 0, 0.75);
+	box-shadow: 1px 1px 13px -1px rgba(0, 0, 0, 0.5);
+}
+
+.wrap-crafts div.latest-crafts img {
+	border-radius: 30px !important;
+	padding: 1px;
+	border: 7px solid white;
+	-webkit-box-shadow: 1px 1px 13px -1px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: 1px 1px 13px -1px rgba(0, 0, 0, 0.75);
+	box-shadow: 1px 1px 13px -1px rgba(0, 0, 0, 0.5);
+}
+
+.wrap-crafts div.latest-crafts #craftPrice {
+	position: relative;
+	background-color: var(--purple);
+	color: white;
+	font-weight: bold;
+	width: 60px;
+	border-radius: 5px 20px 0px 30px;
+	height: 50px;
+	top: 50px;
+	text-align: center;
+	right: -220px;
+}
+
+.wrap-crafts div.latest-crafts #craftPrice span {
+	position: relative;
+	top: 12px;
+	display: inline-block;
+}
+
+.wrap-crafts div.latest-crafts #craftPrice span.bought {
+	font-size: 0.76rem;
+	transform: rotate(30deg);
+}
+
+.custom-shadow {
+	-webkit-box-shadow: 1px 1px 13px -1px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: 1px 1px 13px -1px rgba(0, 0, 0, 0.75);
+	box-shadow: 1px 1px 13px -1px rgba(0, 0, 0, 0.75);
+}
+
+ol li .list-number {
+	background-color: var(--purple);
+	color: white;
+	border-radius: 5px;
+	padding: 0px 3px;
+}
+
+/**/
+.craft-card {
+	width: 100%;
+	height: 300px;
+	background-color: black;
+	background-size: 20% 20%;
+	cursor: pointer;
+	-webkit-box-shadow: 0 0 5px #000;
+	box-shadow: 0 0 5px #000;
+}
+.overlay {
+	width: 95%;
+	position: absolute;
+	top: 0;
+	left: 10px;
+	height: 100%;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr 2fr 2fr 1fr;
+	background: var(--purple);
+	color: #fef5df;
+	opacity: 0;
+	transition: all 0.5s;
+}
+
+.step-index {
+	width: 29px;
+	position: absolute;
+	z-index: 9999;
+	height: 30px;
+	background-color: white;
+	border-radius: 15px;
+	text-align: center;
+	padding-top: 3px;
+	font-weight: bold;
+}
+
+.items {
+	padding-left: 20px;
+	letter-spacing: 3px;
+}
+.head {
+	font-size: 1.05rem;
+	line-height: 25px;
+	transition: all 0.7s;
+}
+.head hr {
+	display: block;
+	width: 0;
+	border: none;
+	border-bottom: solid 2px #fef5df;
+	position: absolute;
+	bottom: 0;
+	left: 20px;
+	transition: all 0.5s;
+}
+.price {
+	font-size: 22px;
+	line-height: 10px;
+	font-weight: bold;
+	opacity: 0;
+	transform: translateY(40px);
+	transition: all 0.7s;
+}
+.price .old {
+	text-decoration: line-through;
+	color: #b3b3b3;
+}
+.cart {
+	font-size: 12px;
+	opacity: 0;
+	letter-spacing: 1px;
+	transform: translateY(40px);
+	transition: all 0.7s;
+}
+.cart i {
+	font-size: 16px;
+}
+.cart span {
+	margin-left: 10px;
+}
+.craft-card:hover .overlay {
+	opacity: 1;
+}
+.craft-card:hover .overlay .head {
+	transform: translateY(0px);
+}
+.craft-card:hover .overlay hr {
+	width: 75px;
+	transition-delay: 0.4s;
+}
+.craft-card:hover .overlay .price {
+	transform: translateY(0px);
+	transition-delay: 0.3s;
+	opacity: 1;
+}
+.craft-card:hover .overlay .cart {
+	transform: translateY(0px);
+	transition-delay: 0.6s;
+	opacity: 1;
+}

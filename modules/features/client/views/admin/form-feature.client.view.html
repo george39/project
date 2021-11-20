@@ -1,0 +1,137 @@
+<section class="container">
+  <div class="row">
+    <div class="col-sm-11">
+      <h1>
+        {{ vm.feature._id ? 'FEATURE.EDIT' : 'FEATURE.NEW' | translate }}
+      </h1>
+    </div>
+    <div class="col-sm-1">
+      <a ng-show="vm.feature._id" class="btn btn-primary" ng-click="vm.remove()">
+        <i class="fas fa-trash-alt"> </i>
+      </a>
+    </div>
+    <div class="col-sm-12">
+      <form
+        name="vm.form.featureForm"
+        class="needs-validation"
+        ng-submit="vm.save(vm.form.featureForm.$valid)"
+        novalidate
+      >
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="nameLang">
+              {{ 'FEATURE.NAME_LANG' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="nameLang"
+              id="nameLang"
+              ng-model="vm.feature.nameLang"
+              required
+            />
+            <div class="valid-feedback">
+              {{ 'FEATURE.VALID_NAME_LANG' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'FEATURE.INVALID_NAME_LANG' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="typeFeature_id">
+              {{ 'FEATURE.TYPE_FEATURE' | translate }}
+            </label>
+            <select
+              class="custom-select"
+              name="typeFeature_id"
+              id="typeFeature_id"
+              ng-model="vm.feature.typeFeature_id._id"
+              ng-init="vm.feature.typeFeature_id._id"
+              required
+            >
+              <option value="">{{ 'FEATURE.SELECT' | translate }}</option>
+              <option
+                ng-repeat="item in vm.listTypeFeatures track by item._id"
+                value="{{item._id}}"
+              >
+                {{ 'FEATURE.' + item.name.toUpperCase() | translate }}
+              </option>
+            </select>
+            <div class="valid-feedback">
+              {{ 'FEATURE.TYPE_FEATURE_VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'FEATURE.TYPE_FEATURE_INVALID' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="order">
+              {{ 'FEATURE.ORDER' | translate }}
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              name="order"
+              id="order"
+              ng-model="vm.feature.order"
+              required
+            />
+            <div class="valid-feedback">
+              {{ 'FEATURE.VALID_ORDER' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'FEATURE.INVALID_ORDER' | translate }}
+            </div>
+          </div>
+
+          <!-- <div class="col-md-12 mb-3">
+            <label class="control-label" for="shop">
+              {{ 'SHOP.TITLE' | translate }}
+            </label>
+            <select
+              class="custom-select"
+              name="shop"
+              id="shop"
+              ng-model="vm.feature.shop._id"
+              ng-init="vm.feature.shop._id"
+              required
+            >
+              <option value="">{{ 'SHOP.SELECT' | translate }}</option>
+              <option ng-repeat="item in vm.listShops track by item._id" value="{{item._id}}">
+                {{ item.name }}
+              </option>
+            </select>
+            <div class="valid-feedback">
+              {{ 'SHOP.VALID_NAME' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'SHOP.INVALID_NAME' | translate }}
+            </div>
+          </div> -->
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="status" translate>
+              {{ 'GLOBAL.STATUS' | translate }}
+            </label>
+            <input
+              class="form-control"
+              type="checkbox"
+              name="status"
+              id="status"
+              data-ng-model="vm.feature.status"
+              checked="true"
+            />
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <button type="submit" class="btn btn-primary">
+              {{ vm.feature._id ? 'GLOBAL.UPDATE' : 'GLOBAL.CREATE' | translate }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

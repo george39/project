@@ -1,0 +1,51 @@
+<section class="container pt-5">
+  <div class="page-header">
+    <div class="row">
+      <div class="col-md-4">
+        <h1>Users</h1>
+      </div>
+      <div class="col-md-4">
+        <input
+          class="form-control"
+          type="text"
+          ng-model="vm.search"
+          placeholder="Search"
+          ng-change="vm.figureOutItemsToDisplay()"
+        />
+      </div>
+      <div class="col-md-1 ml-auto">
+        <button class="btn btn-primary" ui-sref="admin.user-create">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="list-group">
+    <a
+      ng-repeat="user in vm.pagedItems"
+      ui-sref="admin.user({userId: user._id})"
+      class="list-group-item"
+    >
+      <div class="row">
+        <div class="col-md-6">
+          <h4 class="list-group-item-heading" ng-bind="user.username"></h4>
+        </div>
+        <div class="col-md-3">
+          <p class="list-group-item-text pull-right small" ng-bind="user.roles"></p>
+        </div>
+        <div class="col-md-3">
+          <p class="list-group-item-text" ng-bind="user.email"></p>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <uib-pagination
+    boundary-links="true"
+    max-size="8"
+    items-per-page="vm.itemsPerPage"
+    total-items="vm.filterLength"
+    ng-model="vm.currentPage"
+    ng-change="vm.pageChanged()"
+  ></uib-pagination>
+</section>

@@ -1,0 +1,106 @@
+<section class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <form name="vm.form.seoForm" class="needs-validation" ng-submit="vm.save(vm.form.seoForm.$valid)" novalidate>
+        <div class="form-row">
+          <!-- Datos de Envío  -->
+          <fieldset class="border p-2 col-md-12 mt-5" ng-repeat="item in vm.listLangs">
+            <legend class="w-auto">{{ item.name }}</legend>
+
+            <div class="row">
+              <div ng-show="false" class="col-md-12 mb-3">
+                <input
+                  class="form-control"
+                  name="seo[$index]"
+                  id="seo[$index]"
+                  ng-init="vm.product.seo[$index].lang_id=item._id"
+                  ng-model="vm.product.seo[$index].lang_id"
+                />
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <label class="control-label" for="seo">
+                  {{ 'GLOBAL.LINK_REWRITE' | translate }}
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="productLinkRewrite[$index]"
+                  id="productLinkRewrite[$index]"
+                  ng-model="vm.product.seo[$index].linkRewrite"
+                  required
+                />
+                <div class="valid-feedback">
+                  {{ 'GLOBAL.VALID_LINK_REWRITE' | translate }}
+                </div>
+                <div class="invalid-feedback">
+                  {{ 'GLOBAL.INVALID_LINK_REWRITE' | translate }}
+                </div>
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <label class="control-label" for="seo">
+                  {{ 'GLOBAL.META_TITLE' | translate }}
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="productMetaTitle[$index]"
+                  id="productMetaTitle[$index]"
+                  ng-model="vm.product.seo[$index].metaTitle"
+                  required
+                />
+                <div class="valid-feedback">
+                  {{ 'GLOBAL.VALID_META_TITLE' | translate }}
+                </div>
+                <div class="invalid-feedback">
+                  {{ 'GLOBAL.INVALID_META_TITLE' | translate }}
+                </div>
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <label class="control-label" for="seo">
+                  {{ 'GLOBAL.META_KEYWORDS' | translate }}
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="productMetaKeywords[$index]"
+                  id="productMetaKeywords[$index]"
+                  ng-model="vm.product.seo[$index].metaKeywords"
+                  required
+                />
+                <div class="valid-feedback">
+                  {{ 'GLOBAL.VALID_META_KEYWORDS' | translate }}
+                </div>
+                <div class="invalid-feedback">
+                  {{ 'GLOBAL.INVALID_META_KEYWORDS' | translate }}
+                </div>
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <label class="control-label" for="seo">
+                  {{ 'GLOBAL.META_DESCRIPTION' | translate }}
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="productMetaDescription[$index]"
+                  id="productMetaDescription[$index]"
+                  ng-model="vm.product.seo[$index].metaDescription"
+                  required
+                />
+                <div class="valid-feedback">
+                  {{ 'GLOBAL.VALID_META_DESCRIPTION' | translate }}
+                </div>
+                <div class="invalid-feedback">
+                  {{ 'GLOBAL.INVALID_META_DESCRIPTION' | translate }}
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

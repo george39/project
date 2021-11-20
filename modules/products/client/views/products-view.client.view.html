@@ -1,0 +1,278 @@
+<style>
+  .checked {
+    color: orange;
+  }
+
+  .img-user-product {
+    border: 1px solid white;
+    margin-right: -8px;
+    width: 38px;
+    height: 38px;
+  }
+
+  .img-user-product:hover {
+    border: 1px solid white;
+    margin-right: -8px;
+    width: 39px;
+    transition: all 500ms;
+  }
+</style>
+
+<div class="container" style="margin-bottom: 8.3rem;">
+  <nav aria-label="breadcrumb" ng-if="vm.currentCategory">
+    <ol class="breadcrumb" style="background-color: #f4f5f8 !important;">
+      <li class="breadcrumb-item">
+        <a ng-click="vm.goCategories(vm.currentCategory)" href="#">{{ vm.currentCategory.name }}</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">{{ vm.data[0].name }}</li>
+    </ol>
+  </nav>
+  <section class="product mb-5 mt-3">
+    <div class="photo-container position-relative">
+      <img
+        class="photo-main"
+        loading="lazy"
+        id="productImage"
+        src="{{ vm.currentImage.path }}"
+        width="100%"
+      />
+      <div class="controls">
+        <!-- <span>
+          <i class="fas fa-share-alt"></i>
+        </span> -->
+        <span
+          ng-click="vm.addOrRemoveProductFromFavorites(vm.authentication.user._id, vm.product._id)"
+        >
+          <i ng-style="{ color: vm.isAlreadyInFavorites ? 'red' : '' }" class="fas fa-heart"></i>
+        </span>
+      </div>
+      <div id="myresult" class="img-zoom-result"></div>
+      <div class="photo-album">
+        <ul style="list-style: none;">
+          <li ng-repeat="image in vm.images" ng-if="$index <= 7" ng-click="vm.currentImage = image">
+            <img
+              class="image-product"
+              src="{{ image.path }}"
+              alt="{{ vm.data[0].name }}"
+              loading="lazy"
+            />
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="product__info">
+      <form name="vm.productForm.form" ng-submit="vm.showModal(vm.productForm.form.$valid);">
+        <div class="title">
+          <h1>{{ vm.data[0].name }}</h1>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star"></span>
+          <span class="fa fa-star"></span>
+        </div>
+        <div>
+          <h5
+            class="text-secondary mt-3 d-inline"
+            id="oldPrice"
+            ng-if="vm.product.discountPrice && vm.oldPrice !== ''"
+          >
+            {{ vm.oldPrice | price }}
+          </h5>
+          <span
+            style="font-size: 1.5em; color: var(--mainColor);"
+            class="ml-3"
+            ng-if="vm.product.discountValue"
+            >-{{ vm.product.discountValue }}%</span
+          >
+        </div>
+        <div style="padding-left: 0.15em; font-size: 2.9em; color: var(--mainColor);">
+          <span>{{ vm.price | price }}</span>
+        </div>
+        <div
+          class="variant"
+          ng-repeat="feature in vm.features | orderBy: 'order'"
+          ng-switch="feature.typeFeature"
+        >
+          <!-- ng-switch="feature.typeFeature" -->
+          <h3 class="title-h3">{{ feature.name }}</h3>
+          <section ng-switch-when="selectList">
+            <select
+              name="{{ feature.name }}"
+              required
+              ng-change="vm.getMovement(feature.name)"
+              id="{{ feature.name }}"
+              ng-model="vm.form.details[feature.name]"
+            >
+              <option></option>
+              <option
+                ng-repeat="item in feature.items"
+                value="{{ item._id }}"
+                ng-if="item.shouldRender"
+              >
+                {{ item.nameLang }}
+              </option>
+            </select>
+          </section>
+          <section ng-switch-when="radioList">
+            <!--  -->
+            <fieldset
+              class="d-inline-block mr-2"
+              ng-repeat="(featureKey, featureValue) in feature.items | orderBy: 'order' "
+              ng-if="featureValue.shouldRender"
+            >
+              <label
+                for="{{ featureValue.featureDetail.nameLang }}"
+                ng-class="featureValue.shouldRender === false ? 'text-cross' : 'text-normal'"
+                >{{ featureValue.nameLang }}</label
+              >
+              <input
+                type="checkbox"
+                name="{{ feature.name }}"
+                ng-change="vm.getMovement(feature.name)"
+                ng-true-value="'{{ featureValue._id }}'"
+                ng-false-value="null"
+                ng-model="vm.form.details[feature.name]"
+                ng-required="!vm.form.details[feature.name]"
+              />
+            </fieldset>
+          </section>
+        </div>
+
+        <p ng-if="vm.showAmount" class="mt-4">
+          <strong>{{ 'GLOBAL.AMOUNT' | translate | uppercase }}:</strong> {{ vm.amount }}
+        </p>
+
+        <div class="description">
+          <h3 class="title-h3">{{ 'GLOBAL.DESCRIPTION' | translate | uppercase }}</h3>
+          <p>
+            {{ vm.data[0].description }}
+          </p>
+        </div>
+        <div class="product-quiality mb-3">
+          <span>
+            Cantidad:
+            <input
+              type="number"
+              ng-model="vm.form.quantity"
+              ng-init="vm.form.quantity = 0"
+              min="0"
+              max="{{ vm.amount || 0 }}"
+            />
+          </span>
+        </div>
+        <button
+          type="submit"
+          class="buy--btn"
+          style="background-color: var(--mainColor);"
+          ng-disabled="!vm.product.deliveryInStock || !vm.amount || vm.form.quantity === 0"
+          data-target=".bd-example-modal-lg"
+        >
+          <i class="fas fa-cart-plus mr-1" style="font-size: 1.2rem;"> </i>
+          {{ 'GLOBAL.ADD_TO_CART' | translate }}
+        </button>
+        <br />
+        <p class="pt-3">
+          <i ng-if="!vm.product.deliveryInStock" class="fas fa-ban"></i>
+          {{ !vm.product.deliveryInStock || !vm.amount ? 'Stock no disponible' : 'Stock disponible'
+          }}
+        </p>
+        <div ng-if="vm.authentication.user">
+          <span ng-click="vm.seeUsersThatUseThisProduct()" style="font-weight: bold;"
+            >Usuarios que usan este producto:
+          </span>
+          <figure class="d-inline-block">
+            <a
+              ng-repeat="user in vm.usersThatUseThisProduct"
+              href="#"
+              ui-sref="admin.view-user-profile({userId: user._id})"
+            >
+              <img class="rounded-circle img-user-product" src="{{ user.profileImageURL }}" />
+            </a>
+          </figure>
+        </div>
+      </form>
+    </div>
+
+    <div
+      class="modal fade bd-example-modal-lg"
+      tabindex="-1"
+      id="modal-product"
+      role="dialog"
+      aria-labelledby="myLargeModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header text-white" style="background-color: var(--mainColor);">
+            <h5 class="modal-title" id="exampleModalLabel">
+              <i class="fas fa-check-circle"></i> Producto añadido al carrito satisfactoriamente!
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body container">
+            <div class="row">
+              <div class="col-md-6">
+                <figure>
+                  <img
+                    src="{{ vm.product.managerFile_id[0].path }}"
+                    width="300px"
+                    height="300px"
+                    alt="Product-image"
+                    loading="lazy"
+                  />
+                </figure>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-6 mt-2"><strong>Nombre:</strong> {{ vm.data[0].name }}</div>
+                  <div class="col-md-6 mt-2">
+                    <strong>Precio:</strong>
+                    {{ vm.product.discountPrice || vm.product.priceTaxIncluded * vm.form.quantity |
+                    price }}
+                  </div>
+                  <div class="col-md-6 mt-2"><strong>Cantidad:</strong> {{ vm.form.quantity }}</div>
+                  <div class="col-md-6 mt-2" ng-repeat="detail in vm.details">
+                    <strong>{{ detail.parentNameLang }}:</strong> {{ detail.nameLang }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="modal-button-confirm" ng-click="vm.goTo('listCategories')">
+              Seguir comprando
+            </button>
+            <button type="button" ng-click="vm.goTo('products.cart')" class="modal-button-cancel">
+              Ir a la caja
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade bd-example-modal-lg"
+      tabindex="-1"
+      id="who-use-this-product-modal"
+      role="dialog"
+      aria-labelledby="whoUseThisProduct"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header text-white" style="background-color: var(--mainColor);">
+            <h5 class="modal-title" id="whoUseThisProduct">
+              <i class="fas fa-check-circle"></i> Producto añadido al carrito satisfactoriamente!
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body container"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,368 @@
+<section class="container pt-4">
+  <div class="row">
+    <div class="col-md-12 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <span
+                ><strong>{{ 'USER.ADDRESS' | translate }}: </strong>{{ vm.order.address.address
+                }}</span
+              >
+              <br />
+              <span
+                ><strong>{{ 'USER.CITY' | translate }}: </strong>{{ vm.order.address.city }}</span
+              >
+              <br />
+              <span
+                ><strong>{{ 'USER.NAME' | translate }}: </strong>{{ vm.order.user_id.displayName
+                }}</span
+              >
+              <br />
+              <span
+                ><strong>{{ 'GLOBAL.PHONE' | translate }}: </strong>{{ vm.order.user_id.phone
+                }}</span
+              >
+              <br />
+              <span ng-if="vm.order.user_id.DNI"
+                ><strong>{{ 'GLOBAL.DNI' | translate }}: </strong>{{ vm.order.user_id.DNI }}</span
+              >
+              <br ng-if="vm.order.user_id.DNI" />
+              <span
+                ><strong>{{ 'ORDER.MESSAGE' | translate }}: </strong>{{ vm.order.message }}</span
+              >
+              <br />
+              <span><strong>Total: </strong>{{ vm.order.total }}</span> <br />
+              <span
+                ><strong>{{ 'GLOBAL.STATUS' | translate }}: </strong>{{ vm.order.status.nameLang
+                }}</span
+              >
+              <br />
+            </div>
+            <div class="col-md-6" ng-if="vm.order.paymentReceipt">
+              <img
+                src="{{ vm.order.paymentReceipt.path }}"
+                id="paymentReceiptImage"
+                alt="Recibo de pago"
+                width="550px"
+                height="auto"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3" ng-repeat="product in vm.order.products">
+      <div class="wrapper" style="height: 350px !important;">
+        <div class="contenedor">
+          <div
+            class="top"
+            style="
+              background: url({{ product.product_id.managerFile_id[0].path }})
+                no-repeat center center;
+              width: 100%;
+              height: 50%;
+              -webkit-background-size: 100%;
+              -moz-background-size: 100%;
+              -o-background-size: 100%;
+              background-size: 100%;
+            "
+          ></div>
+          <div class="bottom">
+            <div class="left" style="height: 198% !important;">
+              <div class="details text-center">
+                <p style="font-size: 1.1em;">{{ product.product_id.productLang.name }}</p>
+                <p class="text-center">
+                  <strong>COD: {{ product.product_id.code }}</strong>
+                </p>
+                <p>Cantidad: {{ product.quantity }}</p>
+                <p class="text-center">
+                  <strong>Precio: {{ product.unitPrice | price }}</strong>
+                </p>
+                <p>
+                  <strong> Total: {{ product.price | price }} </strong>
+                </p>
+                <span ng-repeat="feature in product.combination_id.featureDetail_id">
+                  <strong>{{ feature.parentNameLang }}: </strong> {{ feature.nameLang }} -
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="inside" ng-if="product.product_id.discountPrice">
+          <div class="icon">
+            <div class="promotion-price">
+              <div class="promotion-price-desc">-{{ product.product_id.discountValue }}%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-md-10 mb-4">
+      <h4 class="text-center">Historial de pedido</h4>
+    </div>
+    <div class="col-md-2 mb-4">
+      <button class="btn btn-purple" ng-click="vm.addStatus = !vm.addStatus">Agregar estado</button>
+    </div>
+
+    <div class="col-md-12" ng-show="vm.addStatus">
+      <form name="vm.form.orderForm" ng-submit="vm.createStatus(vm.form.orderForm.$valid)">
+        <sections class="row">
+          <fieldset class="col-md-6">
+            <label for="message">Mensaje</label>
+            <textarea
+              name="message"
+              class="form-control"
+              id="message"
+              ng-model="vm.status.message"
+            ></textarea>
+          </fieldset>
+          <fieldset class="col-md-6">
+            <label for="status">Estado</label>
+            <select
+              name="status"
+              required
+              id="status"
+              ng-model="vm.status.status"
+              class="form-control"
+            >
+              <option value="{{ key }}" ng-repeat="(key, value) in vm.listStatus"
+                >{{ value }}</option
+              >
+            </select>
+          </fieldset>
+        </sections>
+        <div class="col-md-4 mx-auto mt-3 mb-4">
+          <button type="submit" class="btn btn-purple mx-auto btn-block">Crear</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-md-12 mb-1">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>creado</th>
+            <th>mensaje</th>
+            <th>estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in vm.historyOrder">
+            <td>{{ item.created | date: 'yyyy-MM-dd' }}</td>
+            <td>{{ item.message }}</td>
+            <td>{{ vm.listStatus[item.status] }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- <div class="row">
+    <div class="col-sm-11">
+      <h1>
+        {{ vm.order._id ? 'ORDER.EDIT' : 'ORDER.NEW' | translate }}
+      </h1>
+    </div>
+    <div class="col-sm-1">
+      <a ng-show="vm.order._id" class="btn btn-primary" ng-click="vm.remove()">
+        <i class="fas fa-trash-alt"> </i>
+      </a>
+    </div>
+    <div class="col-sm-12">
+      <form name="vm.form.orderForm" class="needs-validation" ng-submit="vm.save(vm.form.orderForm.$valid)" novalidate>
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="orderCode">
+              {{ 'ORDER.ORDER_CODE' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="orderCode"
+              id="orderCode"
+              ng-model="vm.order.orderCode"
+              required
+            />
+            <div class="valid-feedback">
+              {{ 'ORDER.VALID_ORDER_CODE' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'ORDER.INVALID_ORDER_CODE' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="payType">
+              {{ 'ORDER.PAY_TYPE' | translate }}
+            </label>
+            <input type="text" class="form-control" name="payType" id="payType" ng-model="vm.order.payType" required />
+            <div class="valid-feedback">
+              {{ 'ORDER.VALID_PAY_TYPE' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'ORDER.INVALID_PAY_TYPE' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="shipper_id">
+              {{ 'SHIPPER.TITLE' | translate }}
+            </label>
+            <select
+              class="custom-select"
+              name="shipper_id"
+              id="shipper_id"
+              ng-model="vm.order.shipper_id"
+              ng-init="vm.order.shipper_id = vm.order.shipper_id._id"
+              required
+            >
+              <option value="">{{ 'SHIPPER.SELECT' | translate }}</option>
+              <option ng-repeat="item in vm.listShippers track by item._id" value="{{item._id}}">
+                {{ item.name }}
+              </option>
+            </select>
+            <div class="valid-feedback">
+              {{ 'SHIPPER.VALID_NAME' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'SHIPPER.INVALID_NAME' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="trackingCode">
+              {{ 'ORDER.TRACKING_CODE' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="trackingCode"
+              id="trackingCode"
+              ng-model="vm.order.trackingCode"
+              required
+            />
+            <div class="valid-feedback">
+              {{ 'ORDER.VALID_TRACKING_CODE' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'ORDER.INVALID_TRACKING_CODE' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="invoiceNumber">
+              {{ 'ORDER.INVOICE_NUMBER' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="invoiceNumber"
+              id="invoiceNumber"
+              ng-model="vm.order.invoiceNumber"
+              required
+            />
+            <div class="valid-feedback">
+              {{ 'ORDER.VALID_INVOICE_NUMBER' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'ORDER.INVALID_INVOICE_NUMBER' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="message">
+              {{ 'ORDER.MESSAGE' | translate }}
+            </label>
+            <input type="text" class="form-control" name="message" id="message" ng-model="vm.order.message" required />
+            <div class="valid-feedback">
+              {{ 'ORDER.VALID_MESSAGE' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'ORDER.INVALID_MESSAGE' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="total">
+              {{ 'ORDER.TOTAL' | translate }}
+            </label>
+            <input type="text" class="form-control" name="total" id="total" ng-model="vm.order.total" required />
+            <div class="valid-feedback">
+              {{ 'ORDER.VALID_TOTAL' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'ORDER.INVALID_TOTAL' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="shop">
+              {{ 'SHOP.TITLE' | translate }}
+            </label>
+            <select
+              class="custom-select"
+              name="shop"
+              id="shop"
+              ng-model="vm.order.shop"
+              ng-init="vm.order.shop = vm.order.shop._id"
+              required
+            >
+              <option value="">{{ 'SHOP.SELECT' | translate }}</option>
+              <option ng-repeat="item in vm.listShops track by item._id" value="{{item._id}}">
+                {{ item.name }}
+              </option>
+            </select>
+            <div class="valid-feedback">
+              {{ 'SHOP.VALID_NAME' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'SHOP.INVALID_NAME' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="user_id">
+              {{ 'USER.TITLE' | translate }}
+            </label>
+            <select
+              class="custom-select"
+              name="user_id"
+              id="user_id"
+              ng-model="vm.order.user_id._id"
+              ng-init="vm.order.user_id._id"
+              required
+            >
+              <option value="">{{ 'USER.SELECT' | translate }}</option>
+              <option ng-repeat="item in vm.listUsers track by item._id" value="{{item._id}}">
+                {{ item.name }}
+              </option>
+            </select>
+            <div class="valid-feedback">
+              {{ 'USER.VALID_NAME' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'USER.INVALID_NAME' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="status" translate>
+              {{ 'GLOBAL.STATUS' | translate }}
+            </label>
+            <select class="form-control" name="status" id="status" ng-model="vm.order.status">
+              <option value="{{status._id}}" ng-repeat="status in vm.listStatus">{{status.name}}</option>
+            </select>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <button type="submit" class="btn btn-primary">
+              {{ vm.order._id ? 'GLOBAL.UPDATE' : 'GLOBAL.CREATE' | translate }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div> -->
+</section>

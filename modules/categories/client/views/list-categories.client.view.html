@@ -1,0 +1,210 @@
+<div id="products-destacados" style="min-height: 495px;" class="fluid">
+  <div style="height: 45px; background-color: var(--mainColor);">
+    <ul style="display: contents; height: 100%;">
+      <li
+        class="nav-item float-left text-white ml-3"
+        style="padding-top: 10px; height: 100%;"
+        id="categories-toggler"
+      >
+        {{ 'CATEGORY.LISTCLIENT' | translate }}
+        <i class="fas fa-caret-right ml-2" id="toggler-icon"></i>
+        <ul id="menu-categories">
+          <li class="has-sub" ng-repeat="grandpha in vm.listCategories | orderBy : 'order'">
+            <a
+              href="#"
+              ng-click="vm.searchProducts(grandpha._id, grandpha._id, grandpha.categoryLang.name)"
+              >{{ grandpha.categoryLang.name }}</a
+            >
+            <ul ng-if="grandpha.hasChilds">
+              <li class="has-sub" ng-repeat="parent in grandpha.items | orderBy : 'order'">
+                <a
+                  href="#"
+                  ng-click="vm.searchProducts(parent._id, parent._id, parent.categoryLang.name)"
+                  >{{ parent.categoryLang.name }}</a
+                >
+                <ul ng-if="parent.hasChilds">
+                  <li
+                    ng-repeat="child in parent.items | orderBy : 'order'"
+                    ng-click="vm.searchProducts(child._id, undefined, child.categoryLang.name)"
+                  >
+                    <a href="#">{{ child.categoryLang.name }}</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li
+        class="text-white"
+        style="text-transform: uppercase; font-weight: bold; padding-top: 10px;"
+      >
+        {{ vm.title | translate }}
+      </li>
+    </ul>
+  </div>
+
+  <div id="cover"></div>
+
+  <!-- PRODUCT LIST -->
+  <div class="row mt-4 px-2" ng-if="vm.products.length > 0">
+    <div class="col-md-12">
+      <fieldset class="float-right form-group mr-5">
+        <label for="orderBy">{{ 'GLOBAL.ORDER_BY' | translate }}:</label>
+        <select
+          name="orderBy"
+          id="orderBy"
+          class="form-control"
+          ng-model="vm.orderBy"
+          ng-change="vm.getPage()"
+        >
+          <option value=""></option>
+          <option value="product.outstanding">{{ 'GLOBAL.OUTSTANDING' | translate }}</option>
+          <option value="product.price-lower">{{ 'GLOBAL.LOWER_PRICE' | translate }}</option>
+          <option value="product.price-higher">{{ 'GLOBAL.HIGHER_PRICE' | translate }}</option>
+          <option value="product.created">{{ 'GLOBAL.NEWEST' | translate }}</option>
+        </select>
+      </fieldset>
+    </div>
+
+    <!--products-->
+
+    <div class="row mx-n2 pt-4 px-4 mx-sm-n3">
+      <div
+        class="col-12 col-sm-6 col-lg-3 px-2 px-sm-3 mb-3 mb-sm-5"
+        ng-repeat="col in vm.products"
+      >
+        <!-- Product -->
+        <div class="card text-center h-100">
+          <div class="position-relative">
+            <img
+              class="card-img-top"
+              height="240"
+              width="220"
+              ng-click="vm.go(col._id)"
+              src="{{ col.managerFile_id[0].path }}"
+              alt="Image Description"
+            />
+
+            <div class="position-absolute pt-3 pl-3" style="top: 0;">
+              <span
+                class="badge badge-pill"
+                style="background-color: var(--mainColor); color: white;"
+                >New arrival</span
+              >
+            </div>
+            <div class="position-absolute pt-3 pr-3" style="right: 0;">
+              <button
+                type="button"
+                class="btn btn-sm btn-icon btn-outline-secondary rounded-circle"
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Save for later"
+              >
+                <span class="fas fa-heart btn-icon__inner"></span>
+              </button>
+            </div>
+          </div>
+
+          <div class="card-body pt-4 px-4 pb-0">
+            <div class="mb-2">
+              <!-- <a class="d-inline-block text-secondary small font-weight-medium mb-1" href="#"
+            >Accessories</a
+          > -->
+              <h5 class="font-size-1 font-weight-normal">
+                <a class="text-secondary" href="#">{{ col.productLang.name }}</a>
+              </h5>
+              <div class="d-block font-size-1">
+                <span class="font-weight-medium"
+                  >{{ (col.discountPrice > 0 ? col.discountPrice : col.priceTaxIncluded) | price
+                  }}</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="card-footer border-0 pt-0 pb-4 px-4">
+            <div class="mb-3">
+              <a class="d-inline-flex align-items-center small" href="#">
+                <div class="text-warning mr-2">
+                  <small class="far fa-star text-muted"></small>
+                  <small class="far fa-star text-muted"></small>
+                  <small class="far fa-star text-muted"></small>
+                  <small class="far fa-star text-muted"></small>
+                  <small class="far fa-star text-muted"></small>
+                </div>
+                <span class="text-secondary">0</span>
+              </a>
+            </div>
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-main-color btn-sm-wide btn-pill transition-3d-hover"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+        <!-- End Product -->
+      </div>
+    </div>
+
+    <!--products-->
+
+    <!-- PAGINATION -->
+    <div class="col-12 mt-5">
+      <div class="row">
+        <div class="col-10 col-sm-10 col-md-4 col-lg-5 mx-auto">
+          <div id="paginator">
+            <ul class="mx-auto">
+              <button
+                class="custom-padding"
+                style="background-color: var(--mainColor);"
+                ng-disabled="vm.page <= 1"
+                ng-click="vm.page = 1; vm.getPage()"
+              >
+                <span class="navigation-text">
+                  <i class="fas fa-fast-backward mr-1"></i>
+                  {{ 'GLOBAL.FIRST' | translate }}
+                </span>
+              </button>
+              <button
+                class="custom-padding"
+                style="background-color: var(--mainColor);"
+                ng-disabled="vm.page <= 1"
+                ng-click="vm.page = vm.page - 1; vm.getPage()"
+              >
+                <span class="navigation-text">
+                  <i class="fas fa-step-backward mr-1"></i>
+                  {{ 'GLOBAL.PREVIOUS' | translate }}
+                </span>
+              </button>
+              <button
+                class="custom-padding"
+                ng-disabled="vm.page >= vm.totalPages"
+                style="background-color: var(--mainColor);"
+                ng-click="vm.page = vm.page + 1; vm.getPage()"
+              >
+                <span class="navigation-text">
+                  {{ 'GLOBAL.NEXT' | translate }}
+                  <i class="fas fa-step-forward ml-1"></i>
+                </span>
+              </button>
+              <button
+                ng-click="vm.page = vm.totalPages; vm.getPage()"
+                ng-disabled="vm.page >= vm.totalPages"
+                style="background-color: var(--mainColor);"
+                class="custom-padding"
+              >
+                <span class="navigation-text">
+                  {{ 'GLOBAL.LATEST' | translate }}
+                  <i class="fas fa-fast-forward ml-1"></i>
+                </span>
+              </button>
+            </ul>
+          </div>
+          <p class="text-center">Pag {{ vm.page }} de {{ vm.totalPages }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,137 @@
+<section>
+  <form
+    name="vm.userForm"
+    ng-submit="vm.updateUserProfile(vm.userForm.$valid)"
+    class="signin"
+    novalidate
+    autocomplete="off"
+  >
+    <fieldset>
+      <div class="form-group" show-errors>
+        <label for="firstName">{{ 'USER.FIRSTNAME' | translate }}</label>
+        <input
+          type="text"
+          id="firstName"
+          name="firstName"
+          class="form-control"
+          ng-model="vm.user.firstName"
+          required
+          autofocus
+        />
+        <div ng-messages="vm.userForm.firstName.$error" role="alert">
+          <p class="help-block error-text" ng-message="required">
+            {{ 'GLOBAL.REQUIRED' | translate }}
+          </p>
+        </div>
+      </div>
+      <div class="form-group" show-errors>
+        <label for="lastName">{{ 'USER.LASTNAME' | translate }}</label>
+        <input
+          type="text"
+          id="lastName"
+          name="lastName"
+          class="form-control"
+          ng-model="vm.user.lastName"
+          required
+        />
+        <div ng-messages="vm.userForm.lastName.$error" role="alert">
+          <p class="help-block error-text" ng-message="required">
+            {{ 'GLOBAL.REQUIRED' | translate }}
+          </p>
+        </div>
+      </div>
+
+      <div class="form-group" show-errors>
+        <label for="description">{{ 'GLOBAL.DESCRIPTION' | translate }}</label>
+        <input
+          type="description"
+          id="description"
+          name="description"
+          class="form-control"
+          ng-model="vm.user.description"
+          required
+        />
+        <div ng-messages="vm.userForm.description.$error" role="alert">
+          <p class="help-block error-text" ng-message="required">
+            {{ 'GLOBAL.REQUIRED' | translate }}
+          </p>
+          <p class="help-block error-text" ng-message="description">Description is invalid.</p>
+        </div>
+      </div>
+
+      <div class="form-group" show-errors>
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-control"
+          ng-model="vm.user.email"
+          lowercase
+          required
+        />
+        <div ng-messages="vm.userForm.email.$error" role="alert">
+          <p class="help-block error-text" ng-message="required">
+            {{ 'GLOBAL.REQUIRED' | translate }}
+          </p>
+          <p class="help-block error-text" ng-message="email">Email address is invalid.</p>
+        </div>
+      </div>
+
+      <div class="form-group" show-errors>
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          class="form-control"
+          ng-model="vm.user.username"
+          lowercase
+          required
+        />
+        <div ng-messages="vm.userForm.username.$error" role="alert">
+          <p class="help-block error-text" ng-message="required">
+            {{ 'GLOBAL.REQUIRED' | translate }}
+          </p>
+          <p class="help-block error-text" ng-message="username">Username is invalid.</p>
+        </div>
+      </div>
+
+      <div class="form-group" show-errors>
+        <label for="DNI">{{ 'GLOBAL.DNI' | translate }}</label>
+        <input
+          type="text"
+          id="DNI"
+          name="DNI"
+          class="form-control"
+          ng-model="vm.user.DNI"
+          required
+        />
+        <div ng-messages="vm.userForm.DNI.$error" role="alert">
+          <p class="help-block error-text" ng-message="required">
+            {{ 'GLOBAL.DNI_REQUIRED' | translate }}
+          </p>
+        </div>
+      </div>
+      <div class="form-group" show-errors>
+        <label for="DNI">{{ 'GLOBAL.PHONE' | translate }}</label>
+        <input
+          type="text"
+          id="phone"
+          name="phone"
+          class="form-control"
+          ng-model="vm.user.phone"
+          required
+        />
+        <div ng-messages="vm.userForm.phone.$error" role="alert">
+          <p class="help-block error-text" ng-message="required">
+            {{ 'GLOBAL.PHONE_REQUIRED' | translate }}
+          </p>
+        </div>
+      </div>
+      <div class="text-center form-group">
+        <button type="submit" class="btn btn-primary">Save Profile</button>
+      </div>
+    </fieldset>
+  </form>
+</section>

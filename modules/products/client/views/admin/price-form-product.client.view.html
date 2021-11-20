@@ -1,0 +1,255 @@
+<section class="container">
+  <div class="row">
+    <div class="col-sm-12 mt-5">
+      <form
+        name="vm.form.priceForm"
+        class="needs-validation"
+        ng-submit="vm.save(vm.form.priceForm.$valid)"
+        novalidate
+      >
+        <div class="row">
+          <!-- Datos de Envío  -->
+          <fieldset class="border p-2 col-md-12">
+            <legend class="w-auto">{{ 'PRODUCT.PRICE' | translate }}</legend>
+            <!-- Impuestos  -->
+            <div class="row">
+              <div class="col-md-12 mb-3">
+                <label class="control-label" for="tax_id">
+                  {{ 'TAX.NAME' | translate }}
+                </label>
+                <select
+                  class="form-control"
+                  name="tax_id"
+                  ng-change="vm.priceWithTax()"
+                  id="tax_id"
+                  ng-model="vm.product.tax_id"
+                  ng-init="vm.product.tax_id"
+                >
+                  <option ng-value="null"></option>
+                  <option value="{{key}}" ng-repeat="(key, value) in vm.listTaxes"
+                    >{{value.name}}</option
+                  >
+                </select>
+                <div class="valid-feedback">
+                  {{ 'TAX.VALID' | translate }}
+                </div>
+                <div class="invalid-feedback">
+                  {{ 'TAX.INVALID' | translate }}
+                </div>
+              </div>
+
+              <!-- Costo del producto  -->
+              <div class="col-md-6 mb-3">
+                <label class="control-label" for="cost">
+                  {{ 'PRODUCT.COST' | translate }}
+                </label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="cost"
+                  id="cost"
+                  ng-model="vm.product.cost"
+                  required
+                />
+                <div class="valid-feedback">
+                  {{ 'PRODUCT.VALID' | translate }}
+                </div>
+                <div class="invalid-feedback">
+                  {{ 'PRODUCT.INVALID' | translate }}
+                </div>
+              </div>
+
+              <div class="col-md-6"></div>
+
+              <!-- Precio del producto  -->
+              <div class="col-md-6 mb-3">
+                <label class="control-label" for="price">
+                  {{ 'PRODUCT.PRICE' | translate }}
+                </label>
+
+                <input
+                  type="number"
+                  class="form-control"
+                  name="price"
+                  id="price"
+                  ng-model="vm.product.price"
+                  ng-change="vm.calculateNewValue('price')"
+                  required
+                />
+                <div class="valid-feedback">
+                  {{ 'PRODUCT.VALID' | translate }}
+                </div>
+                <div class="invalid-feedback">
+                  {{ 'PRODUCT.INVALID' | translate }}
+                </div>
+              </div>
+
+              <!-- Precio del producto  -->
+              <div class="col-md-6 mb-3">
+                <label class="control-label" for="price-tax-included">
+                  {{ 'PRODUCT.PRICE_TAX' | translate }}
+                </label>
+
+                <input
+                  type="number"
+                  class="form-control"
+                  name="price-tax-included"
+                  id="price-tax-included"
+                  ng-model="vm.product.priceTaxIncluded"
+                  disabled
+                />
+              </div>
+
+              <!-- Typo de descuento del producto  -->
+              <div class="col-md-12 mb-3">
+                <h4>{{'GLOBAL.DISCOUNTS' | translate}}</h4>
+                <div class="form-check" ng-repeat="(key, value) in vm.listTypeDiscount">
+                  <label class="form-check-label">
+                    <input
+                      type="radio"
+                      class="form-check-input"
+                      name="radioTypeDiscount"
+                      ng-model="vm.product.typeDiscount"
+                      ng-value="key"
+                    />
+                    {{ 'PRODUCT.' + value.toUpperCase() | translate }}
+                  </label>
+                </div>
+              </div>
+
+              <!-- Descuento local  -->
+              <fieldset
+                ng-if="vm.listTypeDiscount[vm.product.typeDiscount] == 'individual'"
+                class="border p-2 col-md-12"
+              >
+                <legend class="w-auto">{{ item.nameLang }}</legend>
+                <div class="row">
+                  <div class="col-md-4 mb-3">
+                    <label class="control-label" for="price_list_id">
+                      {{ 'DISCOUNT_LIST.DISCOUNT_TYPE' | translate }}
+                    </label>
+                    <select
+                      class="custom-select"
+                      name="product.localDiscount.typeDiscount"
+                      id="product.localDiscount.typeDiscount"
+                      ng-model="vm.product.localDiscount.typeDiscount"
+                      ng-init="vm.product.localDiscount.typeDiscount = vm.product.localDiscount.typeDiscount._id"
+                      ng-change="vm.changeLocalDiscount()"
+                      required
+                    >
+                      <option value="{{key}}" ng-repeat="(key, value) in vm.listTypeValueDiscount"
+                        >{{'GLOBAL.' + value.toUpperCase() | translate}}</option
+                      >
+                    </select>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="control-label" for="price_list_id.discountValue">
+                      {{ 'DISCOUNT_LIST.DISCOUNT_VALUE' | translate }}
+                    </label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="product.localDiscount.discountValue"
+                      ng-change="vm.changeLocalDiscount()"
+                      id="product.localDiscount.discountValue"
+                      ng-model="vm.product.localDiscount.discountValue"
+                    />
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="control-label" for="price_list_id.newPrice">
+                      {{ 'DISCOUNT_LIST.NEW_PRICE' | translate }}
+                    </label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="product.localDiscount.newPrice"
+                      id="product.localDiscount.newPrice"
+                      ng-model="vm.product.localDiscount.newPrice"
+                      disabled
+                    />
+                  </div>
+                </div>
+              </fieldset>
+              <!-- // FIN Descuento local  -->
+
+              <!-- Listados de precios -->
+              <fieldset
+                ng-if="vm.listTypeDiscount[vm.product.typeDiscount] == 'listPrice'"
+                class="border p-2 col-md-12"
+                ng-repeat="item in vm.listDiscountLists"
+              >
+                <legend class="w-auto">{{ item.name }}</legend>
+
+                <div class="row">
+                  <div ng-show="false" class="col-md-4 mb-3">
+                    <label class="control-label" for="price_list_id">
+                      _ID list price
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="priceListId[$index]"
+                      id="priceListId[$index]"
+                      ng-init="vm.product.discountList_id[$index]._id=item._id"
+                      ng-model="vm.product.discountList_id[$index]._id"
+                    />
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="control-label" for="price_list_id">
+                      {{ 'DISCOUNT_LIST.DISCOUNT_TYPE' | translate }}
+                    </label>
+                    <select
+                      class="custom-select"
+                      name="priceListType[$index]"
+                      id="priceListType[$index]"
+                      ng-model="vm.product.discountList_id[$index].typeDiscount"
+                      ng-init="vm.product.discountList_id[$index].typeDiscount"
+                      ng-change="vm.calculateNewValue('discountValue', $index)"
+                      required
+                    >
+                      <option value="{{key}}" ng-repeat="(key, value) in vm.listTypeValueDiscount"
+                        >{{'GLOBAL.' + value.toUpperCase() | translate}}</option
+                      >
+                    </select>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="control-label" for="price_list_id.discountValue">
+                      {{ 'DISCOUNT_LIST.DISCOUNT_VALUE' | translate }}
+                    </label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="priceListValue[$index]"
+                      id="priceListValue[$index]"
+                      ng-model="vm.product.discountList_id[$index].discountValue"
+                      ng-change="vm.calculateNewValue('discountValue',$index)"
+                    />
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="control-label" for="price_list_id.newPrice">
+                      {{ 'DISCOUNT_LIST.NEW_PRICE' | translate }}
+                    </label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="priceListNewPrice[$index]"
+                      id="priceListNewPrice[$index]"
+                      ng-model="vm.product.discountList_id[$index].newPrice"
+                      disabled
+                    />
+                  </div>
+                </div>
+              </fieldset>
+              <!-- // FIN Listados de precios -->
+            </div>
+          </fieldset>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

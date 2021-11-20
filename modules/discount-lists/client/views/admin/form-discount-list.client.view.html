@@ -1,0 +1,57 @@
+<section class="container">
+  <div class="row">
+    <div class="col-sm-11">
+      <h1>
+        {{ vm.discountList._id ? 'DISCOUNT_LIST.EDIT' : 'DISCOUNT_LIST.NEW' | translate }}
+      </h1>
+    </div>
+    <div class="col-sm-1">
+      <a ng-show="vm.discountList._id" class="btn btn-primary" ng-click="vm.remove()">
+        <i class="fas fa-trash-alt"> </i>
+      </a>
+    </div>
+    <div class="col-sm-12">
+      <form
+        name="vm.form.discountListForm"
+        class="needs-validation"
+        ng-submit="vm.save(vm.form.discountListForm.$valid)"
+        novalidate
+      >
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="name">
+              {{ 'DISCOUNT_LIST.NAME' | translate }}
+            </label>
+            <input type="text" class="form-control" name="name" id="name" ng-model="vm.discountList.name" required />
+            <div class="valid-feedback">
+              {{ 'DISCOUNT_LIST.VALID_NAME' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'DISCOUNT_LIST.INVALID_NAME' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="status" translate>
+              {{ 'GLOBAL.STATUS' | translate }}
+            </label>
+            <input
+              class="form-control"
+              type="checkbox"
+              name="status"
+              id="status"
+              data-ng-model="vm.discountList.status"
+              checked="true"
+            />
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <button type="submit" class="btn btn-primary">
+              {{ vm.discountList._id ? 'GLOBAL.UPDATE' : 'GLOBAL.CREATE' | translate }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

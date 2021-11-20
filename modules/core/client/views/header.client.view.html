@@ -1,0 +1,380 @@
+<style>
+  #searchInput input[placeholder] {
+    font-weight: 800;
+    font-size: 1rem;
+  }
+
+  .brand_logo {
+    width: 145px;
+  }
+
+  @media (max-width: 990px) {
+    #searchInput {
+      display: none;
+    }
+
+    .brand_logo {
+      width: 105px;
+    }
+  }
+
+  #searchInput button {
+    background: none;
+    border: none;
+    position: absolute;
+    right: 10px;
+  }
+
+  .isLoggedStyle {
+    margin-right: auto;
+    margin-right: 0 !important;
+  }
+</style>
+
+<div ng-controller="HeaderController as vm">
+  <!-- Sidebar Toggle (Topbar) -->
+  <nav
+    class="navbar navbar-expand navbar-light bg-light topbar static-top shadow"
+    style="background-color: white;"
+  >
+    <button
+      ng-if="vm.authentication.user !== null"
+      id="sidebarToggleTop"
+      class="btn btn-link d-md-none rounded-circle mr-3"
+      ng-click="vm.toggleSidebar($event)"
+    >
+      <i class="fa fa-bars"></i>
+    </button>
+
+    <!-- TOPBAR SEARCH -->
+    <!-- <li class="nav-item dropdown no-arrow d-lg-none d-none d-sm-none">
+      <a
+        class="nav-link dropdown-toggle"
+        href="#"
+        id="searchDropdown"
+        role="button"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="fas fa-search fa-fw"></i>
+      </a>
+      <!- - Dropdown - Messages  - ->
+      <div class="dropdown-menu dropdown-menu-left p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+        <form class="form-inline mr-auto w-100 navbar-search">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control bg-light border-0 small"
+              placeholder="Search for..."
+              aria-label="Search"
+              aria-describedby="basic-addon2"
+            />
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="button">
+                <i class="fas fa-search fa-sm"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </li> -->
+    <!-- <ul ng-hide="vm.authentication.user" class="navbar-nav float-left text-secondary">
+      <! -- Nav Item - Alerts - ->
+      <li class="nav-item dropdown no-arrow mx-1">
+        <a class="nav-link text-secondary" ui-sref="listCategories">
+          Categories
+        </a>
+      </li>
+    </ul> -->
+    <form
+      class="form-inline my-2 my-lg-0 ml-3 position-relative"
+      id="searchInput"
+      ng-submit="vm.searchProducts()"
+      ng-class="vm.authentication.user ? '.isLoggedStyle' : 'ml-auto'"
+    >
+      <div class="input-group mr-sm-2 mr-md-2">
+        <input
+          type="search"
+          aria-label="Search"
+          ng-model="vm.search"
+          placeholder="{{ 'GLOBAL.INPUT_SEARCH' | translate }}"
+          class="form-control"
+        />
+        <div class="input-group-append" ng-click="vm.searchProducts()">
+          <span class="input-group-text" style="background-color: white; padding: 0px 9px 0px 0px;">
+            <img
+              src="/modules/core/client/img/icons/ico-search.png"
+              style="width: 1.7em; height: 111%;"
+              alt="search icon"
+            />
+          </span>
+        </div>
+      </div>
+    </form>
+    <!-- /TOPBAR SEARCH -->
+    <!-- CAR DROPDOWN AND Search Input -->
+    <ul class="navbar-nav">
+      <!-- Nav Item - Search Dropdown (Visible Only <= MD) -->
+      <li class="nav-item dropdown no-arrow d-lg-none">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="searchDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <i class="fas fa-search fa-fw"></i>
+        </a>
+        <div
+          class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+          aria-labelledby="searchDropdown"
+        >
+          <form class="form-inline mr-auto w-100 navbar-search" ng-submit="vm.searchProducts()">
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control bg-light border-0 small"
+                ng-model="vm.search"
+                placeholder="{{ 'GLOBAL.INPUT_SEARCH' | translate }}"
+                aria-label="Search"
+                aria-describedby="basic-addon2"
+              />
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">
+                  <i class="fas fa-search fa-sm"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </li>
+      <li class="nav-item dropdown no-arrow mx-1" id="cart-icon-header">
+        <a
+          class="nav-link dropdown-toggle text-secondary"
+          href="#"
+          id="alertsDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <i class="fas fa-shopping-cart" style="font-size: 1.95rem;"></i>
+          <!-- Counter - Alerts -->
+          <span class="badge badge-danger badge-counter" id="cartItems"
+            >{{ cart.length > 0 ? totalProducts : 0 }}</span
+          >
+        </a>
+        <!-- Dropdown - Alerts -->
+        <div
+          class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+          style="background-color: #4aafde;"
+          aria-labelledby="alertsDropdown"
+        >
+          <a
+            class="cart-item d-flex align-items-center"
+            href="#"
+            ng-repeat="item in cart track by $index"
+          >
+            <div class="dropdown-list-image mr-3">
+              <img
+                class="rounded-circle"
+                src="{{ item.product.managerFile_id[0].path }}"
+                alt="ProductImage"
+              />
+            </div>
+            <div>
+              <span>
+                {{ item.product.productLang.name }}
+                <strong>x{{ item.quantity }} ({{ item.price | price }})</strong>
+              </span>
+            </div>
+          </a>
+          <div class="cart-item">
+            <p class="text-center text-secondary">
+              <strong>Total: {{ totalPrice | price }} </strong>
+            </p>
+            <div class="d-flex justify-content-center">
+              <button class="button-cart" ui-sref="products.cart">
+                {{ 'GLOBAL.CART_PREVIEW' | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <!-- /CAR DROPDOWN -->
+    <ul class="navbar-nav ml-2" id="user-icon-header">
+      <li class="nav-item linkDisplayLarge" ng-if="!vm.authentication.user">
+        <a class="nav-link text-secondary" ui-sref="authentication.signin"
+          >{{ 'SIDENAV.SIGNIN' | translate }}</a
+        >
+      </li>
+      <li class="nav-item linkDisplaySmall" ng-if="!vm.authentication.user">
+        <a class="nav-link text-secondary" ui-sref="authentication.signin"
+          ><i class="far fa-user"></i
+        ></a>
+      </li>
+    </ul>
+    <!-- Topbar Navbar -->
+    <ul ng-hide="!vm.authentication.user" class="navbar-nav ml-auto text-secondary">
+      <!-- Nav Item - Alerts -->
+      <li class="nav-item dropdown no-arrow mx-1">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="notificationsDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <i class="text-secondary fas fa-bell fa-fw"></i>
+          <!-- Counter - Alerts -->
+          <span class="badge badge-danger badge-counter" ng-if="vm.unreadNotifications > 0"
+            >{{ vm.unreadNotifications }}</span
+          >
+        </a>
+        <!-- Dropdown - Alerts -->
+        <div
+          class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+          aria-labelledby="notificationsDropdown"
+        >
+          <h6 class="dropdown-header">
+            {{ 'GLOBAL.NOTIFICATIONS' | translate }}
+          </h6>
+          <a
+            ng-repeat="notification in vm.notifications"
+            class="dropdown-item d-flex align-items-center"
+            href="#"
+            ng-click="vm.seeNotification(notification._id, notification.redirectTo)"
+          >
+            <div class="mr-3">
+              <div class="icon-circle bg-success">
+                <i class="{{ notification.icon }}"></i>
+              </div>
+            </div>
+            <div>
+              <div
+                class="small"
+                ng-class="!notification.read ? 'font-weight-bold' : 'text-gray-500'"
+              >
+                {{ notification.created | date: 'MM/dd/yyyy' }}
+              </div>
+              <span
+                ng-class="!notification.read ? 'font-weight-bold' : 'text-gray-500'"
+                ng-bind-html="
+                notification.description
+              "
+              ></span>
+            </div>
+          </a>
+          <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown no-arrow mr-3">
+        <a
+          class="nav-link dropdown-toggle"
+          id="langDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <span class="linkDisplayLarge">
+            {{ 'NAVBAR.LANG' | translate }}
+          </span>
+          <span class="linkDisplaySmall">
+            <i class="fas fa-language"></i>
+          </span>
+        </a>
+        <!-- Dropdown - Alerts -->
+        <div
+          class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+          aria-labelledby="langDropdown"
+        >
+          <a class="dropdown-item d-flex align-items-center" ng-click="setLang('es')">
+            <div class="mr-3">
+              <div class="icon-circle">
+                <img
+                  class="rounded-circle"
+                  src="/modules/core/client/img/flags/colombia-flag.jpeg"
+                  alt="colombian flag"
+                  width="100%"
+                  height="100%"
+                />
+              </div>
+            </div>
+            <div>
+              <span class="font-weight-bold">
+                {{ 'NAVBAR.SPANISH' | translate }}
+              </span>
+            </div>
+          </a>
+          <a class="dropdown-item d-flex align-items-center" ng-click="setLang('en')">
+            <div class="mr-3">
+              <div class="icon-circle">
+                <img
+                  src="/modules/core/client/img/flags/usa-flag.jpeg"
+                  alt="usa flag"
+                  class="rounded-circle"
+                  width="100%"
+                  height="100%"
+                />
+              </div>
+            </div>
+            <div>
+              {{ 'NAVBAR.ENGLISH' | translate }}
+            </div>
+          </a>
+        </div>
+      </li>
+
+      <div class="topbar-divider d-none d-sm-block"></div>
+
+      <!-- Nav Item - User Information -->
+      <li class="nav-item dropdown no-arrow">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="userDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <span class="mr-2 d-none d-lg-inline text-secondary"
+            >{{ vm.authentication.user.displayName }}</span
+          >
+          <img
+            class="img-profile rounded-circle"
+            ng-src="{{ vm.authentication.user.profileImageURL }}"
+            alt="{{ vm.authentication.user.displayName }}"
+          />
+        </a>
+        <!-- Dropdown - User Information -->
+        <div
+          class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+          aria-labelledby="userDropdown"
+        >
+          <a class="dropdown-item" ui-sref="orders.myOrders">
+            <i class="fas fa-shopping-cart fa-sm fa-fw mr-2 text-gray-400"></i>
+            {{ 'NAVBAR.MY_ORDERS' | translate }}
+          </a>
+          <a class="dropdown-item" ui-sref="settings.profile">
+            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+            {{ 'NAVBAR.EDIT_PROFILE' | translate }}
+          </a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/api/auth/signout" target="_self">
+            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+            {{ 'SETTINGS.LOGOUT' | translate }}
+          </a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+</div>

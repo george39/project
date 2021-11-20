@@ -1,0 +1,349 @@
+<style>
+  .sample-images {
+    border-radius: 10px;
+    width: 215px;
+    height: 215px;
+    margin-bottom: 40px;
+  }
+
+  .complete-profile-message {
+    position: absolute;
+    top: 80px;
+    padding: 10px;
+    border-radius: 10px;
+    z-index: 10;
+    right: 20px;
+    border: 1px solid #cfd1d0;
+    background-color: white;
+    display: inline-block;
+    animation-name: messagetransition;
+    animation-duration: 1s;
+  }
+
+  .complete-profile-message a {
+    color: var(--purple);
+  }
+
+  @keyframes messagetransition {
+    from {
+      right: -10px;
+    }
+    to {
+      right: 20px;
+    }
+  }
+
+  /* .products {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .product-card {
+    height: 330px;
+    width: 285px;
+    margin-bottom: 5px;
+    background-color: rgb(214, 214, 214);
+    padding: 2%;
+    flex-grow: 1;
+    flex-basis: 16%;
+  }
+
+  .product-image img {
+    max-width: 100%;
+  }
+
+  .product-info {
+    margin-top: auto;
+  }
+
+  @media (max-width: 920px) {
+    .product-card {
+      flex: 1 21%;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .product-card {
+      flex: 1 46%;
+    }
+  } */
+</style>
+
+<div class="complete-profile-message" ng-if="vm.mustCompleteProfile">
+  <p>Te faltan algunos datos para completar tu perfíl</p>
+  <a href="" ui-sref="settings.profile">Completar perfíl</a>
+</div>
+
+<!-- CATEGORIES -->
+<div class="pl-4 mt-5 pt-5" id="rowCategories">
+  <div class="mb-3 columnCategories" ng-repeat="category in vm.listCategories | orderBy : 'order'">
+    <figure style="margin: 0rem;">
+      <img
+        ng-src="{{ category.managerFile_id[0].path }}"
+        loading="lazy"
+        width="120px"
+        height="120px"
+        class="categories-home-list"
+        ng-click="vm.goCategories(category)"
+        style="border: 1px solid var(--purple); border-radius: 25px;"
+        alt="{{ category.managerFile_id[0].originalname }}"
+      />
+    </figure>
+    <a class="text-center d-block" href="#" ng-click="vm.goCategories(category)">
+      <strong>{{ category.categoryLang[0].originalName }}</strong>
+    </a>
+  </div>
+</div>
+<!-- /CATEGORIES -->
+<br />
+<!-- DESTACADOS -->
+<div class="fluid">
+  <div class="products-title">
+    <h1>
+      {{ 'GLOBAL.OUTSTANDING_PRODUCTS' | translate | uppercase }}
+    </h1>
+  </div>
+</div>
+
+<!-- PRODUCTS GRID TEST -->
+<!-- Products -->
+<div class="row mx-n2 pt-4 px-4 mx-sm-n3">
+  <div
+    class="col-12 col-sm-6 col-lg-3 px-2 px-sm-3 mb-3 mb-sm-5"
+    ng-repeat="col in vm.outstandingProducts"
+  >
+    <!-- Product -->
+    <div class="card text-center h-100">
+      <div class="position-relative">
+        <img
+          class="card-img-top"
+          height="240"
+          width="220"
+          ng-click="vm.go(col._id)"
+          src="{{ col.managerFile_id[0].path }}"
+          alt="Image Description"
+        />
+
+        <div class="position-absolute pt-3 pl-3" style="top: 0;">
+          <span class="badge badge-pill" style="background-color: var(--mainColor); color: white;"
+            >New arrival</span
+          >
+        </div>
+        <div class="position-absolute pt-3 pr-3" style="right: 0;">
+          <button
+            type="button"
+            class="btn btn-sm btn-icon btn-outline-secondary rounded-circle"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="Save for later"
+          >
+            <span class="fas fa-heart btn-icon__inner"></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="card-body pt-4 px-4 pb-0">
+        <div class="mb-2">
+          <!-- <a class="d-inline-block text-secondary small font-weight-medium mb-1" href="#"
+            >Accessories</a
+          > -->
+          <h5 class="font-size-1 font-weight-normal">
+            <a class="text-secondary" href="#">{{ col.productLang.name }}</a>
+          </h5>
+          <div class="d-block font-size-1">
+            <span class="font-weight-medium"
+              >{{ (col.discountPrice > 0 ? col.discountPrice : col.priceTaxIncluded) | price
+              }}</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="card-footer border-0 pt-0 pb-4 px-4">
+        <div class="mb-3">
+          <a class="d-inline-flex align-items-center small" href="#">
+            <div class="text-warning mr-2">
+              <small class="far fa-star text-muted"></small>
+              <small class="far fa-star text-muted"></small>
+              <small class="far fa-star text-muted"></small>
+              <small class="far fa-star text-muted"></small>
+              <small class="far fa-star text-muted"></small>
+            </div>
+            <span class="text-secondary">0</span>
+          </a>
+        </div>
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-main-color btn-sm-wide btn-pill transition-3d-hover"
+        >
+          Add to Cart
+        </button>
+      </div>
+    </div>
+    <!-- End Product -->
+  </div>
+</div>
+<!-- End Products -->
+<!-- PRODUCTS GRID TEST -->
+
+<!-- <div class="fluid">
+  <div class="products">
+    <div
+      class="product-card bg-white"
+      ng-repeat="col in vm.outstandingProducts"
+      ng-click="vm.go(col._id)"
+    >
+      <div class="product-image">
+        <img loading="lazy" height="190" width="170" src="{{ col.managerFile_id[0].path }}" />
+      </div>
+      <div class="product-info">
+        <h5>{{ col.productLang.name }}</h5>
+        <p ng-if="col.showPrice && col.discountPrice > 0" class="text-center old-price">
+          <strong>{{ col.priceTaxIncluded | price }}</strong>
+        </p>
+        <h6 if="col.showPrice">
+          {{ (col.discountPrice > 0 ? col.discountPrice : col.priceTaxIncluded) | price }}
+        </h6>
+      </div>
+    </div>
+  </div> -->
+
+<!-- <div class="products">
+    <div class="product-card" ng-repeat="col in vm.outstandingProducts" ng-click="vm.go(col._id)">
+      <div class="product-image">
+        <img loading="lazy" width="150px" height="150px" src="{{ col.managerFile_id[0].path }}" />
+      </div>
+      <div class="product-info">
+        <h5>{{ col.productLang.name }}</h5>
+        <p ng-if="col.showPrice && col.discountPrice > 0" class="text-center old-price">
+          <strong>{{ col.priceTaxIncluded | price }}</strong>
+        </p>
+        <h6 if="col.showPrice">
+          {{ (col.discountPrice > 0 ? col.discountPrice : col.priceTaxIncluded) | price }}
+        </h6>
+      </div>
+    </div>
+  </div> -->
+<!-- DESTACADOS -->
+
+<!-- OFERTAS -->
+<div class="fluid mt-5">
+  <div class="products-title">
+    <h1>
+      {{ 'GLOBAL.OFFER_PRODUCTS' | translate | uppercase }} {{ navigator.userAgent.toLowerCase() }}
+    </h1>
+  </div>
+</div>
+
+<div class="row mx-n2 pt-4 px-4 mx-sm-n3">
+  <div
+    class="col-12 col-sm-6 col-lg-3 px-2 px-sm-3 mb-3 mb-sm-5"
+    ng-repeat="col in vm.offerProducts"
+  >
+    <!-- Product -->
+    <div class="card text-center h-100">
+      <div class="position-relative">
+        <img
+          class="card-img-top"
+          height="230"
+          width="220"
+          ng-click="vm.go(col._id)"
+          src="{{ col.managerFile_id[0].path }}"
+          alt="Image Description"
+        />
+
+        <div class="position-absolute pt-3 pl-3" style="top: 0;">
+          <span class="badge badge-pill" style="background-color: var(--mainColor); color: white;"
+            >New arrival</span
+          >
+        </div>
+        <div class="position-absolute pt-3 pr-3" style="right: 0;">
+          <button
+            type="button"
+            class="btn btn-sm btn-icon btn-outline-secondary rounded-circle"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="Save for later"
+          >
+            <span class="fas fa-heart btn-icon__inner"></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="card-body pt-4 px-4 pb-0">
+        <div class="mb-2">
+          <!-- <a class="d-inline-block text-secondary small font-weight-medium mb-1" href="#"
+            >Accessories</a
+          > -->
+          <h5 class="font-size-1 font-weight-normal">
+            <a class="text-secondary" href="#">{{ col.productLang.name }}</a>
+          </h5>
+          <div class="d-block font-size-1">
+            <span class="font-weight-medium"
+              >{{ (col.discountPrice > 0 ? col.discountPrice : col.priceTaxIncluded) | price
+              }}</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="card-footer border-0 pt-0 pb-4 px-4">
+        <div class="mb-3">
+          <a class="d-inline-flex align-items-center small" href="#">
+            <div class="text-warning mr-2">
+              <small class="far fa-star text-muted"></small>
+              <small class="far fa-star text-muted"></small>
+              <small class="far fa-star text-muted"></small>
+              <small class="far fa-star text-muted"></small>
+              <small class="far fa-star text-muted"></small>
+            </div>
+            <span class="text-secondary">0</span>
+          </a>
+        </div>
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-main-color btn-sm-wide btn-pill transition-3d-hover"
+        >
+          Add to Cart
+        </button>
+      </div>
+    </div>
+    <!-- End Product -->
+  </div>
+</div>
+<!-- OFERTAS -->
+
+<!-- <footer class="fluid mt-1 d-flex">
+  <div style="padding-top: 2%;">
+    <img src="/modules/core/client/img/brand/compusum-color@2x.png" loading="lazy" alt="" />
+  </div>
+
+  <div class="footer__legals">
+    <h3 class="footer__legals__title">LÍNEAS DE ATENCIÓN PARA SERVICIO AL CLIENTE</h3>
+    <p>Teléfonos: (6)3335206 y (6)3336204</p>
+    <p>Celular: <span style="text-decoration: underline;">3185494547</span></p>
+    <h1 class="text-center font-weight-bold h4">Computadores y Suministros S.A.S</h1>
+    <p>Nit. 800.027.890</p>
+    <p>Carrera 6 #24-14, Pereira</p>
+  </div>
+
+  <div style="padding-top: 2%;" class="meet_us">
+    <h3>{{ 'GLOBAL.MEET_US' | uppercase | translate }}</h3>
+    <ul>
+      <li>
+        <a ui-sref="whoWeAre" href="#">¿Quiénes Somos?</a>
+      </li>
+      <li>
+        <a ui-sref="workWithUs" href="#">Trabaje con Nosotros</a>
+      </li>
+    </ul>
+
+    <div style="width: 247px;">
+      <h3>Registrate para recibir ofertas y promociones</h3>
+      <form action="">
+        <input type="text" placeholder="correo electrónico" />
+        <button type="submit" style="margin-top: 10px;">Suscribirme</button>
+      </form>
+    </div>
+  </div>
+</footer> -->

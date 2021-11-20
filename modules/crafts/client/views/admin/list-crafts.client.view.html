@@ -1,0 +1,63 @@
+<section class="container pt-4">
+  <script type="text/ng-template" id="headerCheckbox.html">
+    <input type="checkbox" ng-model="vm.checkboxes.checked" class="select-all" value="" />
+  </script>
+  <div class="page-header">
+    <div class="row">
+      <div class="col-sm-11">
+        <h1>
+          {{ 'CRAFT.NAME' | translate }}
+        </h1>
+      </div>
+      <div class="col-sm-1">
+        <a type="button" class="btn btn-primary text-white" data-ui-sref="crafts-admin.create">
+          <i class="fas fa-plus"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <table
+    ng-table="vm.tableParams"
+    class="table table-condensed table-bordered table-striped table-responsive"
+  >
+    <tr ng-repeat="row in $data">
+      <td data-title="'GLOBAL.ACTIONS' | translate">
+        <div class="btn-group" role="group">
+          <button
+            type="button"
+            class="btn btn-default btn-sm"
+            ui-sref="crafts-admin.view({ craftId: row._id })"
+          >
+            <span class="fas fa-eye"></span>
+          </button>
+          <button
+            type="button"
+            class="btn btn-default btn-sm"
+            ui-sref="crafts-admin.edit({craftId: row._id})"
+          >
+            <span class="fas fa-pencil-alt"></span>
+          </button>
+          <button type="button" class="btn btn-default btn-sm" ng-click="vm.remove(row._id)">
+            <span class="fas fa-trash-alt"></span>
+          </button>
+        </div>
+      </td>
+      <td data-title="'CRAFT.NAME' | translate" filter="{ name: 'text' }">
+        {{ row.name }}
+      </td>
+      <td
+        data-title="'PRODUCT.NAME' | translate"
+        filter="{ 'product_id': 'select' }"
+        filter-data="vm.listProducts"
+      >
+        {{ row.product_id.name }}
+      </td>
+      <td data-title="'CRAFT.DESCRIPTION' | translate" filter="{ description: 'text' }">
+        {{ row.description }}
+      </td>
+      <td data-title="'CRAFT.URL_VIDEO' | translate" filter="{ urlVideo: 'text' }">
+        {{ row.urlVideo }}
+      </td>
+    </tr>
+  </table>
+</section>

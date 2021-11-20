@@ -1,0 +1,135 @@
+<section class="container">
+  <div class="page-header">
+    <div class="row">
+      <div class="col-sm-11">
+        <h1 ng-bind="vm.group.username"></h1>
+      </div>
+      <div class="col-sm-1">
+        <a class="btn btn-primary" ui-sref="groups.list">
+          <i class="fas fa-undo-alt"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <hr/>
+      <div class="row">
+        <div class="col-sm-9"><strong>Name</strong></div>
+        <div class="col-sm-3" ng-bind="vm.group.name"></div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-sm-9"><strong>User</strong></div>
+        <div class="col-sm-3" ng-bind="vm.group.user.displayName"></div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-sm-9"><strong>Created</strong></div>
+        <div class="col-sm-3" ng-bind="vm.group.created"></div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-sm-9"><strong>Modified By</strong></div>
+        <div class="col-sm-3" ng-bind="vm.group.modifiedBy.displayName"></div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-sm-9"><strong>Modified</strong></div>
+        <div class="col-sm-3" ng-bind="vm.group.modified"></div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-sm-12"><strong>Option</strong></div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="accordion" id="accordionModuleGroups">
+            <div class="card" ng-repeat="(keyMain, valueMain) in vm.modules">
+              <div class="card-header" id="{{keyMain + 'Heading'}}">
+                <h2 class="mb-0">
+                  <button
+                    class="btn btn-link"
+                    type="button"
+                    ng-disabled="true"
+                    data-toggle="collapse"
+                    data-target="{{'#' + keyMain + 'Collapse'}}"
+                    aria-expanded="false"
+                    aria-controls="{{keyMain + 'Collapse'}}">
+                    {{keyMain}}
+                  </button>
+                </h2>
+              </div>      
+              <div
+                id="{{keyMain + 'Collapse'}}"
+                class="collapse show"
+                aria-labelledby="{{keyMain + 'Heading'}}"
+                data-parent="#accordionModuleGroups">
+                <div class="card-body">
+                  <table class="table table-sm"" width="100%">
+                    <thead>
+                      <colgroup>
+                        <col width="80%"/>
+                        <col width="5%"/>
+                        <col width="5%"/>
+                        <col width="5%"/>
+                        <col width="5%"/>
+                      </colgroup>
+                      <th>Recurso</th>
+                      <th>get</th>
+                      <th>post</th>
+                      <th>put</th>
+                      <th>delete</th>
+                    </thead>
+    
+                    <tbody ng-repeat="(key, value) in valueMain">   
+                      <td>{{key}}</td>
+                      <td>
+                        <input
+                          type="checkbox" 
+                          ng-disabled="true"
+                          ng-init="vm.group.option[keyMain][key].get"
+                          ng-model="vm.group.option[keyMain][key].get" 
+                          class="form-control"
+                          checked="{{vm.group.option[keyMain][key].get ? 'true' : ''}}">
+                      </td>
+                      <td>
+                        <input
+                          type="checkbox"
+                          ng-disabled="true"
+                          ng-init="vm.group.option[keyMain][key].post"
+                          ng-model="vm.group.option[keyMain][key].post" 
+                          class="form-control" 
+                          checked="{{vm.group.option[keyMain][key].post ? 'true' : ''}}">
+                      </td>
+                      <td>
+                        <input
+                          type="checkbox" 
+                          ng-disabled="true"
+                          ng-init="vm.group.option[keyMain][key].put"
+                          ng-model="vm.group.option[keyMain][key].put" 
+                          class="form-control" 
+                          checked="{{vm.group.option[keyMain][key].put ? 'true' : ''}}">
+                      </td>
+                      <td>
+                        <input
+                          type="checkbox"
+                          ng-disabled="true"
+                          ng-init="vm.group.option[keyMain][key].delete" 
+                          ng-model="vm.group.option[keyMain][key].delete" 
+                          class="form-control" 
+                          checked="{{vm.group.option[keyMain][key].delete ? 'true' : ''}}">
+                      </td>
+                    </tbody>
+                    </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr/>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,284 @@
+<section class="container pt-5">
+  <div class="page-header">
+    <h1>User <span ng-bind="vm.user.username"></span></h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.userForm" ng-submit="vm.update(vm.userForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group">
+          <label for="firstName">{{ 'USER.FIRSTNAME' | translate }}</label>
+          <input
+            ng-disabled="vm.disableFormUser"
+            type="text"
+            id="firstName"
+            name="firstName"
+            class="form-control"
+            ng-model="vm.user.firstName"
+            placeholder="First Name"
+            required
+            autofocus
+          />
+          <div ng-messages="vm.userForm.firstName.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">First name is required.</p>
+          </div>
+        </div>
+        <div ng-if="!vm.disableFormUser" class="form-group">
+          <label for="lastName"> {{ 'USER.LASTNAME' | translate }}</label>
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            class="form-control"
+            ng-model="vm.user.lastName"
+            placeholder="Last Name"
+            required
+          />
+          <div ng-messages="vm.userForm.lastName.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Last name is required.</p>
+          </div>
+        </div>
+        <div ng-if="!vm.disableFormUser" class="form-group">
+          <label class="control-label" for="group">
+            {{ 'USER.GROUP' | translate }}
+          </label>
+          <select
+            class="form-control"
+            name="group"
+            id="group"
+            ng-model="vm.user.group"
+            ng-init="vm.user.group"
+            ng-options="item as item.name for item in vm.listGroups track by item._id"
+            required
+          >
+            <option value="">--- Seleccione un Grupo ---</option>
+          </select>
+          <div ng-messages="vm.form.userForm.group.$error" role="alert">
+            <p class="help-block error-text" ng-message="required" traslate>
+              este es un campo requerido
+            </p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" for="DNI">
+            {{ 'GLOBAL.DNI' | translate }}
+          </label>
+          <input
+            class="form-control"
+            name="DNI"
+            type="text"
+            id="DNI"
+            ng-model="vm.user.DNI"
+            ng-init="vm.user.DNI"
+            required
+          />
+          <div ng-messages="vm.form.userForm.DNI.$error" role="alert">
+            <p class="help-block error-text" ng-message="required" traslate>
+              {{ 'GLOBAL.DNI_REQUIRED' | translate }}
+            </p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" for="phone">
+            {{ 'GLOBAL.PHONE' | translate }}
+          </label>
+          <input
+            class="form-control"
+            name="phone"
+            type="text"
+            id="phone"
+            ng-model="vm.user.phone"
+            ng-init="vm.user.phone"
+            required
+          />
+          <div ng-messages="vm.form.userForm.phone.$error" role="alert">
+            <p class="help-block error-text" ng-message="required" traslate>
+              {{ 'GLOBAL.PHONE_REQUIRED' | translate }}
+            </p>
+          </div>
+        </div>
+
+        <div
+          ng-if="!vm.disableFormUser && vm.authentication.user.roles.includes('admin')"
+          class="form-group"
+        >
+          <label class="control-label" for="shop">
+            Tienda
+          </label>
+          <select
+            class="form-control"
+            name="shop"
+            id="shop"
+            ng-model="vm.user.shop"
+            ng-init="vm.user.shop"
+            ng-options="item as item.name for item in vm.listShops track by item._id"
+            required
+          >
+            <option value="">--- Seleccione una Tienda ---</option>
+          </select>
+          <div ng-messages="vm.form.userForm.shop.$error" role="alert">
+            <p class="help-block error-text" ng-message="required" traslate>
+              este es un campo requerido
+            </p>
+          </div>
+        </div>
+        <div
+          ng-if="!vm.disableFormUser && vm.authentication.user.roles.includes('admin')"
+          class="form-group"
+        >
+          <label class="control-label" for="roles">Roles</label>
+          <div class="controls">
+            <input
+              class="form-control"
+              type="text"
+              name="roles"
+              ng-model="vm.user.roles"
+              id="roles"
+              ng-list
+              required
+            />
+            <div ng-messages="vm.userForm.roles.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">
+                At least one role is required.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div ng-if="!vm.disableFormUser" class="form-group">
+          <label class="control-label" for="listDiscount_id">
+            Lista de descuento
+          </label>
+          <select
+            class="form-control"
+            name="listDiscount_id"
+            id="listDiscount_id"
+            ng-model="vm.user.listDiscount_id"
+            ng-init="vm.user.listDiscount_id = vm.user.listDiscount_id ? vm.user.listDiscount_id._id : null"
+          >
+            <option ng-value="null">--- Seleccione una lista de descuento ---</option>
+            <option value="{{ item._id }}" ng-repeat="item in vm.listDiscountLists"
+              >{{ item.name }}</option
+            >
+          </select>
+          <div ng-messages="vm.form.userForm.listDiscount_id.$error" role="alert">
+            <p class="help-block error-text" ng-message="required" traslate>
+              este es un campo requerido
+            </p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="page-header">
+                  <h3>{{ 'USER.ADDRESS' | translate }}</h3>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="address">{{ 'USER.ADDRESS' | translate }}</label>
+                  <input
+                    type="text"
+                    id="address"
+                    name="address"
+                    class="form-control"
+                    ng-required="vm.disableFormUser"
+                    ng-model="vm.dataAddress.address"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="country">{{ 'USER.COUNTRY' | translate }}</label>
+                  <input
+                    type="text"
+                    id="country"
+                    ng-required="vm.disableFormUser"
+                    name="country"
+                    class="form-control"
+                    ng-model="vm.dataAddress.country"
+                  />
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="city">{{ 'USER.CITY' | translate }}</label>
+                  <input
+                    type="text"
+                    id="city"
+                    name="city"
+                    ng-required="vm.disableFormUser"
+                    class="form-control"
+                    ng-model="vm.dataAddress.city"
+                  />
+                </div>
+              </div>
+
+              <!-- <div class="col-md-3">
+                <div class="form-group">
+                  <label for="postalCode">{{ 'USER.POSTAL_CODE' | translate }}</label>
+                  <input
+                    type="text"
+                    id="postalCode"
+                    name="postalCode"
+                    class="form-control"
+                    ng-model="vm.dataAddress.postalCode"
+                  />
+                </div>
+              </div> -->
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="zone">{{ 'USER.ZONE' | translate }}</label>
+                  <select
+                    name="zone"
+                    ng-required="vm.disableFormUser"
+                    class="form-control"
+                    ng-model="vm.dataAddress.zone"
+                  >
+                    <option ng-repeat="zone in vm.zones" value="{{ zone.value }}"
+                      >{{ zone.label }}</option
+                    >
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <div class="form-check">
+                    <div class="col-md-12">
+                      <label class="form-check-label" for="isDefaultAddress">
+                        {{ 'USER.IS_DEFAULT_ADDRESS' | translate }}
+                      </label>
+                    </div>
+                    <div class="col-md-12" align="center">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="gridCheck"
+                        ng-model="vm.dataAddress.isDefaultAddress"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <input class="btn btn-primary" type="submit" value="Update" />
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,380 @@
+<section class="container">
+  <div class="row">
+    <div class="col-sm-11">
+      <h1>
+        {{ vm.shipper._id ? 'SHIPPER.EDIT' : 'SHIPPER.NEW' | translate }}
+      </h1>
+    </div>
+    <div class="col-sm-1">
+      <a ng-show="vm.shipper._id" class="btn btn-primary" ng-click="vm.remove()">
+        <i class="fas fa-trash-alt"> </i>
+      </a>
+    </div>
+    <div class="col-sm-12">
+      <form
+        name="vm.form.shipperForm"
+        class="needs-validation"
+        ng-submit="vm.save(vm.form.shipperForm.$valid)"
+        novalidate
+      >
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="third_id">
+              {{ 'SHIPPER.NAME' | translate }}
+            </label>
+            <select
+              class="custom-select"
+              name="third_id"
+              id="third_id"
+              ng-model="vm.shipper.third_id"
+              ng-init="vm.shipper.third_id"
+              ng-options="item as item.name for item in vm.listThirds track by item._id"
+              required
+            >
+              <option selected disabled value="">{{ 'THIRD.SELECT' | translate }}</option>
+            </select>
+            <div class="valid-feedback">
+              {{ 'THIRD.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'THIRD.INVALID' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="url">
+              {{ 'SHIPPER.URL' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="url"
+              id="url"
+              ng-model="vm.shipper.url"
+              required
+              autofocus
+            />
+            <div class="valid-feedback">
+              {{ 'SHIPPER.VALID_URL' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'SHIPPER.INVALID_URL' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="shippingSpeed">
+              {{ 'SHIPPER.SHIPPING_SPEED' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="shippingSpeed"
+              id="shippingSpeed"
+              ng-model="vm.shipper.shippingSpeed"
+              required
+            />
+            <div class="valid-feedback">
+              {{ 'SHIPPER.VALID_SHIPPING_SPEED' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'SHIPPER.INVALID_SHIPPING_SPEED' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="shippingCost">
+              {{ 'SHIPPER.SHIPPING_COST' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="shippingCost"
+              id="shippingCost"
+              ng-model="vm.shipper.shippingCost"
+              required
+            />
+            <div class="valid-feedback">
+              {{ 'SHIPPER.VALID_SHIPPING_COST' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'SHIPPER.INVALID_SHIPPING_COST' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="maxWidth">
+              {{ 'SHIPPER.MAX_WIDTH' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="maxWidth"
+              id="maxWidth"
+              ng-model="vm.shipper.maxWidth"
+              required
+            />
+            <div class="valid-feedback">
+              {{ 'SHIPPER.VALID_MAX_WIDTH' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'SHIPPER.INVALID_MAX_WIDTH' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="maxHeight">
+              {{ 'SHIPPER.MAX_HEIGHT' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="maxHeight"
+              id="maxHeight"
+              ng-model="vm.shipper.maxHeight"
+              required
+            />
+            <div class="valid-feedback">
+              {{ 'SHIPPER.VALID_MAX_HEIGHT' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'SHIPPER.INVALID_MAX_HEIGHT' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="maxDepth">
+              {{ 'SHIPPER.MAX_DEPTH' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="maxDepth"
+              id="maxDepth"
+              ng-model="vm.shipper.maxDepth"
+              required
+            />
+            <div class="valid-feedback">
+              {{ 'SHIPPER.VALID_MAX_DEPTH' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'SHIPPER.INVALID_MAX_DEPTH' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="maxWeight">
+              {{ 'SHIPPER.MAX_WEIGHT' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="maxWeight"
+              id="maxWeight"
+              ng-model="vm.shipper.maxWeight"
+              required
+            />
+            <div class="valid-feedback">
+              {{ 'SHIPPER.VALID_MAX_WEIGHT' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'SHIPPER.INVALID_MAX_WEIGHT' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="rate">
+              {{ 'SHIPPER.RATE' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="rate"
+              id="rate"
+              ng-model="vm.shipper.rate"
+              required
+            />
+            <div class="valid-feedback">
+              {{ 'SHIPPER.VALID_RATE' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'SHIPPER.INVALID_RATE' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="isFree" translate>
+              {{ 'SHIPPER.IS_FREE' | translate }}
+            </label>
+            <input
+              class="form-control"
+              type="checkbox"
+              name="isFree"
+              id="isFree"
+              data-ng-model="vm.shipper.isFree"
+              checked="true"
+            />
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="status" translate>
+              {{ 'GLOBAL.STATUS' | translate }}
+            </label>
+            <input
+              class="form-control"
+              type="checkbox"
+              name="status"
+              id="status"
+              data-ng-model="vm.shipper.status"
+              checked="true"
+            />
+          </div>
+
+          <!-- Cargar Imagen -->
+          <div class="col-md-12 mb-3">
+            <div class="row">
+              <!-- Titulo Cargar Imagen -->
+              <div class="col-md-12">
+                <label class="control-label">
+                  {{ 'CATEGORY.LOAD_IMAGE' | translate }}
+                </label>
+              </div>
+
+              <div class="col-md-12 mb-3" ng-if="vm.multiFiles">
+                <div class="progress">
+                  <div
+                    class="progress-bar progress-bar-striped progress-bar-animated"
+                    role="progressbar"
+                    ng-style="{ 'width': vm.valueProgress + '%' }"
+                    aria-valuenow="{{ vm.valueProgress }}"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  >
+                    {{ vm.valueProgress }}%
+                  </div>
+                </div>
+              </div>
+
+              <!-- Muestra Imagenes -->
+              <div class="col-md-12" ng-if="vm.multiFiles">
+                <div class="form-group text-center">
+                  <div ng-repeat="file in vm.shipper.files">
+                    <div class="form-group text-center">
+                      <img
+                        ngf-src="file.$ngfName ? file : file.path"
+                        alt="{{vm.user.displayName}}"
+                        class="rounded mx-auto d-bloc user-profile-picture"
+                      />
+                    </div>
+                    <div class="form-group text-center">
+                      <label class="control-label">
+                        {{ file.$ngfName ? file.$ngfName : file.originalname }}
+                      </label>
+                    </div>
+                    <div class="form-group text-center">
+                      <a
+                        type="button"
+                        class="btn btn-danger"
+                        ng-click="vm.removeFileById(file, vm.fileSelected ? 'files' : 'managerFile_id')"
+                      >
+                        X
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Muestra Imagen Unitaria -->
+              <div class="col-md-12" ng-if="!vm.multiFiles">
+                <div ng-show="vm.loading" class="form-group text-center">
+                  <img
+                    ng-src="/modules/core/client/img/loaders/loader.gif"
+                    height="50"
+                    width="50"
+                    alt="Loading image..."
+                  />
+                </div>
+                <div class="form-group text-center">
+                  <img
+                    ngf-src="vm.fileSelected ? vm.shipper.files : vm.shipper.managerFile_id[0].path"
+                    alt="{{vm.user.displayName}}"
+                    class="img-thumbnail user-profile-picture"
+                    ngf-drop
+                  />
+                </div>
+                <div class="form-group text-center">
+                  <label class="control-label">
+                    {{ vm.fileSelected ? vm.shipper.files.$ngfName :
+                    vm.shipper.managerFile_id[0].originalname }}
+                  </label>
+                </div>
+              </div>
+
+              <!-- Boton Selecciones Imagen  -->
+              <div class="col-md-12">
+                <div class="text-center form-group">
+                  <button
+                    class="btn btn-secondary btn-file"
+                    ngf-select="vm.uploadFiles($files)"
+                    ng-model="vm.shipper.files"
+                    accept="image/*"
+                    ngf-before-model-change="vm.loading = true;"
+                    ngf-resize="{width: 400, height: 400}"
+                    ngf-resize-if="$width > 400 || $height > 400"
+                    ngf-max-files="10"
+                    ngf-multiple="vm.multiFiles"
+                    ngf-keep="vm.multiFiles ? 'distinct' : false"
+                  >
+                    {{ 'MANAGER_FILE.SELECT_PICTURE' | translate }}
+                  </button>
+                </div>
+                <div class="text-center form-group">
+                  <input
+                    ng-show="false"
+                    class="form-control"
+                    type="checkbox"
+                    name="isFileSelected"
+                    id="isFileSelected"
+                    ng-model="vm.shipper.isFileSelected"
+                    required
+                  />
+                  <div class="valid-feedback text-center">
+                    {{ 'MANAGER_FILE.VALID_NAME' | translate }}
+                  </div>
+                  <div class="invalid-feedback text-center">
+                    {{ 'MANAGER_FILE.INVALID_NAME' | translate }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- // Fin Cargar Imagenes -->
+
+          <!-- <div class="col-md-12 mb-3">
+            <label class="control-label" for="shop">
+              {{ 'SHOP.TITLE' | translate }}
+            </label>
+            <select class="custom-select" name="shop" id="shop" ng-model="vm.shipper.shop"
+              ng-init="vm.shipper.shop" ng-options="item as item.name for item in vm.listShops track by item._id"
+              required>
+              <option selected disabled value="">{{ 'SHOP.SELECT' | translate }}</option>
+            </select>
+            <div class="valid-feedback">
+              {{ 'SHOP.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'SHOP.INVALID' | translate }}
+            </div>
+          </div> -->
+
+          <div class="col-md-12 mb-3">
+            <button type="submit" class="btn btn-primary">
+              {{ vm.shipper._id ? 'GLOBAL.UPDATE' : 'GLOBAL.CREATE' | translate }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

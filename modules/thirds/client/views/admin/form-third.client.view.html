@@ -1,0 +1,217 @@
+<section class="container">
+  <div class="row">
+    <div class="col-sm-11">
+      <h1>
+        {{ vm.third._id ? 'THIRD.EDIT' : 'THIRD.NEW' | translate }}
+      </h1>
+    </div>
+    <div class="col-sm-1">
+      <a ng-show="vm.third._id" class="btn btn-primary text-white" ng-click="vm.remove()">
+        <i class="fas fa-trash-alt"> </i>
+      </a>
+    </div>
+    <div class="col-sm-12">
+      <form
+        name="vm.form.thirdForm"
+        class="needs-validation"
+        ng-submit="vm.save(vm.form.thirdForm.$valid)"
+        novalidate
+      >
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="typeThird_id">
+              {{ 'THIRD.TYPE_THIRD' | translate }}
+            </label>
+            <select
+              class="custom-select"
+              name="typeThird_id"
+              id="typeThird_id"
+              ng-model="vm.third.typeThird_id"
+              ng-init="vm.third.typeThird_id"
+              ng-options="item as item.name for item in vm.listTypeThirds track by item._id"
+              required
+            >
+              <option selected disabled value=""
+                >{{ 'THIRD.SELECT_TYPE_THIRD' | translate }}</option
+              >
+            </select>
+            <div class="valid-feedback">
+              {{ 'THIRD.VALID_TYPE_THIRD' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'THIRD.INVALID_TYPE_THIRD' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="name">
+              {{ 'THIRD.NAME' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="name"
+              id="name"
+              ng-model="vm.third.name"
+              required
+            />
+            <div class="valid-feedback">
+              {{ 'THIRD.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'THIRD.INVALID' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="typeDocument_id">
+              {{ 'THIRD.TYPE_DOCUMENT' | translate }}
+            </label>
+            <select
+              class="custom-select"
+              name="typeDocument_id"
+              id="typeDocument_id"
+              ng-model="vm.third.typeDocument_id"
+              ng-init="vm.third.typeDocument_id"
+              ng-options="item as item.name for item in vm.listTypeDocuments track by item._id"
+              required
+            >
+              <option selected disabled value=""
+                >{{ 'THIRD.SELECT_TYPE_DOCUMENT' | translate }}</option
+              >
+            </select>
+            <div class="valid-feedback">
+              {{ 'THIRD.VALID_TYPE_DOCUMENT' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'THIRD.INVALID_TYPE_DOCUMENT' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="numberDocument">
+              {{ 'THIRD.NUMBER_DOCUMENT' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="numberDocument"
+              id="numberDocument"
+              ng-model="vm.third.numberDocument"
+              required
+            />
+            <div class="valid-feedback">
+              {{ 'THIRD.VALID_NUMBER_DOCUMENT' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'THIRD.INVALID_NUMBER_DOCUMENT' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="phone">
+              {{ 'THIRD.PHONE' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="phone"
+              id="phone"
+              ng-model="vm.third.phone"
+              required
+            />
+            <div class="valid-feedback">
+              {{ 'THIRD.VALID_PHONE' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'THIRD.INVALID_PHONE' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="email">
+              {{ 'THIRD.EMAIL' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="email"
+              id="email"
+              ng-model="vm.third.email"
+              required
+            />
+            <div class="valid-feedback">
+              {{ 'THIRD.VALID_EMAIL' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'THIRD.INVALID_EMAIL' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="address">
+              {{ 'THIRD.ADDRESS' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="address"
+              id="address"
+              ng-model="vm.third.address"
+              required
+            />
+            <div class="valid-feedback">
+              {{ 'THIRD.VALID_ADDRESS' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'THIRD.INVALID_ADDRESS' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="status" translate>
+              {{ 'GLOBAL.STATUS' | translate }}
+            </label>
+            <input
+              class="form-control"
+              type="checkbox"
+              name="status"
+              id="status"
+              data-ng-model="vm.third.status"
+              checked="true"
+            />
+          </div>
+
+          <!-- <div class="col-md-12 mb-3">
+            <label class="control-label" for="shop">
+              {{ 'SHOP.TITLE' | translate }}
+            </label>
+            <select
+              class="custom-select"
+              name="shop"
+              id="shop"
+              ng-model="vm.third.shop"
+              ng-init="vm.third.shop"
+              ng-options="item as item.name for item in vm.listShops track by item._id"
+              required
+            >
+              <option selected disabled value="">{{ 'SHOP.SELECT' | translate }}</option>
+            </select>
+            <div class="valid-feedback">
+              {{ 'SHOP.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'SHOP.INVALID' | translate }}
+            </div>
+          </div> -->
+
+          <div class="col-md-12 mb-3">
+            <button type="submit" class="btn btn-primary">
+              {{ vm.third._id ? 'GLOBAL.UPDATE' : 'GLOBAL.CREATE' | translate }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,154 @@
+<section class="row">
+  <div class="col-md-12">
+    <form name="vm.userForm" class="signin" novalidate autocomplete="off">
+      <fieldset>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="page-header">
+                  <h3>{{ 'USER.ADDRESS' | translate }}</h3>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <input
+                  ng-show="false"
+                  type="text"
+                  id="_id"
+                  name="_id"
+                  class="form-control"
+                  ng-model="vm.dataAddress._id"
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group" show-errors>
+                  <label for="address">{{ 'USER.ADDRESS' | translate }}</label>
+                  <input
+                    type="text"
+                    required
+                    id="address"
+                    name="address"
+                    class="form-control"
+                    ng-model="vm.dataAddress.address"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group" show-errors>
+                  <label for="country">{{ 'USER.COUNTRY' | translate }}</label>
+                  <input
+                    type="text"
+                    id="country"
+                    name="country"
+                    class="form-control"
+                    ng-model="vm.dataAddress.country"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="form-group" show-errors>
+                  <label for="city">{{ 'USER.CITY' | translate }}</label>
+                  <input
+                    type="text"
+                    id="city"
+                    name="city"
+                    class="form-control"
+                    ng-model="vm.dataAddress.city"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="form-group" show-errors>
+                  <label for="zone">{{ 'USER.ZONE' | translate }}</label>
+                  <select required name="zone" class="form-control" ng-model="vm.dataAddress.zone">
+                    <option ng-repeat="zone in vm.zones" value="{{ zone.value }}"
+                      >{{ zone.label }}</option
+                    >
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="form-group" show-errors>
+                  <div class="form-check">
+                    <div class="col-md-12">
+                      <label class="form-check-label" for="isDefaultAddress">
+                        {{ 'USER.IS_DEFAULT_ADDRESS' | translate }}
+                      </label>
+                    </div>
+                    <div class="col-md-12" align="center">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="gridCheck"
+                        ng-model="vm.dataAddress.isDefaultAddress"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <br />
+
+        <div class="text-center form-group">
+          <input
+            ng-click="vm.updateUserProfile(vm.userForm.$valid)"
+            type="button"
+            class="btn btn-primary"
+            value="{{ (vm.dataAddress._id ? 'GLOBAL.UPDATE' : 'GLOBAL.CREATE') | translate }}"
+          />
+        </div>
+
+        <br />
+        <div class="row">
+          <div class="col-md-12">
+            <table class="table table-condensed table-bordered table-striped">
+              <tr>
+                <td>{{ 'USER.ADDRESS' | translate }}</td>
+                <td>{{ 'USER.COUNTRY' | translate }}</td>
+                <td>{{ 'USER.CITY' | translate }}</td>
+                <td>{{ 'USER.ZONE' | translate }}</td>
+                <td>{{ 'USER.IS_DEFAULT_ADDRESS' | translate }}</td>
+                <td>{{ 'GLOBAL.ACTIONS' | translate }}</td>
+              </tr>
+              <tr ng-repeat="address in vm.user.addresses">
+                <td>{{ address.address }}</td>
+                <td>{{ address.country }}</td>
+                <td>{{ address.city }}</td>
+                <td>{{ address.zone }}</td>
+                <td>
+                  {{ address.isDefaultAddress == true ? 'GLOBAL.ACTIVE' : ('GLOBAL.INACTIVE' |
+                  translate) }}
+                </td>
+                <td>
+                  <button class="btn btn-default btn-sm" ng-click="vm.editAddress(address._id)">
+                    <span class="fas fa-pencil-alt"></span>
+                  </button>
+                  <button class="btn btn-default btn-sm" ng-click="vm.removeAddress(address._id)">
+                    <span class="fas fa-trash-alt"></span>
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

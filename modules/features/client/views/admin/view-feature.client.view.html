@@ -1,0 +1,67 @@
+<section class="container">
+  <div class="page-header">
+    <div class="row">
+      <div class="col-sm-11">
+        <h1 ng-bind="vm.feature.username"></h1>
+      </div>
+      <div class="col-sm-1">
+        <a class="btn btn-primary" ui-sref="features.list">
+          <i class="fas fa-undo-alt"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'FEATURE.NAME_LANG' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.feature.nameLang"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'FEATURE.TYPE_FEATURE' | translate }}</strong></div>
+        <div class="col-sm-3">
+          {{ 'FEATURE.' + (vm.feature.typeFeature_id.nameLang).toUpperCase() | translate }}
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'FEATURE.ORDER' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.feature.order"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'SHOP.NAME' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.feature.shop.name"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.STATUS' | translate }}</strong></div>
+        <div class="col-sm-3">
+          {{ vm.feature.status == true ? 'GLOBAL.ACTIVE' : 'GLOBAL.INACTIVE' | translate}}
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.CREATED_BY' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.feature.user.displayName"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.CREATED' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.feature.created"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.MODIFIED_BY' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.feature.modifiedBy.displayName"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.MODIFIED' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.feature.modified"></div>
+      </div>
+    </div>
+  </div>
+</section>

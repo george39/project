@@ -1,0 +1,82 @@
+<section class="container">
+  <div class="row">
+    <div class="col-sm-11">
+      <h1>
+        {{ vm.tax._id ? 'TAX.EDIT' : 'TAX.NEW' | translate }}
+      </h1>
+    </div>
+    <div class="col-sm-1">
+      <a ng-show="vm.tax._id" class="btn btn-primary" ng-click="vm.remove()">
+        <i class="fas fa-trash-alt"> </i>
+      </a>
+    </div>
+    <div class="col-sm-12">
+      <form name="vm.form.taxForm" class="needs-validation" ng-submit="vm.save(vm.form.taxForm.$valid)" novalidate>
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="nameLang">
+              {{ 'TAX.NAME_LANG' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="nameLang"
+              id="nameLang"
+              ng-model="vm.tax.nameLang"
+              required
+              autofocus
+            />
+            <div class="valid-feedback">
+              {{ 'TAX.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'TAX.INVALID' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="value">
+              {{ 'TAX.VALUE' | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="value"
+              id="value"
+              ng-model="vm.tax.value"
+              placeholder="{{ 'TAX.VALUE' | translate }}"
+              required
+              autofocus
+            />
+            <div class="valid-feedback">
+              {{ 'TAX.VALID' | translate }}
+            </div>
+            <div class="invalid-feedback">
+              {{ 'TAX.INVALID' | translate }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label class="control-label" for="status" translate>
+              {{ 'GLOBAL.STATUS' | translate }}
+            </label>
+            <input
+              class="form-control"
+              type="checkbox"
+              name="status"
+              id="status"
+              data-ng-model="vm.tax.status"
+              checked="true"
+            />
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <button type="submit" class="btn btn-primary">
+              {{ vm.tax._id ? 'GLOBAL.UPDATE' : 'GLOBAL.CREATE' | translate }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

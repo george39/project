@@ -1,0 +1,3893 @@
+FORMAT: 1A
+
+# BinLab Store
+
+API para el proyecto BinLab Store
+
+# Group Articles
+
+## Articles Collection [/api/articles?{filter}{count}{page}{sort}{populate}]
+
+### Get All Articles [GET]
+
++ Parameters
+
+    + filter (optional, object) - Conditions
+        - example: {
+            content : "Hello world"
+        }
+    + count (optional, number) - Amount of documents to be displayed
+    + page (optional, number) - Page to be displayed
+    + sort (optional, object | string)
+        - Object Example {
+            modified: -1
+        }
+        - String example: '-modified'
+    + populate (optional, object | string | string[])
+        - object example: {
+            path : "field by which you want to search",
+            field: "fields you want to get"
+        }
+        - string example: "field field field"
+        - string[] example: ["field", "field", "field"]
+
++ Response 200 (application/json)
+
+        {
+            options: {
+                filters: {
+                    field: '',
+                    mandatory: [Object]
+                },
+                sort: { modified: -1 },
+                start: 0,
+                count: 5
+            },
+            results:[
+                {
+                    _id: string,
+                    title: string,
+                    content: string,
+                    user: string,
+                    created: Date,
+                    modified: Date,
+                    __v: 0
+                }
+            ],
+            total: 1
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Create an Article [POST]
+
++ Request (application/json)
+
+        {
+            title: string,
+            content: string
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            title: string,
+            content: string,
+            created: Date,
+            modified: Date,
+            user: string | object
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error message'
+        }
+
+
+## Articles By ID [/api/articles/:articleId]
+
+### Get an Article by ID [GET]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            title: string,
+            content: string,
+            created: Date,
+            modified: Date,
+            user: string | object,
+            isCurrentUserOwner: boolean
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'Error message'
+        }
+
+### Update an article [PUT]
+
++ Request (application/json)
+
+        {
+            title: string,
+            content: string,
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            title: string,
+            content: string,
+            created: Date,
+            modified: Date,
+            user: string | object,
+            isCurrentUserOwner: boolean
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Delete an article [DELETE]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            title: string,
+            content: string,
+            created: Date,
+            modified: Date,
+            user: string | object,
+            modifiedBy: string | object
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Article is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No article with that identifier has been found'
+        }
+
+# Group Categories
+
+## Categories Collection [/api/categories?{filter}{count}{page}{sort}{populate}]
+
+### Get All Categories [GET]
+
++ Parameters
+
+    + filter (optional, object) - Conditions
+        - example: {
+            content : "Hello world"
+        }
+    + count (optional, number) - Amount of documents to be displayed
+    + page (optional, number) - Page to be displayed
+    + sort (optional, object | string)
+        - Object Example {
+            modified: -1
+        }
+        - String example: '-modified'
+    + populate (optional, object | string | string[])
+        - object example: {
+            path : "field by which you want to search",
+            field: "fields you want to get"
+        }
+        - string example: "field field field"
+        - string[] example: ["field", "field", "field"]
+
++ Response 200 (application/json)
+
+        {
+            options: {
+                filters: {
+                    field: '',
+                    mandatory: [Object]
+                },
+                sort: { modified: -1 },
+                start: 0,
+                count: 5
+            },
+            results:[
+                {
+                    _id: string,
+                    created: Date,
+                    modified: Date,
+                    product_id: string,
+                    parent_id: string,
+                    file_id: string,
+                    categoryLang: string,
+                    lft: string,
+                    rght: string,
+                    levelDepth: string,
+                    status: string,
+                    position: string
+                }
+            ],
+            total: 1
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Create an Category [POST]
+
++ Request (application/json)
+
+        {
+            product_id: string,
+            parent_id: string,
+            file_id: string,
+            categoryLang: string,
+            lft: string,
+            rght: string,
+            levelDepth: string,
+            status: string,
+            position: string
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            created: Date,
+            modified: Date,
+            product_id: string,
+            parent_id: string,
+            file_id: string,
+            categoryLang: string,
+            lft: string,
+            rght: string,
+            levelDepth: string,
+            status: string,
+            position: string
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error message'
+        }
+
+
+## Categories By ID [/api/categories/:categoryId]
+
+### Get a Category by ID [GET]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            created: Date,
+            modified: Date,
+            product_id: string,
+            parent_id: string,
+            file_id: string,
+            categoryLang: string,
+            lft: string,
+            rght: string,
+            levelDepth: string,
+            status: string,
+            position: string
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Category is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Category with that identifier has been found'
+        }
+
+### Update an Category [PUT]
+
++ Request (application/json)
+
+        {
+            product_id: string,
+            parent_id: string,
+            file_id: string,
+            categoryLang: string,
+            lft: string,
+            rght: string,
+            levelDepth: string,
+            status: string,
+            position: string
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            created: Date,
+            modified: Date,
+            product_id: string,
+            parent_id: string,
+            file_id: string,
+            categoryLang: string,
+            lft: string,
+            rght: string,
+            levelDepth: string,
+            status: string,
+            position: string
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Delete an Category [DELETE]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            created: Date,
+            modified: Date,
+            product_id: string,
+            parent_id: string,
+            file_id: string,
+            categoryLang: string,
+            lft: string,
+            rght: string,
+            levelDepth: string,
+            status: string,
+            position: string
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Category is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Category with that identifier has been found'
+        }
+
+# Group Cratfs
+
+## Crafts Collection [/api/crafts?{filter}{count}{page}{sort}{populate}]
+
+### Get All Crafts [GET]
+
++ Parameters
+
+    + filter (optional, object) - Conditions
+    + count (optional, number) - Amount of documents to be displayed
+    + page (optional, number) - Page to be displayed
+    + sort (optional, object | string)
+        - Object Example {
+            modified: -1
+        }
+        - String example: '-modified'
+    + populate (optional, object | string | string[])
+        - object example: {
+            path : "field by which you want to search",
+            field: "fields you want to get"
+        }
+        - string example: "field field field"
+        - string[] example: ["field", "field", "field"]
+
++ Response 200 (application/json)
+
+        {
+            options: {
+                filters: {
+                    field: '',
+                    mandatory: [Object]
+                },
+                sort: { modified: -1 },
+                start: 0,
+                count: 5
+            },
+            results:[
+                {
+                    _id: string,
+                    created: Date,
+                    modified: Date,
+                    name: string,
+                    product_id: string,
+                    description: string,
+                    urlVideo: string
+                }
+            ],
+            total: 1
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Create a Category [POST]
+
++ Request (application/json)
+
+        {
+            name: string,
+            product_id: string,
+            description: string,
+            urlVideo: string
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            created: Date,
+            modified: Date,
+            name: string,
+            product_id: string,
+            description: string,
+            urlVideo: string
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error message'
+        }
+
+
+## Crafts By ID [/api/crafts/:craftId]
+
+### Get a Craft by ID [GET]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            created: Date,
+            modified: Date,
+            name: string,
+            product_id: string,
+            description: string,
+            urlVideo: string
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Cratf is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Craft with that identifier has been found'
+        }
+
+### Update a Cratf [PUT]
+
++ Request (application/json)
+
+        {
+            name: string,
+            product_id: string,
+            description: string,
+            urlVideo: string,
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            created: Date,
+            modified: Date,
+            name: string,
+            product_id: string,
+            description: string,
+            urlVideo: string
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Delete a Cratf [DELETE]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            created: Date,
+            modified: Date,
+            name: string,
+            product_id: string,
+            description: string,
+            urlVideo: string
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Cratf is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Cratf with that identifier has been found'
+        }
+
+# Group Data-Types
+
+## Crafts Collection [/api/dataTypes?{filter}{count}{page}{sort}{populate}]
+
+### Get All Data-Types [GET]
+
++ Parameters
+
+    + filter (optional, object) - Conditions
+    + count (optional, number) - Amount of documents to be displayed
+    + page (optional, number) - Page to be displayed
+    + sort (optional, object | string)
+        - Object Example {
+            modified: -1
+        }
+        - String example: '-modified'
+    + populate (optional, object | string | string[])
+        - object example: {
+            path : "field by which you want to search",
+            field: "fields you want to get"
+        }
+        - string example: "field field field"
+        - string[] example: ["field", "field", "field"]
+
++ Response 200 (application/json)
+
+        {
+            options: {
+                filters: {
+                    field: '',
+                    mandatory: [Object]
+                },
+                sort: { modified: -1 },
+                start: 0,
+                count: 5
+            },
+            results:[
+                {
+                    _id: string,
+                    created: Date,
+                    modified: Date,
+                    name: string,
+                    alias: string,
+                    systemName: string,
+                }
+            ],
+            total: 1
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Create a Data-Type [POST]
+
++ Request (application/json)
+
+        {
+            name: string,
+            alias: string,
+            systemName: string,
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            created: Date,
+            modified: Date,
+            name: string,
+            alias: string,
+            systemName: string,
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error message'
+        }
+
+
+## Data-Types By ID [/api/dataTypes/:dataTypeId]
+
+### Get a Data-Type by ID [GET]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            created: Date,
+            modified: Date,
+            name: string,
+            alias: string,
+            systemName: string,
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Data-Type is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Data-Type with that identifier has been found'
+        }
+
+### Update a Data-Type [PUT]
+
++ Request (application/json)
+
+        {
+            name: string,
+            alias: string,
+            systemName: string,
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            created: Date,
+            modified: Date,
+            name: string,
+            alias: string,
+            systemName: string,
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Delete a Data-Type [DELETE]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            created: Date,
+            modified: Date,
+            name: string,
+            alias: string,
+            systemName: string,
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Data-Type is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Data-Type with that identifier has been found'
+        }
+
+# Group Features
+
+## Crafts Collection [/api/features?{filter}{count}{page}{sort}{populate}]
+
+### Get All Features [GET]
+
++ Parameters
+
+    + filter (optional, object) - Conditions
+    + count (optional, number) - Amount of documents to be displayed
+    + page (optional, number) - Page to be displayed
+    + sort (optional, object | string)
+        - Object Example {
+            modified: -1
+        }
+        - String example: '-modified'
+    + populate (optional, object | string | string[])
+        - object example: {
+            path : "field by which you want to search",
+            field: "fields you want to get"
+        }
+        - string example: "field field field"
+        - string[] example: ["field", "field", "field"]
+
++ Response 200 (application/json)
+
+        {
+            options: {
+                filters: {
+                    field: '',
+                    mandatory: [Object]
+                },
+                sort: { modified: -1 },
+                start: 0,
+                count: 5
+            },
+            results:[
+                {
+                    _id: string,
+                    created: Date,
+                    modified: Date,
+                    type: string,
+                    featureLang: string
+                }
+            ],
+            total: 1
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Create a Feature [POST]
+
++ Request (application/json)
+
+        {
+            type: string,
+            featureLang: string
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            created: Date,
+            modified: Date,
+            type: string,
+            featureLang: string
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error message'
+        }
+
+
+## Features By ID [/api/features/:featureId]
+
+### Get a Feature by ID [GET]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            created: Date,
+            modified: Date,
+            type: string,
+            featureLang: string
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Feature is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Feature with that identifier has been found'
+        }
+
+### Update a Feature [PUT]
+
++ Request (application/json)
+
+        {
+            type: string,
+            featureLang: string
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            created: Date,
+            modified: Date,
+            type: string,
+            featureLang: string
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Feature is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Feature with that identifier has been found'
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Delete a Feature [DELETE]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            created: Date,
+            modified: Date,
+            type: string,
+            featureLang: string
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Feature is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Feature with that identifier has been found'
+        }
+
+
+# Group Feature-Details
+
+## Crafts Collection [/api/featureDetails?{filter}{count}{page}{sort}{populate}]
+
+### Get All Feature-Details [GET]
+
++ Parameters
+
+    + filter (optional, object) - Conditions
+    + count (optional, number) - Amount of documents to be displayed
+    + page (optional, number) - Page to be displayed
+    + sort (optional, object | string)
+        - Object Example {
+            modified: -1
+        }
+        - String example: '-modified'
+    + populate (optional, object | string | string[])
+        - object example: {
+            path : "field by which you want to search",
+            field: "fields you want to get"
+        }
+        - string example: "field field field"
+        - string[] example: ["field", "field", "field"]
+
++ Response 200 (application/json)
+
+        {
+            options: {
+                filters: {
+                    field: '',
+                    mandatory: [Object]
+                },
+                sort: { modified: -1 },
+                start: 0,
+                count: 5
+            },
+            results:[
+                {
+                    _id: string,
+                    created: Date,
+                    modified: Date,
+                    feature_id: string,
+                    featureDetailLang: string
+                }
+            ],
+            total: 1
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Create a Feature-Detail [POST]
+
++ Request (application/json)
+
+        {
+            feature_id: string,
+            featureDetailLang: string
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            created: Date,
+            modified: Date,
+            feature_id: string,
+            featureDetailLang: string
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error message'
+        }
+
+
+## Feature-Detail By ID [/api/featureDetails/:featureDetailId]
+
+### Get a Feature-Detail by ID [GET]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            created: Date,
+            modified: Date,
+            feature_id: string,
+            featureDetailLang: string
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Feature-Detail is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Feature-Detail with that identifier has been found'
+        }
+
+### Update a Feature-Detail [PUT]
+
++ Request (application/json)
+
+        {
+            feature_id: string,
+            featureDetailLang: string
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            created: Date,
+            modified: Date,
+            feature_id: string,
+            featureDetailLang: string
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Feature-Detail is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Feature-Detail with that identifier has been found'
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Delete a Feature-Detail [DELETE]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            created: Date,
+            modified: Date,
+            feature_id: string,
+            featureDetailLang: string
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Feature-Detail is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Feature-Detail with that identifier has been found'
+        }
+
+# Group Groups
+
+## Groups Collection [/api/groups?{filter}{count}{page}{sort}{populate}]
+
+### Get All Groups [GET]
+
++ Parameters
+
+    + filter (optional, object) - Conditions
+    + count (optional, number) - Amount of documents to be displayed
+    + page (optional, number) - Page to be displayed
+    + sort (optional, object | string)
+        - Object Example {
+            modified: -1
+        }
+        - String example: '-modified'
+    + populate (optional, object | string | string[])
+        - object example: {
+            path : "field by which you want to search",
+            field: "fields you want to get"
+        }
+        - string example: "field field field"
+        - string[] example: ["field", "field", "field"]
+
++ Response 200 (application/json)
+
+        {
+            options: {
+                filters: {
+                    field: '',
+                    mandatory: [Object]
+                },
+                sort: { modified: -1 },
+                start: 0,
+                count: 5
+            },
+            results:[
+                {
+                    _id: string,
+                    name: string,
+                    option: [Object],
+                    created: Date,
+                    modified: Date,
+                    user: string | object
+                }
+            ],
+            total: 1
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Create a Group [POST]
+
++ Request (application/json)
+
+        {
+            name: string,
+            option: {
+                "Group name": {
+                    "api route": {
+                        get: true,
+                        post: true,
+                        put: true,
+                        delete: true
+                    }
+                }
+            }
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            name: string,
+            option: [Object],
+            created: Date,
+            modified: Date,
+            user: string | object
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error message'
+        }
+
+
+## Group By ID [/api/groups/:groupId]
+
+### Get a Group by ID [GET]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            name: string,
+            option: [Object],
+            created: Date,
+            modified: Date,
+            user: string | object
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Group is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Group with that identifier has been found'
+        }
+
+### Update a Group [PUT]
+
++ Request (application/json)
+
+        {
+            name: string,
+            option: {
+                "Group name": {
+                    "api route": {
+                        get: true,
+                        post: true,
+                        put: true,
+                        delete: true
+                    }
+                }
+            }
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            name: string,
+            option: [Object],
+            created: Date,
+            modified: Date,
+            user: string
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Group is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Group with that identifier has been found'
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Delete a Feature-Detail [DELETE]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            name: string,
+            option: [Object],
+            created: Date,
+            modified: Date,
+            user: string
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Group is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Group with that identifier has been found'
+        }
+
+
+# Group Langs
+
+## Groups Collection [/api/langs?{filter}{count}{page}{sort}{populate}]
+
+### Get All Langs [GET]
+
++ Parameters
+
+    + filter (optional, object) - Conditions
+    + count (optional, number) - Amount of documents to be displayed
+    + page (optional, number) - Page to be displayed
+    + sort (optional, object | string)
+        - Object Example {
+            modified: -1
+        }
+        - String example: '-modified'
+    + populate (optional, object | string | string[])
+        - object example: {
+            path : "field by which you want to search",
+            field: "fields you want to get"
+        }
+        - string example: "field field field"
+        - string[] example: ["field", "field", "field"]
+
++ Response 200 (application/json)
+
+        {
+            options: {
+                filters: {
+                    field: '',
+                    mandatory: [Object]
+                },
+                sort: { modified: -1 },
+                start: 0,
+                count: 5
+            },
+            results:[
+                {
+                    _id: string,
+                    name: string,
+                    managerFile_id: string,
+                    isoCode: string,
+                    languageCode: string,
+                    locale: string,
+                    dateFormatLite: string,
+                    dateFormatFull: string,
+                    status: string,
+                    shop_id: string,
+                    created: Date,
+                    modified: Date,
+                    user: string | object
+                }
+            ],
+            total: 1
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Create a Group [POST]
+
++ Request (application/json)
+
+        {
+            name: string,
+            managerFile_id: string,
+            isoCode: string,
+            languageCode: string,
+            locale: string,
+            dateFormatLite: string,
+            dateFormatFull: string,
+            status: string,
+            shop_id: string
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            name: string,
+            managerFile_id: string,
+            isoCode: string,
+            languageCode: string,
+            locale: string,
+            dateFormatLite: string,
+            dateFormatFull: string,
+            status: string,
+            shop_id: string,
+            created: Date,
+            modified: Date,
+            user: string | object
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error message'
+        }
+
+
+## Langs By ID [/api/langs/:langId]
+
+### Get a Lang by ID [GET]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            name: string,
+            managerFile_id: string,
+            isoCode: string,
+            languageCode: string,
+            locale: string,
+            dateFormatLite: string,
+            dateFormatFull: string,
+            status: string,
+            shop_id: string,
+            created: Date,
+            modified: Date,
+            user: string | object
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Lang is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Lang with that identifier has been found'
+        }
+
+### Update a Lang [PUT]
+
++ Request (application/json)
+
+        {
+            name: string,
+            managerFile_id: string,
+            isoCode: string,
+            languageCode: string,
+            locale: string,
+            dateFormatLite: string,
+            dateFormatFull: string,
+            status: string,
+            shop_id: string
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            name: string,
+            managerFile_id: string,
+            isoCode: string,
+            languageCode: string,
+            locale: string,
+            dateFormatLite: string,
+            dateFormatFull: string,
+            status: string,
+            shop_id: string,
+            created: Date,
+            modified: Date,
+            user: string | object
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Lang is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Lang with that identifier has been found'
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Delete a Lang [DELETE]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            name: string,
+            managerFile_id: string,
+            isoCode: string,
+            languageCode: string,
+            locale: string,
+            dateFormatLite: string,
+            dateFormatFull: string,
+            status: string,
+            shop_id: string,
+            created: Date,
+            modified: Date,
+            user: string | object
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Lang is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Lang with that identifier has been found'
+        }
+
+
+# Group Manager-File-Types
+
+## Manager-File-Types Collection [/api/managerFileTypes?{filter}{count}{page}{sort}{populate}]
+
+### Get All Manager-File-Types [GET]
+
++ Parameters
+
+    + filter (optional, object) - Conditions
+    + count (optional, number) - Amount of documents to be displayed
+    + page (optional, number) - Page to be displayed
+    + sort (optional, object | string)
+        - Object Example {
+            modified: -1
+        }
+        - String example: '-modified'
+    + populate (optional, object | string | string[])
+        - object example: {
+            path : "field by which you want to search",
+            field: "fields you want to get"
+        }
+        - string example: "field field field"
+        - string[] example: ["field", "field", "field"]
+
++ Response 200 (application/json)
+
+        {
+            options: {
+                filters: {
+                    field: '',
+                    mandatory: [Object]
+                },
+                sort: { modified: -1 },
+                start: 0,
+                count: 5
+            },
+            results:[
+                {
+                    _id: string,
+                    name: string,
+                    width: string,
+                    height: string,
+                    containerModule: string,
+                    shop_id: string,
+                    created: Date,
+                    modified: Date,
+                    user: string | object
+                }
+            ],
+            total: 1
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Create a Manager-File-Type [POST]
+
++ Request (application/json)
+
+        {
+            name: string,
+            width: string,
+            height: string,
+            containerModule: string,
+            shop_id: string
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            name: string,
+            width: string,
+            height: string,
+            containerModule: string,
+            shop_id: string,
+            created: Date,
+            modified: Date,
+            user: string | object
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error message'
+        }
+
+
+## Manager-File-Type By ID [/api/managerFileTypes/:langId]
+
+### Get a Manager-File-Types by ID [GET]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            name: string,
+            width: string,
+            height: string,
+            containerModule: string,
+            shop_id: string,
+            created: Date,
+            modified: Date,
+            user: string | object
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Manager-File-Type is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Manager-File-Types with that identifier has been found'
+        }
+
+### Update a Manager-File-Type [PUT]
+
++ Request (application/json)
+
+        {
+            name: string,
+            width: string,
+            height: string,
+            containerModule: string,
+            shop_id: string
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            name: string,
+            width: string,
+            height: string,
+            containerModule: string,
+            shop_id: string,
+            created: Date,
+            modified: Date,
+            user: string | object
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Manager-File-Type is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Manager-File-Types with that identifier has been found'
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Delete a Manager-File-Type [DELETE]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            name: string,
+            width: string,
+            height: string,
+            containerModule: string,
+            shop_id: string,
+            created: Date,
+            modified: Date,
+            user: string | object
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Manager-File-Type is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Manager-File-Type with that identifier has been found'
+        }
+
+
+# Group Manager-Files
+
+## Manager-File-Types Collection [/api/managerFiles?{filter}{count}{page}{sort}{populate}]
+
+### Get All Manager-Files [GET]
+
++ Parameters
+
+    + filter (optional, object) - Conditions
+    + count (optional, number) - Amount of documents to be displayed
+    + page (optional, number) - Page to be displayed
+    + sort (optional, object | string)
+        - Object Example {
+            modified: -1
+        }
+        - String example: '-modified'
+    + populate (optional, object | string | string[])
+        - object example: {
+            path : "field by which you want to search",
+            field: "fields you want to get"
+        }
+        - string example: "field field field"
+        - string[] example: ["field", "field", "field"]
+
++ Response 200 (application/json)
+
+        {
+            options: {
+                filters: {
+                    field: '',
+                    mandatory: [Object]
+                },
+                sort: { modified: -1 },
+                start: 0,
+                count: 5
+            },
+            results:[
+                {
+                    _id: string,
+                    fieldname: string,
+                    originalname: string,
+                    encoding: string,
+                    mimetype: string,
+                    destination: string,
+                    filename: string,
+                    path: string,
+                    size: string,
+                    shop_id: string,
+                    created: Date,
+                    modified: Date,
+                    user: string | object
+                }
+            ],
+            total: 1
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Create a Manager-File [POST]
+
++ Request (application/json)
+
+        {
+            fieldname: string,
+            originalname: string,
+            encoding: string,
+            mimetype: string,
+            destination: string,
+            filename: string,
+            path: string,
+            size: string,
+            shop_id: string
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            fieldname: string,
+            originalname: string,
+            encoding: string,
+            mimetype: string,
+            destination: string,
+            filename: string,
+            path: string,
+            size: string,
+            shop_id: string,
+            created: Date,
+            modified: Date,
+            user: string | object
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error message'
+        }
+
+
+## Manager-Files By ID [/api/managerFiles/:langId]
+
+### Get a Manager-File by ID [GET]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            fieldname: string,
+            originalname: string,
+            encoding: string,
+            mimetype: string,
+            destination: string,
+            filename: string,
+            path: string,
+            size: string,
+            shop_id: string,
+            created: Date,
+            modified: Date,
+            user: string | object
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Manager-File is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Manager-File with that identifier has been found'
+        }
+
+### Update a Manager-File-Type [PUT]
+
++ Request (application/json)
+
+        {
+            fieldname: string,
+            originalname: string,
+            encoding: string,
+            mimetype: string,
+            destination: string,
+            filename: string,
+            path: string,
+            size: string,
+            shop_id: string
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            fieldname: string,
+            originalname: string,
+            encoding: string,
+            mimetype: string,
+            destination: string,
+            filename: string,
+            path: string,
+            size: string,
+            shop_id: string,
+            created: Date,
+            modified: Date,
+            user: string | object
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Manager-File is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Manager-File with that identifier has been found'
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Delete a Manager-File [DELETE]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            fieldname: string,
+            originalname: string,
+            encoding: string,
+            mimetype: string,
+            destination: string,
+            filename: string,
+            path: string,
+            size: string,
+            shop_id: string,
+            created: Date,
+            modified: Date,
+            user: string | object
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Manager-File is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Manager-File with that identifier has been found'
+        }
+
+
+# Group Movements
+
+## Movement Collection [/api/movements?{filter}{count}{page}{sort}{populate}]
+
+### Get All Movements [GET]
+
++ Parameters
+
+    + filter (optional, object) - Conditions
+    + count (optional, number) - Amount of documents to be displayed
+    + page (optional, number) - Page to be displayed
+    + sort (optional, object | string)
+        - Object Example {
+            modified: -1
+        }
+        - String example: '-modified'
+    + populate (optional, object | string | string[])
+        - object example: {
+            path : "field by which you want to search",
+            field: "fields you want to get"
+        }
+        - string example: "field field field"
+        - string[] example: ["field", "field", "field"]
+
++ Response 200 (application/json)
+
+        {
+            options: {
+                filters: {
+                    field: '',
+                    mandatory: [Object]
+                },
+                sort: { modified: -1 },
+                start: 0,
+                count: 5
+            },
+            results:[
+                {
+                    _id: string,
+                    product_id: string,
+                    movementType: string,
+                    type_id: : string,
+                    quantity: string,
+                    balance: string,
+                    cost: string,
+                    price: string,
+                    parent_id: string,
+                    status: string,
+                    featureDetail_id: string,
+                    created: Date,
+                    modified: Date,
+                    user: string | object
+                }
+            ],
+            total: 1
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Create a Movement [POST]
+
++ Request (application/json)
+
+        {
+            product_id: string,
+            movementType: string,
+            type_id: : string,
+            quantity: string,
+            balance: string,
+            cost: string,
+            price: string,
+            parent_id: string,
+            status: string,
+            featureDetail_id: string
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            product_id: string,
+            movementType: string,
+            type_id: : string,
+            quantity: string,
+            balance: string,
+            cost: string,
+            price: string,
+            parent_id: string,
+            status: string,
+            featureDetail_id: string,
+            created: Date,
+            modified: Date,
+            user: string | object
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error message'
+        }
+
+
+## Movements By ID [/api/movements/:movementId]
+
+### Get a Movement by ID [GET]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            product_id: string,
+            movementType: string,
+            type_id: : string,
+            quantity: string,
+            balance: string,
+            cost: string,
+            price: string,
+            parent_id: string,
+            status: string,
+            featureDetail_id: string,
+            created: Date,
+            modified: Date,
+            user: string | object
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Movement is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Movement with that identifier has been found'
+        }
+
+### Update a Movement [PUT]
+
++ Request (application/json)
+
+        {
+            product_id: string,
+            movementType: string,
+            type_id: : string,
+            quantity: string,
+            balance: string,
+            cost: string,
+            price: string,
+            parent_id: string,
+            status: string,
+            featureDetail_id: string
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            product_id: string,
+            movementType: string,
+            type_id: : string,
+            quantity: string,
+            balance: string,
+            cost: string,
+            price: string,
+            parent_id: string,
+            status: string,
+            featureDetail_id: string,
+            created: Date,
+            modified: Date,
+            user: string | object
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Movement is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Movement with that identifier has been found'
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Delete a Movement [DELETE]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            product_id: string,
+            movementType: string,
+            type_id: : string,
+            quantity: string,
+            balance: string,
+            cost: string,
+            price: string,
+            parent_id: string,
+            status: string,
+            featureDetail_id: string,
+            created: Date,
+            modified: Date,
+            user: string | object
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Movement is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Movement with that identifier has been found'
+        }
+
+
+# Group Orders
+
+## Orders Collection [/api/orders?{filter}{count}{page}{sort}{populate}]
+
+### Get All Orders [GET]
+
++ Parameters
+
+    + filter (optional, object) - Conditions
+    + count (optional, number) - Amount of documents to be displayed
+    + page (optional, number) - Page to be displayed
+    + sort (optional, object | string)
+        - Object Example {
+            modified: -1
+        }
+        - String example: '-modified'
+    + populate (optional, object | string | string[])
+        - object example: {
+            path : "field by which you want to search",
+            field: "fields you want to get"
+        }
+        - string example: "field field field"
+        - string[] example: ["field", "field", "field"]
+
++ Response 200 (application/json)
+
+        {
+            options: {
+                filters: {
+                    field: '',
+                    mandatory: [Object]
+                },
+                sort: { modified: -1 },
+                start: 0,
+                count: 5
+            },
+            results:[
+                {
+                    _id: string,
+                    code: string,
+                    product_id: string,
+                    status: : string,
+                    payType: string,
+                    trackingCode: string,
+                    shipper_id: string,
+                    user_id: string,
+                    total: string,
+                    invoiceNumber: string,
+                    message: string,
+                    created: Date,
+                    modified: Date,
+                    modifiedBy: string,
+                    user: string | object
+                }
+            ],
+            total: 1
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Create an Order [POST]
+
++ Request (application/json)
+
+        {
+            code: string,
+            product_id: string,
+            status: : string,
+            payType: string,
+            trackingCode: string,
+            shipper_id: string,
+            user_id: string,
+            total: string,
+            invoiceNumber: string,
+            message: string
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            code: string,
+            product_id: string,
+            status: : string,
+            payType: string,
+            trackingCode: string,
+            shipper_id: string,
+            user_id: string,
+            total: string,
+            invoiceNumber: string,
+            message: string,
+            created: Date,
+            modified: Date,
+            modifiedBy: string,
+            user: string | object
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error message'
+        }
+
+
+## Orders By ID [/api/orders/:orderId]
+
+### Get an Order by ID [GET]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            code: string,
+            product_id: string,
+            status: : string,
+            payType: string,
+            trackingCode: string,
+            shipper_id: string,
+            user_id: string,
+            total: string,
+            invoiceNumber: string,
+            message: string,
+            created: Date,
+            modified: Date,
+            modifiedBy: string,
+            user: string | object
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Order is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Order with that identifier has been found'
+        }
+
+### Update an Order [PUT]
+
++ Request (application/json)
+
+        {
+            code: string,
+            product_id: string,
+            status: : string,
+            payType: string,
+            trackingCode: string,
+            shipper_id: string,
+            user_id: string,
+            total: string,
+            invoiceNumber: string,
+            message: string
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            code: string,
+            product_id: string,
+            status: : string,
+            payType: string,
+            trackingCode: string,
+            shipper_id: string,
+            user_id: string,
+            total: string,
+            invoiceNumber: string,
+            message: string,
+            created: Date,
+            modified: Date,
+            modifiedBy: string,
+            user: string | object
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Order is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Order with that identifier has been found'
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Delete an Order [DELETE]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            code: string,
+            product_id: string,
+            status: : string,
+            payType: string,
+            trackingCode: string,
+            shipper_id: string,
+            user_id: string,
+            total: string,
+            invoiceNumber: string,
+            message: string,
+            created: Date,
+            modified: Date,
+            modifiedBy: string,
+            user: string | object
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Order is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Order with that identifier has been found'
+        }
+
+
+# Group Products
+
+## Products Collection [/api/products?{filter}{count}{page}{sort}{populate}]
+
+### Get All Products [GET]
+
++ Parameters
+
+    + filter (optional, object) - Conditions
+    + count (optional, number) - Amount of documents to be displayed
+    + page (optional, number) - Page to be displayed
+    + sort (optional, object | string)
+        - Object Example {
+            modified: -1
+        }
+        - String example: '-modified'
+    + populate (optional, object | string | string[])
+        - object example: {
+            path : "field by which you want to search",
+            field: "fields you want to get"
+        }
+        - string example: "field field field"
+        - string[] example: ["field", "field", "field"]
+
++ Response 200 (application/json)
+
+        {
+            options: {
+                filters: {
+                    field: '',
+                    mandatory: [Object]
+                },
+                sort: { modified: -1 },
+                start: 0,
+                count: 5
+            },
+            results: [
+                {
+                    _id: string,
+                    categoryMain_id: string,
+                    category_id: string,
+                    productLang: : string,
+                    file_id: string,
+                    tax_id: string,
+                    maker_id: string,
+                    provider_id: string,
+                    status: string,
+                    availableNow: string,
+                    deliveryInStock: string,
+                    onlineOnly: string,
+                    barCode: string,
+                    code: string,
+                    quantity: string,
+                    quantityMin: string,
+                    cost: string,
+                    price: string,
+                    taxPrice: string,
+                    profit: string,
+                    shippingCost: string,
+                    percentDiscount: string,
+                    shippingDatum: string,
+                    showPrice: string,
+                    isOffer: string,
+                    user: string | object,
+                    created: Date,
+                    modifiedBy: string,
+                    modified: Date
+                }
+            ],
+            total: 1
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Create a Product [POST]
+
++ Request (application/json)
+
+        {
+            categoryMain_id: string,
+            category_id: string,
+            productLang: : string,
+            file_id: string,
+            tax_id: string,
+            maker_id: string,
+            provider_id: string,
+            status: string,
+            availableNow: string,
+            deliveryInStock: string,
+            onlineOnly: string,
+            barCode: string,
+            code: string,
+            quantity: string,
+            quantityMin: string,
+            cost: string,
+            price: string,
+            taxPrice: string,
+            profit: string,
+            shippingCost: string,
+            percentDiscount: string,
+            shippingDatum: string,
+            showPrice: string,
+            isOffer: string
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            categoryMain_id: string,
+            category_id: string,
+            productLang: : string,
+            file_id: string,
+            tax_id: string,
+            maker_id: string,
+            provider_id: string,
+            status: string,
+            availableNow: string,
+            deliveryInStock: string,
+            onlineOnly: string,
+            barCode: string,
+            code: string,
+            quantity: string,
+            quantityMin: string,
+            cost: string,
+            price: string,
+            taxPrice: string,
+            profit: string,
+            shippingCost: string,
+            percentDiscount: string,
+            shippingDatum: string,
+            showPrice: string,
+            isOffer: string,
+            user: string | object,
+            created: Date,
+            modifiedBy: string,
+            modified: Date
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error message'
+        }
+
+
+## Products By ID [/api/products/:productId]
+
+### Get a Product by ID [GET]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            categoryMain_id: string,
+            category_id: string,
+            productLang: : string,
+            file_id: string,
+            tax_id: string,
+            maker_id: string,
+            provider_id: string,
+            status: string,
+            availableNow: string,
+            deliveryInStock: string,
+            onlineOnly: string,
+            barCode: string,
+            code: string,
+            quantity: string,
+            quantityMin: string,
+            cost: string,
+            price: string,
+            taxPrice: string,
+            profit: string,
+            shippingCost: string,
+            percentDiscount: string,
+            shippingDatum: string,
+            showPrice: string,
+            isOffer: string,
+            user: string | object,
+            created: Date,
+            modifiedBy: string,
+            modified: Date
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Product is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Product with that identifier has been found'
+        }
+
+### Update a Product [PUT]
+
++ Request (application/json)
+
+        {
+            categoryMain_id: string,
+            category_id: string,
+            productLang: : string,
+            file_id: string,
+            tax_id: string,
+            maker_id: string,
+            provider_id: string,
+            status: string,
+            availableNow: string,
+            deliveryInStock: string,
+            onlineOnly: string,
+            barCode: string,
+            code: string,
+            quantity: string,
+            quantityMin: string,
+            cost: string,
+            price: string,
+            taxPrice: string,
+            profit: string,
+            shippingCost: string,
+            percentDiscount: string,
+            shippingDatum: string,
+            showPrice: string,
+            isOffer: string,
+            user: string | object
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            categoryMain_id: string,
+            category_id: string,
+            productLang: : string,
+            file_id: string,
+            tax_id: string,
+            maker_id: string,
+            provider_id: string,
+            status: string,
+            availableNow: string,
+            deliveryInStock: string,
+            onlineOnly: string,
+            barCode: string,
+            code: string,
+            quantity: string,
+            quantityMin: string,
+            cost: string,
+            price: string,
+            taxPrice: string,
+            profit: string,
+            shippingCost: string,
+            percentDiscount: string,
+            shippingDatum: string,
+            showPrice: string,
+            isOffer: string,
+            user: string | object,
+            created: Date,
+            modifiedBy: string,
+            modified: Date
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Product is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Product with that identifier has been found'
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Delete a Product [DELETE]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            categoryMain_id: string,
+            category_id: string,
+            productLang: : string,
+            file_id: string,
+            tax_id: string,
+            maker_id: string,
+            provider_id: string,
+            status: string,
+            availableNow: string,
+            deliveryInStock: string,
+            onlineOnly: string,
+            barCode: string,
+            code: string,
+            quantity: string,
+            quantityMin: string,
+            cost: string,
+            price: string,
+            taxPrice: string,
+            profit: string,
+            shippingCost: string,
+            percentDiscount: string,
+            shippingDatum: string,
+            showPrice: string,
+            isOffer: string,
+            user: string | object,
+            created: Date,
+            modifiedBy: string,
+            modified: Date
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Product is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Product with that identifier has been found'
+        }
+
+
+# Group Shippers
+
+## Shippers Collection [/api/shippers?{filter}{count}{page}{sort}{populate}]
+
+### Get All Shippers [GET]
+
++ Parameters
+
+    + filter (optional, object) - Conditions
+    + count (optional, number) - Amount of documents to be displayed
+    + page (optional, number) - Page to be displayed
+    + sort (optional, object | string)
+        - Object Example {
+            modified: -1
+        }
+        - String example: '-modified'
+    + populate (optional, object | string | string[])
+        - object example: {
+            path : "field by which you want to search",
+            field: "fields you want to get"
+        }
+        - string example: "field field field"
+        - string[] example: ["field", "field", "field"]
+
++ Response 200 (application/json)
+
+        {
+            options: {
+                filters: {
+                    field: '',
+                    mandatory: [Object]
+                },
+                sort: { modified: -1 },
+                start: 0,
+                count: 5
+            },
+            results: [
+                {
+                    _id: string,
+                    name: string,
+                    url: string,
+                    status: : string,
+                    shippingSpeed: string,
+                    file_id: string,
+                    isFree: string,
+                    rate_id: string,
+                    maxWidth: string,
+                    maxHeight: string,
+                    maxDepth: string,
+                    maxWeight: string,
+                    user: string | object,
+                    created: Date,
+                    modifiedBy: string,
+                    modified: Date
+                }
+            ],
+            total: 1
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Create a Shipper [POST]
+
++ Request (application/json)
+
+        {
+            name: string,
+            url: string,
+            status: : string,
+            shippingSpeed: string,
+            file_id: string,
+            isFree: string,
+            rate_id: string,
+            maxWidth: string,
+            maxHeight: string,
+            maxDepth: string,
+            maxWeight: string
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            name: string,
+            url: string,
+            status: : string,
+            shippingSpeed: string,
+            file_id: string,
+            isFree: string,
+            rate_id: string,
+            maxWidth: string,
+            maxHeight: string,
+            maxDepth: string,
+            maxWeight: string,
+            user: string | object,
+            created: Date,
+            modifiedBy: string,
+            modified: Date
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error message'
+        }
+
+
+## Shippers By ID [/api/shippers/:shipperId]
+
+### Get a Shipper by ID [GET]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            name: string,
+            url: string,
+            status: : string,
+            shippingSpeed: string,
+            file_id: string,
+            isFree: string,
+            rate_id: string,
+            maxWidth: string,
+            maxHeight: string,
+            maxDepth: string,
+            maxWeight: string,
+            user: string | object,
+            created: Date,
+            modifiedBy: string,
+            modified: Date
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Shipper is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Shipper with that identifier has been found'
+        }
+
+### Update a Shipper [PUT]
+
++ Request (application/json)
+
+        {
+            name: string,
+            url: string,
+            status: : string,
+            shippingSpeed: string,
+            file_id: string,
+            isFree: string,
+            rate_id: string,
+            maxWidth: string,
+            maxHeight: string,
+            maxDepth: string,
+            maxWeight: string
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            name: string,
+            url: string,
+            status: : string,
+            shippingSpeed: string,
+            file_id: string,
+            isFree: string,
+            rate_id: string,
+            maxWidth: string,
+            maxHeight: string,
+            maxDepth: string,
+            maxWeight: string,
+            user: string | object,
+            created: Date,
+            modifiedBy: string,
+            modified: Date
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Shipper is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Shipper with that identifier has been found'
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Delete a Shipper [DELETE]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            name: string,
+            url: string,
+            status: : string,
+            shippingSpeed: string,
+            file_id: string,
+            isFree: string,
+            rate_id: string,
+            maxWidth: string,
+            maxHeight: string,
+            maxDepth: string,
+            maxWeight: string,
+            user: string | object,
+            created: Date,
+            modifiedBy: string,
+            modified: Date
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Shipper is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Shipper with that identifier has been found'
+        }
+
+
+# Group Shops
+
+## Shops Collection [/api/shops?{filter}{count}{page}{sort}{populate}]
+
+### Get All Shops [GET]
+
++ Parameters
+
+    + filter (optional, object) - Conditions
+    + count (optional, number) - Amount of documents to be displayed
+    + page (optional, number) - Page to be displayed
+    + sort (optional, object | string)
+        - Object Example {
+            modified: -1
+        }
+        - String example: '-modified'
+    + populate (optional, object | string | string[])
+        - object example: {
+            path : "field by which you want to search",
+            field: "fields you want to get"
+        }
+        - string example: "field field field"
+        - string[] example: ["field", "field", "field"]
+
++ Response 200 (application/json)
+
+        {
+            options: {
+                filters: {
+                    field: '',
+                    mandatory: [Object]
+                },
+                sort: { modified: -1 },
+                start: 0,
+                count: 5
+            },
+            results: [
+                {
+                    _id: string,
+                    name: string,
+                    managerFile_id: string,
+                    description: : string,
+                    url: string,
+                    template: string,
+                    status: string,
+                    user_id: string | object,
+                    user: string | object,
+                    created: Date,
+                    modifiedBy: string,
+                    modified: Date
+                }
+            ],
+            total: 1
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Create a Shop [POST]
+
++ Request (application/json)
+
+        {
+            name: string,
+            managerFile_id: string,
+            description: : string,
+            url: string,
+            template: string,
+            status: string
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            name: string,
+            managerFile_id: string,
+            description: : string,
+            url: string,
+            template: string,
+            status: string,
+            user_id: string | object,
+            user: string | object,
+            created: Date,
+            modifiedBy: string,
+            modified: Date
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error message'
+        }
+
+
+## Shops By ID [/api/shops/:shopId]
+
+### Get a Shop by ID [GET]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            name: string,
+            managerFile_id: string,
+            description: : string,
+            url: string,
+            template: string,
+            status: string,
+            user_id: string | object,
+            user: string | object,
+            created: Date,
+            modifiedBy: string,
+            modified: Date
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Shop is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Shop with that identifier has been found'
+        }
+
+### Update a Shop [PUT]
+
++ Request (application/json)
+
+        {
+            name: string,
+            managerFile_id: string,
+            description: : string,
+            url: string,
+            template: string,
+            status: string
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            name: string,
+            managerFile_id: string,
+            description: : string,
+            url: string,
+            template: string,
+            status: string,
+            user_id: string | object,
+            user: string | object,
+            created: Date,
+            modifiedBy: string,
+            modified: Date
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Shop is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Shop with that identifier has been found'
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Delete a Shop [DELETE]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            name: string,
+            managerFile_id: string,
+            description: : string,
+            url: string,
+            template: string,
+            status: string,
+            user_id: string | object,
+            user: string | object,
+            created: Date,
+            modifiedBy: string,
+            modified: Date
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Shop is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Shop with that identifier has been found'
+        }
+
+
+# Group Taxes
+
+## Taxes Collection [/api/taxes?{filter}{count}{page}{sort}{populate}]
+
+### Get All Taxes [GET]
+
++ Parameters
+
+    + filter (optional, object) - Conditions
+    + count (optional, number) - Amount of documents to be displayed
+    + page (optional, number) - Page to be displayed
+    + sort (optional, object | string)
+        - Object Example {
+            modified: -1
+        }
+        - String example: '-modified'
+    + populate (optional, object | string | string[])
+        - object example: {
+            path : "field by which you want to search",
+            field: "fields you want to get"
+        }
+        - string example: "field field field"
+        - string[] example: ["field", "field", "field"]
+
++ Response 200 (application/json)
+
+        {
+            options: {
+                filters: {
+                    field: '',
+                    mandatory: [Object]
+                },
+                sort: { modified: -1 },
+                start: 0,
+                count: 5
+            },
+            results: [
+                {
+                    _id: string,
+                    value: string,
+                    status: string,
+                    taxLang: : string,
+                    user: string | object,
+                    created: Date,
+                    modifiedBy: string,
+                    modified: Date
+                }
+            ],
+            total: 1
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Create a Tax [POST]
+
++ Request (application/json)
+
+        {
+            value: string,
+            status: string,
+            taxLang: : string
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            value: string,
+            status: string,
+            taxLang: : string,
+            user: string | object,
+            created: Date,
+            modifiedBy: string,
+            modified: Date
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error message'
+        }
+
+
+## Taxes By ID [/api/taxes/:taxId]
+
+### Get a Tax by ID [GET]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            value: string,
+            status: string,
+            taxLang: : string,
+            user: string | object,
+            created: Date,
+            modifiedBy: string,
+            modified: Date
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Tax is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Tax with that identifier has been found'
+        }
+
+### Update a Tax [PUT]
+
++ Request (application/json)
+
+        {
+            value: string,
+            status: string,
+            taxLang: : string
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            value: string,
+            status: string,
+            taxLang: : string,
+            user: string | object,
+            created: Date,
+            modifiedBy: string,
+            modified: Date
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Tax is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Tax with that identifier has been found'
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Delete a Tax [DELETE]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            value: string,
+            status: string,
+            taxLang: : string,
+            user: string | object,
+            created: Date,
+            modifiedBy: string,
+            modified: Date
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Tax is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Tax with that identifier has been found'
+        }
+
+
+# Group Thirds
+
+## Thirds Collection [/api/thirds?{filter}{count}{page}{sort}{populate}]
+
+### Get All Thirds [GET]
+
++ Parameters
+
+    + filter (optional, object) - Conditions
+    + count (optional, number) - Amount of documents to be displayed
+    + page (optional, number) - Page to be displayed
+    + sort (optional, object | string)
+        - Object Example {
+            modified: -1
+        }
+        - String example: '-modified'
+    + populate (optional, object | string | string[])
+        - object example: {
+            path : "field by which you want to search",
+            field: "fields you want to get"
+        }
+        - string example: "field field field"
+        - string[] example: ["field", "field", "field"]
+
++ Response 200 (application/json)
+
+        {
+            options: {
+                filters: {
+                    field: '',
+                    mandatory: [Object]
+                },
+                sort: { modified: -1 },
+                start: 0,
+                count: 5
+            },
+            results: [
+                {
+                    _id: string,
+                    name: string,
+                    status: string,
+                    type: : string,
+                    typeDocument: string,
+                    numberDocument: string,
+                    phone: string,
+                    email: string,
+                    address: string,
+                    user: string | object,
+                    created: Date,
+                    modifiedBy: string,
+                    modified: Date
+                }
+            ],
+            total: 1
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Create a Third [POST]
+
++ Request (application/json)
+
+        {
+            name: string,
+            status: string,
+            type: : string,
+            typeDocument: string,
+            numberDocument: string,
+            phone: string,
+            email: string,
+            address: string
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            name: string,
+            status: string,
+            type: : string,
+            typeDocument: string,
+            numberDocument: string,
+            phone: string,
+            email: string,
+            address: string,
+            user: string | object,
+            created: Date,
+            modifiedBy: string,
+            modified: Date
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error message'
+        }
+
+
+## Thirds By ID [/api/thirds/:thirdId]
+
+### Get a Third by ID [GET]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            name: string,
+            status: string,
+            type: : string,
+            typeDocument: string,
+            numberDocument: string,
+            phone: string,
+            email: string,
+            address: string,
+            user: string | object,
+            created: Date,
+            modifiedBy: string,
+            modified: Date
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Third is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Third with that identifier has been found'
+        }
+
+### Update a Third [PUT]
+
++ Request (application/json)
+
+        {
+            name: string,
+            status: string,
+            type: : string,
+            typeDocument: string,
+            numberDocument: string,
+            phone: string,
+            email: string,
+            address: string
+        }
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            name: string,
+            status: string,
+            type: : string,
+            typeDocument: string,
+            numberDocument: string,
+            phone: string,
+            email: string,
+            address: string,
+            user: string | object,
+            created: Date,
+            modifiedBy: string,
+            modified: Date
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Third is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Third with that identifier has been found'
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Delete a Third [DELETE]
+
++ Response 200 (application/json)
+
+        {
+            _id: string,
+            name: string,
+            status: string,
+            type: : string,
+            typeDocument: string,
+            numberDocument: string,
+            phone: string,
+            email: string,
+            address: string,
+            user: string | object,
+            created: Date,
+            modifiedBy: string,
+            modified: Date
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'Third is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No Third with that identifier has been found'
+        }
+
+
+# Group Users
+
+## Users Collection [/api/users?{filter}{count}{page}{sort}{populate}]
+
+### Get All Users [GET]
+
++ Parameters
+
+    + filter (optional, object) - Conditions
+    + count (optional, number) - Amount of documents to be displayed
+    + page (optional, number) - Page to be displayed
+    + sort (optional, object | string)
+        - Object Example {
+            modified: -1
+        }
+        - String example: '-modified'
+    + populate (optional, object | string | string[])
+        - object example: {
+            path : "field by which you want to search",
+            field: "fields you want to get"
+        }
+        - string example: "field field field"
+        - string[] example: ["field", "field", "field"]
+
++ Response 200 (application/json)
+
+        {
+            options: {
+                filters: {
+                    field: '',
+                    mandatory: [Object]
+                },
+                sort: { modified: -1 },
+                start: 0,
+                count: 5
+            },
+            results: [
+                {
+                    firstName: string,
+                    lastName: string,
+                    displayName: : string,
+                    email: string,
+                    addresses: [
+                        {
+                            address: string,
+                            country: string,
+                            city: string,
+                            postalCode: string},
+                            isDefaultAddress: boolean
+                        }
+                    ],
+                    username: string,
+                    password: string,
+                    provider: string,
+                    providerData: object,
+                    additionalProvidersData: object,
+                    group_id: string,
+                    roles: [string]
+                }
+            ],
+            total: 1
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Create a User [POST]
+
++ Request (application/json)
+
+        {
+            firstName: string,
+            lastName: string,
+            displayName: : string,
+            email: string,
+            addresses: [
+                {
+                    address: string,
+                    country: string,
+                    city: string,
+                    postalCode: string},
+                    isDefaultAddress: boolean
+                }
+            ],
+            username: string,
+            password: string,
+            provider: string,
+            providerData: object,
+            additionalProvidersData: object,
+            group_id: string,
+            roles: [string]
+        }
+
++ Response 200 (application/json)
+
+        {
+            firstName: string,
+            lastName: string,
+            displayName: : string,
+            email: string,
+            addresses: [
+                {
+                    address: string,
+                    country: string,
+                    city: string,
+                    postalCode: string},
+                    isDefaultAddress: boolean
+                }
+            ],
+            group_id: string,
+            roles: [string]
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error message'
+        }
+
+
+## Users By ID [/api/users/:userId]
+
+### Get a User by ID [GET]
+
++ Response 200 (application/json)
+
+        {
+            firstName: string,
+            lastName: string,
+            displayName: : string,
+            email: string,
+            addresses: [
+                {
+                    address: string,
+                    country: string,
+                    city: string,
+                    postalCode: string},
+                    isDefaultAddress: boolean
+                }
+            ],
+            group_id: string,
+            roles: [string]
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'User is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No User with that identifier has been found'
+        }
+
+### Update a User [PUT]
+
++ Request (application/json)
+
+        {
+            firstName: string,
+            lastName: string,
+            displayName: : string,
+            email: string,
+            addresses: [
+                {
+                    address: string,
+                    country: string,
+                    city: string,
+                    postalCode: string},
+                    isDefaultAddress: boolean
+                }
+            ],
+            username: string,
+            password: string,
+            provider: string,
+            providerData: object,
+            additionalProvidersData: object,
+            group_id: string,
+            roles: [string]
+        }
+
++ Response 200 (application/json)
+
+        {
+            firstName: string,
+            lastName: string,
+            displayName: : string,
+            email: string,
+            addresses: [
+                {
+                    address: string,
+                    country: string,
+                    city: string,
+                    postalCode: string},
+                    isDefaultAddress: boolean
+                }
+            ],
+            group_id: string,
+            roles: [string]
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'User is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No User with that identifier has been found'
+        }
+
++ Response 422 (application/json)
+
+        {
+            message: 'Error Message'
+        }
+
+### Delete a User [DELETE]
+
++ Response 200 (application/json)
+
+        {
+            firstName: string,
+            lastName: string,
+            displayName: : string,
+            email: string,
+            addresses: [
+                {
+                    address: string,
+                    country: string,
+                    city: string,
+                    postalCode: string},
+                    isDefaultAddress: boolean
+                }
+            ],
+            group_id: string,
+            roles: [string]
+        }
+
++ Response 400 (application/json)
+
+        {
+            message: 'User is Invalid'
+        }
+
++ Response 404 (application/json)
+
+        {
+            message: 'No User with that identifier has been found'
+        }
+
+## See The information [/api/users/me]
+
+### Me [GET]
+
++ Response 200 (application/json)
+
+        {
+            displayName: string,
+            provider: string,
+            username: string
+            created: string
+            roles: string
+            profileImageURL: string
+            email: string
+            lastName: string
+            firstName: string
+            addresses: string
+            additionalProvidersData: string
+        }
+
+
+## Accounts [/api/users/accounts]
+
+### Accounts [DELETE]
+
++ Response 200 (application/json)
+
+        {
+            displayName: string,
+            provider: string,
+            username: string
+            created: string
+            roles: string
+            profileImageURL: string
+            email: string
+            lastName: string
+            firstName: string
+            addresses: string
+            additionalProvidersData: string
+        }
+
+## Password [/api/users/password]
+
+### Password [POST]
+
++ Response 200 (application/json)
+
+        {
+            currentPassword: string,
+            newPassword: string,
+            verifyPassword: string
+        }
+
+## Picture [/api/users/picture]
+
+### Picture [POST]
+
++ Response 200 (application/json)
+
+## Register [/api/auth/signup]
+
+### Signup [POST]
+
++ Request (application/json)
+
+        {
+            firstName: string,
+            lastName: string,
+            email: string,
+            username: string,
+            password: string
+        }
+
++ Response 200 (application/json)
+
+        {
+            firstName: string,
+            lastName: string,
+            email: string,
+            username: string,
+            password: string,
+            provider: string,
+            displayName: string
+        }
+
+## Login [/api/auth/signin]
+
+### Signin [POST]
+
++ Request (application/json)
+
+        {
+            usernameOrEmail: string,
+            password: string
+        }
+
++ Response 200 (application/json)
+
+        {
+            firstName: string,
+            lastName: string,
+            email: string,
+            username: string,
+            password: string,
+            provider: string,
+            displayName: string
+        }
+
+## Logout [/api/auth/signout]
+
+### Signout [POST]
+
++ Response 200 (application/json)

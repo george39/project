@@ -1,0 +1,23 @@
+{
+  {
+    "supermarketList": {
+      "fields": {
+        "name": {
+          "type": "String",
+          "required": "true",
+          "unique": "true",
+          "default": "false"
+        }
+      }
+    }
+  },
+  {
+    "locationCountry": [name],
+    "locationState": [name,locationCountry_id],
+    "locationCity": [name,locationState_id],
+    "supermarketList": [name,code,locationCity_id,address],
+    "supermarketProducts": [name,code,unitOfMeasurement_id,amount,price,stockQuantity],
+    "unitOfMeasurement": [name,unit],
+    "shoppingList": [name,supermarketList_id,supermarketProducts_id(e)]
+  }
+}

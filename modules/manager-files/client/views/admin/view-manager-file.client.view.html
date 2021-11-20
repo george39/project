@@ -1,0 +1,82 @@
+<section class="container">
+  <div class="page-header">
+    <div class="row">
+      <div class="col-sm-11">
+        <h1 ng-bind="vm.managerFile.username"></h1>
+      </div>
+      <div class="col-sm-1">
+        <a class="btn btn-primary" ui-sref="managerFiles.list">
+          <i class="fas fa-undo-alt"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'MANAGER_FILE.FIELDNAME' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.managerFile.fieldname"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'MANAGER_FILE.ORIGINALNAME' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.managerFile.originalname"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'MANAGER_FILE.ENCODING' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.managerFile.encoding"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'MANAGER_FILE.MIMETYPE' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.managerFile.mimetype"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'MANAGER_FILE.DESTINATION' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.managerFile.destination"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'MANAGER_FILE.FILENAME' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.managerFile.filename"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'MANAGER_FILE.PATH' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.managerFile.path"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'MANAGER_FILE.SIZE' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.managerFile.size"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'MANAGER_FILE.SHOP' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.managerFile.shop.name"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.CREATED_BY' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.managerFile.user.displayName"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.CREATED' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.managerFile.created"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.MODIFIED_BY' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.managerFile.modifiedBy.displayName"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-9"><strong>{{ 'GLOBAL.MODIFIED' | translate }}</strong></div>
+        <div class="col-sm-3" ng-bind="vm.managerFile.modified"></div>
+      </div>
+    </div>
+  </div>
+</section>
